@@ -1,0 +1,21 @@
+{{define "search-page"}}
+    <!doctype html>
+    <html lang="en">
+    {{template "head"}}
+    <head>
+        {{template "css-search"}}
+        {{template "css-list"}}
+    </head>
+    <body>
+    {{template "svg-icons"}}
+    {{template "nav" "search"}}
+    {{template "search-properties" .}}
+    {{if .Query}}
+        {{template "search-query" .}}
+    {{end}}
+    {{template "list" .Items}}
+    <div class="footer-spacer"></div>
+    {{template "footer"}}
+    </body>
+    </html>
+{{end}}

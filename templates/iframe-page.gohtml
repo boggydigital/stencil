@@ -1,0 +1,15 @@
+{{define "iframe-page"}}
+    <!doctype html>
+    <html lang="en" id="_top">
+    {{template "head"}}
+    <head>
+        {{template "css-iframe"}}
+    </head>
+    <body id="{{.Section}}">
+    {{template "script-iframe-post-message"}}
+    <div id="{{.Section}}-content" class="iframe-content">
+        {{.Content}}
+    </div>
+    </body>
+    </html>
+{{end}}
