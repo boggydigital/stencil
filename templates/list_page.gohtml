@@ -1,0 +1,17 @@
+{{define "list-page"}}
+    <!doctype html>
+    <html lang="en" id="_top">
+    {{template "head"}}
+    <head>
+        {{template "css-list"}}
+        {{template "app-css"}}
+    </head>
+    <body>
+    {{template "svg-icons"}}
+    {{template "nav" .Nav}}
+    {{template "list" .}}
+    <div class="footer-spacer"></div>
+    {{template "footer"}}
+    </body>
+    </html>
+{{end}}

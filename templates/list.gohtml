@@ -3,16 +3,18 @@
         {{$count := len .Items}}
         <div class="items-count">Items: {{$count}}</div>
         <div class="items">
-        {{range .Items}}
-            <a href="/item?id={{.Id}}" class="item">
-                <ul>
-                    <li class="title">{{.Title}}</li>
-                    <li class="type {{.Type}}">{{.Type}}</li>
-                    <li class="authors text-property">{{.Authors}}</li>
-                    <li class="date-created text-property">{{.DateCreated}}</li>
-                </ul>
-            </a>
-        {{end}}
+            {{$itemHref := .ItemHref}}
+            {{range .Items}}
+                <a href="{{$itemHref}}{{.Id}}" class="item">
+                    <ul>
+                        {{$propertyValues := .PropertyValues}}
+                        {{range $property := .Properties}}
+                            {{$value := index $propertyValues $property}}
+                            <li class="{{$property}} {{$value}}">{{$value}}</li>
+                        {{end}}
+                    </ul>
+                </a>
+            {{end}}
         </div>
     </section>
 {{end}}

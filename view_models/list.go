@@ -2,18 +2,25 @@ package view_models
 
 import (
 	"github.com/boggydigital/kvas"
+	"strings"
 )
 
 type ListItem struct {
-	Id         string
-	Properties map[string][]string
+	Id             string
+	Properties     []string
+	PropertyValues map[string]string
 }
 
 type List struct {
-	Items []*ListItem
+	Nav          *Navigation
+	AppTemplates []string
+	ItemHref     string
+	Items        []*ListItem
 }
 
 func NewList(
+	nav *Navigation,
+	itemHref string,
 	ids []string,
 	properties []string,
 	rxa kvas.ReduxAssets) (*List, error) {
@@ -23,23 +30,25 @@ func NewList(
 	}
 
 	lvm := &List{
-		Items: make([]*ListItem, 0, len(ids)),
+		Nav:      nav,
+		ItemHref: itemHref,
+		Items:    make([]*ListItem, 0, len(ids)),
 	}
 
 	for _, id := range ids {
 
 		li := &ListItem{
-			Id:         id,
-			Properties: make(map[string][]string, len(properties)),
+			Id:             id,
+			Properties:     properties,
+			PropertyValues: make(map[string]string, len(properties)),
 		}
 
 		for _, p := range properties {
-			li.Properties[p], _ = rxa.GetAllUnchangedValues(p, id)
+			values, _ := rxa.GetAllUnchangedValues(p, id)
+			li.PropertyValues[p] = strings.Join(values, ", ")
 		}
 
-		lvm.Items = append(lvm.Items, &ListItem{
-			Id: id,
-		})
+		lvm.Items = append(lvm.Items, li)
 	}
 
 	return lvm, nil

@@ -13,7 +13,8 @@
                 {{range $property := .SearchProperties}}
                     {{$value := index $query $property}}
                     <div class="search-property {{if $value}}has-value{{end}}">
-                        <label for="search-{{$property}}">{{propertyTitle $property}}</label>
+{{/*                        <label for="search-{{$property}}">{{propertyTitle $property}}</label>*/}}
+                        <label for="search-{{$property}}">{{$property}}</label>
                         {{$digests := index $digests $property}}
                         {{if $digests}}
                             <datalist id="{{$property}}">
@@ -24,11 +25,17 @@
                                     {{end}}
                             </datalist>
                         {{end}}
+{{/*                        <input id="search-{{$property}}"*/}}
+{{/*                               {{if $digests}}list="{{$property}}"{{end}}*/}}
+{{/*                               type="search"*/}}
+{{/*                               name="{{$property}}"*/}}
+{{/*                               placeholder="{{propertyTitle $property}}"*/}}
+{{/*                               value="{{$value}}"/>*/}}
                         <input id="search-{{$property}}"
                                {{if $digests}}list="{{$property}}"{{end}}
                                type="search"
                                name="{{$property}}"
-                               placeholder="{{propertyTitle $property}}"
+                               placeholder="{{$property}}"
                                value="{{$value}}"/>
                     </div>
                 {{end}}

@@ -1,8 +1,13 @@
 {{define "nav"}}
     <nav>
-        <a class="{{if eq . "list"}}{{`current`}}{{end}}" accesskey="l" href="/list"
-           rel="prefetch prerender">{{template "svg-icon" "stack"}}<span class="title">All</span></a>
-        <a class="{{if eq . "search"}}{{`current`}}{{end}}" accesskey="s" href="/search"
-           rel="prefetch prerender">{{template "svg-icon" "search"}}<span class="title">Search</span></a>
+        {{$icons := .Icons}}
+        {{$hrefs := .Hrefs}}
+        {{$current := .Current}}
+        {{range .Items}}
+            {{$href := index $hrefs .}}
+            {{$icon := index $icons .}}
+            <a class="{{if eq . $current}}{{`current`}}{{end}}" href="{{$href}}"
+               rel="prefetch">{{template "svg-icon" $icon}}<span class="title">{{.}}</span></a>
+        {{end}}
     </nav>
 {{end}}

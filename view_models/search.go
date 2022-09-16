@@ -11,12 +11,14 @@ type Search struct {
 }
 
 func NewSearch(
+	nav *Navigation,
+	itemHref string,
 	ids []string,
 	searchProperties []string,
 	listProperties []string,
 	rxa kvas.ReduxAssets) (*Search, error) {
 
-	lvm, err := NewList(ids, listProperties, rxa)
+	lvm, err := NewList(nav, itemHref, ids, listProperties, rxa)
 
 	svm := &Search{
 		Properties: searchProperties,
