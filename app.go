@@ -8,19 +8,21 @@ import (
 )
 
 type ReduxApp struct {
-	Title          string
-	FavIcon        string
+	page           *view_models.Page
 	rxa            kvas.ReduxAssets
-	nav            *view_models.Navigation
 	listProperties []string
 	listItemHref   string
 }
 
 func NewApp(title, favIcon string, rxa kvas.ReduxAssets) *ReduxApp {
 	return &ReduxApp{
-		Title:   title,
-		FavIcon: favIcon,
-		rxa:     rxa,
+		page: &view_models.Page{
+			Head: &view_models.Header{
+				Title:   title,
+				FavIcon: favIcon,
+			},
+		},
+		rxa: rxa,
 	}
 }
 
@@ -28,7 +30,7 @@ func (app *ReduxApp) SetNavigation(
 	items []string,
 	icons map[string]string,
 	hrefs map[string]string) {
-	app.nav = &view_models.Navigation{
+	app.page.Nav = &view_models.Navigation{
 		Items: items,
 		Icons: icons,
 		Hrefs: hrefs,
@@ -48,11 +50,11 @@ func (app *ReduxApp) SetListParams(itemHref string, properties []string) error {
 func (app *ReduxApp) RenderList(navItem string, ids []string, w io.Writer) error {
 
 	if navItem != "" {
-		app.nav.Current = navItem
+		app.page.Nav.Current = navItem
 	}
 
 	if lvm, err := view_models.NewList(
-		app.nav,
+		app.page,
 		app.listItemHref,
 		ids,
 		app.listProperties,

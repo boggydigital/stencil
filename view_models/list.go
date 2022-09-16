@@ -12,14 +12,14 @@ type ListItem struct {
 }
 
 type List struct {
-	Nav          *Navigation
+	*Page
 	AppTemplates []string
 	ItemHref     string
 	Items        []*ListItem
 }
 
 func NewList(
-	nav *Navigation,
+	page *Page,
 	itemHref string,
 	ids []string,
 	properties []string,
@@ -30,7 +30,7 @@ func NewList(
 	}
 
 	lvm := &List{
-		Nav:      nav,
+		Page:     page,
 		ItemHref: itemHref,
 		Items:    make([]*ListItem, 0, len(ids)),
 	}
