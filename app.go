@@ -8,10 +8,13 @@ import (
 )
 
 type ReduxApp struct {
-	page           *view_models.Page
-	rxa            kvas.ReduxAssets
-	listProperties []string
-	listItemHref   string
+	page             *view_models.Page
+	rxa              kvas.ReduxAssets
+	listItemHref     string
+	listProperties   []string
+	searchProperties []string
+	propertyTitles   map[string]string
+	digestTitles     map[string]string
 }
 
 func NewApp(title, favIcon string, rxa kvas.ReduxAssets) *ReduxApp {
@@ -47,11 +50,24 @@ func (app *ReduxApp) SetListParams(itemHref string, properties []string) error {
 	return nil
 }
 
+func (app *ReduxApp) SetSearchParams(properties []string) {
+	app.searchProperties = properties
+}
+
+func (app *ReduxApp) SetTitles(propertyTitles map[string]string, digestTitles map[string]string) {
+	app.propertyTitles = propertyTitles
+	app.digestTitles = digestTitles
+}
+
+func (app *ReduxApp) SetCurrentNav(item string) {
+	if item != "" {
+		app.page.Nav.Current = item
+	}
+}
+
 func (app *ReduxApp) RenderList(navItem string, ids []string, w io.Writer) error {
 
-	if navItem != "" {
-		app.page.Nav.Current = navItem
-	}
+	app.SetCurrentNav(navItem)
 
 	if lvm, err := view_models.NewList(
 		app.page,
@@ -62,6 +78,27 @@ func (app *ReduxApp) RenderList(navItem string, ids []string, w io.Writer) error
 		return err
 	} else {
 		if err := render.List(tmpl, lvm, w); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (app *ReduxApp) RenderSearch(navItem string, ids []string, w io.Writer) error {
+	app.SetCurrentNav(navItem)
+
+	if svm, err := view_models.NewSearch(
+		app.page,
+		app.listItemHref,
+		ids,
+		app.searchProperties,
+		app.listProperties,
+		app.propertyTitles,
+		app.digestTitles,
+		app.rxa); err != nil {
+		return err
+	} else {
+		if err := render.Search(tmpl, svm, w); err != nil {
 			return err
 		}
 	}

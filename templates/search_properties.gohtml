@@ -1,20 +1,21 @@
 {{define "search-properties"}}
     <form class="search-form" action="/search" xmlns="http://www.w3.org/1999/html">
         <details {{if not .Query}}open{{end}}>
-            <summary>Фильтр и поиск{{template "svg-icon-show-more-less"}}</summary>
+            <summary>Filter & Search{{template "svg-icon-show-more-less"}}</summary>
             {{if .Query}}
                 {{template "search-query" .}}
             {{end}}
             {{template "search-submit"}}
             <section class="search-properties">
                 {{$digests := .Digests}}
+                {{$propertyTitles := .PropertyTitles}}
                 {{$digestsTitles := .DigestsTitles}}
                 {{$query := .Query}}
-                {{range $property := .SearchProperties}}
+                {{range $property := .Properties}}
                     {{$value := index $query $property}}
                     <div class="search-property {{if $value}}has-value{{end}}">
-{{/*                        <label for="search-{{$property}}">{{propertyTitle $property}}</label>*/}}
-                        <label for="search-{{$property}}">{{$property}}</label>
+                        {{$propertyTitle := index $propertyTitles $property}}
+                        <label for="search-{{$property}}">{{$propertyTitle}}</label>
                         {{$digests := index $digests $property}}
                         {{if $digests}}
                             <datalist id="{{$property}}">
@@ -25,17 +26,11 @@
                                     {{end}}
                             </datalist>
                         {{end}}
-{{/*                        <input id="search-{{$property}}"*/}}
-{{/*                               {{if $digests}}list="{{$property}}"{{end}}*/}}
-{{/*                               type="search"*/}}
-{{/*                               name="{{$property}}"*/}}
-{{/*                               placeholder="{{propertyTitle $property}}"*/}}
-{{/*                               value="{{$value}}"/>*/}}
                         <input id="search-{{$property}}"
                                {{if $digests}}list="{{$property}}"{{end}}
                                type="search"
                                name="{{$property}}"
-                               placeholder="{{$property}}"
+                               placeholder="{{$propertyTitle}}"
                                value="{{$value}}"/>
                     </div>
                 {{end}}

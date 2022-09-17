@@ -1,19 +1,20 @@
 {{define "search-page"}}
     <!doctype html>
     <html lang="en">
-    {{template "head"}}
+    {{template "head" .Head}}
     <head>
         {{template "css-search"}}
         {{template "css-list"}}
+        {{template "app-css"}}
     </head>
     <body>
     {{template "svg-icons"}}
-    {{template "nav" "search"}}
+    {{template "nav" .Nav}}
     {{template "search-properties" .}}
     {{if .Query}}
         {{template "search-query" .}}
     {{end}}
-    {{template "list" .Items}}
+    {{template "list" .List}}
     <div class="footer-spacer"></div>
     {{template "footer"}}
     </body>
