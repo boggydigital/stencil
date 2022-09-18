@@ -12,8 +12,8 @@
                 {{$digestsTitles := .DigestsTitles}}
                 {{$query := .Query}}
                 {{range $property := .Properties}}
-                    {{$value := index $query $property}}
-                    <div class="search-property {{if $value}}has-value{{end}}">
+                    {{$values := index $query $property}}
+                    <div class="search-property {{if $values}}has-value{{end}}">
                         {{$propertyTitle := index $propertyTitles $property}}
                         <label for="search-{{$property}}">{{$propertyTitle}}</label>
                         {{$digests := index $digests $property}}
@@ -22,7 +22,7 @@
                                 {{range $digests}}
                                 {{$digestTitle := index $digestsTitles .}}
                                 {{if eq $digestTitle ""}}{{$digestTitle = .}}{{end}}
-                                <option value="{{$digestTitle}}">
+                                <option label="{{$digestTitle}}" value="{{.}}">
                                     {{end}}
                             </datalist>
                         {{end}}
@@ -31,7 +31,7 @@
                                type="search"
                                name="{{$property}}"
                                placeholder="{{$propertyTitle}}"
-                               value="{{$value}}"/>
+                               value="{{concat $values}}"/>
                     </div>
                 {{end}}
             </section>

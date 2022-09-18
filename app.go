@@ -84,16 +84,23 @@ func (app *ReduxApp) RenderList(navItem string, ids []string, w io.Writer) error
 	return nil
 }
 
-func (app *ReduxApp) RenderSearch(navItem string, ids []string, w io.Writer) error {
+func (app *ReduxApp) RenderSearch(
+	navItem string,
+	query map[string][]string,
+	ids []string,
+	digests map[string][]string,
+	w io.Writer) error {
 	app.SetCurrentNav(navItem)
 
 	if svm, err := view_models.NewSearch(
 		app.page,
 		app.listItemHref,
+		query,
 		ids,
 		app.searchProperties,
 		app.listProperties,
 		app.propertyTitles,
+		digests,
 		app.digestTitles,
 		app.rxa); err != nil {
 		return err

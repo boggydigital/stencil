@@ -4,6 +4,7 @@ import (
 	"embed"
 	"html/template"
 	"io/fs"
+	"strings"
 )
 
 var (
@@ -12,9 +13,18 @@ var (
 	tmpl             *template.Template
 )
 
+var templateFuncs = template.FuncMap{
+	"concat": concat,
+}
+
+func concat(strs []string) string {
+	return strings.Join(strs, ", ")
+}
+
 func init() {
 	tmpl = template.Must(
 		template.New("stencil").
+			Funcs(templateFuncs).
 			ParseFS(defaultTemplates, "templates/*.gohtml"))
 }
 
