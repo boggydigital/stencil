@@ -15,6 +15,7 @@ type ListItem struct {
 type List struct {
 	*Page
 	AppTemplates []string
+	Labels       []string
 	ItemHref     string
 	Items        []*ListItem
 }
@@ -24,6 +25,7 @@ func NewList(
 	itemHref string,
 	ids []string,
 	titleProperty string,
+	labels []string,
 	properties []string,
 	rxa kvas.ReduxAssets) (*List, error) {
 
@@ -33,6 +35,7 @@ func NewList(
 
 	lvm := &List{
 		Page:     page,
+		Labels:   labels,
 		ItemHref: itemHref,
 		Items:    make([]*ListItem, 0, len(ids)),
 	}

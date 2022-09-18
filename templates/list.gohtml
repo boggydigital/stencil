@@ -1,18 +1,36 @@
 {{define "list"}}
     <section id="items-list">
         {{$count := len .Items}}
+        {{$labels := .Labels}}
         <div class="items-count">Items: {{$count}}</div>
         <div class="items">
             {{$itemHref := .ItemHref}}
             {{range .Items}}
-                <a href="{{$itemHref}}{{.Id}}" class="item">
+                {{$propertyValues := .PropertyValues}}
+                <a href="{{$itemHref}}{{.Id}}" data-id="{{.Id}}" class="item">
                     <ul>
+
                         <li class="title">{{.Title}}</li>
-                        {{$propertyValues := .PropertyValues}}
-                        {{range $property := .Properties}}
-                            {{$value := index $propertyValues $property}}
-                            <li class="{{$property}} {{$value}}">{{$value}}</li>
+
+                        {{if $labels}}
+                            <li class="labels">
+                                <ul>
+                                    {{range $label := $labels}}
+                                        {{$value := index $propertyValues $label}}
+                                        <li class="label {{$label}} {{$value}}">{{$value}}</li>
+                                    {{end}}
+                                </ul>
+                            </li>
                         {{end}}
+
+                        {{range $property := .Properties}}
+                            {{if contains $labels $property}}
+                            {{else}}
+                                {{$value := index $propertyValues $property}}
+                                <li class="property {{$property}}">{{$value}}</li>
+                            {{end}}
+                        {{end}}
+
                     </ul>
                 </a>
             {{end}}

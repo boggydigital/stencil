@@ -14,7 +14,17 @@ var (
 )
 
 var templateFuncs = template.FuncMap{
-	"join": join,
+	"join":     join,
+	"contains": contains,
+}
+
+func contains(slice []string, val string) bool {
+	for _, v := range slice {
+		if v == val {
+			return true
+		}
+	}
+	return false
 }
 
 func join(strs []string) string {

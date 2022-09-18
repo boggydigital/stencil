@@ -10,6 +10,7 @@ type Item struct {
 	*Page
 	Id        string
 	Title     string
+	Labels    []string
 	CoverHref string
 	// Text properties
 	Properties      map[string]map[string]string
@@ -27,6 +28,7 @@ func NewItem(
 	coverHref string,
 	properties []string,
 	titleProperty string,
+	labels []string,
 	propertyTitles map[string]string,
 	sections []string,
 	sectionTitles map[string]string,
@@ -44,6 +46,7 @@ func NewItem(
 		Id:             id,
 		CoverHref:      coverHref,
 		Title:          title,
+		Labels:         labels,
 		Properties:     make(map[string]map[string]string),
 		PropertyOrder:  properties,
 		PropertyTitles: propertyTitles,

@@ -14,9 +14,8 @@ type ReduxApp struct {
 	rxa                kvas.ReduxAssets
 	listItemHref       string
 	listProperties     []string
-	listLabels         []string
 	itemProperties     []string
-	itemLabels         []string
+	labels             []string
 	itemCoverHref      string
 	itemSections       []string
 	itemHrefFormatter  PropertyLinkFormatter
@@ -52,32 +51,24 @@ func (app *ReduxApp) SetNavigation(
 }
 
 func (app *ReduxApp) SetListParams(
-	itemHref string,
 	properties,
 	labels []string) error {
 	if err := app.rxa.IsSupported(properties...); err != nil {
 		return err
 	}
 
-	app.listItemHref = itemHref
 	app.listProperties = properties
 	return nil
 }
 
 func (app *ReduxApp) SetItemParams(
-	coverHref string,
-	properties, labels, sections []string,
-	fmtTitle, fmtHref PropertyLinkFormatter) error {
+	properties, sections []string) error {
 	if err := app.rxa.IsSupported(properties...); err != nil {
 		return err
 	}
 
-	app.itemCoverHref = coverHref
 	app.itemProperties = properties
-	app.itemLabels = labels
 	app.itemSections = sections
-	app.itemTitleFormatter = fmtTitle
-	app.itemHrefFormatter = fmtHref
 	return nil
 }
 
@@ -94,6 +85,24 @@ func (app *ReduxApp) SetTitles(
 	app.digestTitles = digestTitles
 }
 
+func (app *ReduxApp) SetLabels(labels []string) error {
+	if err := app.rxa.IsSupported(labels...); err != nil {
+		return err
+	}
+
+	app.labels = labels
+	return nil
+}
+
+func (app *ReduxApp) SetHrefParams(
+	listItem, itemCover string,
+	fmtTitle, fmtHref PropertyLinkFormatter) {
+	app.listItemHref = listItem
+	app.itemCoverHref = itemCover
+	app.itemTitleFormatter = fmtTitle
+	app.itemHrefFormatter = fmtHref
+}
+
 func (app *ReduxApp) SetCurrentNav(item string) {
 	app.page.Nav.Current = item
 }
@@ -107,6 +116,7 @@ func (app *ReduxApp) RenderList(navItem string, ids []string, w io.Writer) error
 		app.listItemHref,
 		ids,
 		app.titleProperty,
+		app.labels,
 		app.listProperties,
 		app.rxa); err != nil {
 		return err
@@ -133,6 +143,7 @@ func (app *ReduxApp) RenderSearch(
 		ids,
 		app.searchProperties,
 		app.titleProperty,
+		app.labels,
 		app.listProperties,
 		app.propertyTitles,
 		digests,
@@ -157,6 +168,7 @@ func (app *ReduxApp) RenderItem(id string, w io.Writer) error {
 		app.itemCoverHref,
 		app.itemProperties,
 		app.titleProperty,
+		app.labels,
 		app.propertyTitles,
 		app.itemSections,
 		app.sectionTitles,
