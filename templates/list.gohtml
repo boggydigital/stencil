@@ -7,6 +7,7 @@
             {{range .Items}}
                 <a href="{{$itemHref}}{{.Id}}" class="item">
                     <ul>
+                        <li class="title">{{.Title}}</li>
                         {{$propertyValues := .PropertyValues}}
                         {{range $property := .Properties}}
                             {{$value := index $propertyValues $property}}

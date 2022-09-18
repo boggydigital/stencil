@@ -7,6 +7,7 @@ import (
 
 type ListItem struct {
 	Id             string
+	Title          string
 	Properties     []string
 	PropertyValues map[string]string
 }
@@ -22,6 +23,7 @@ func NewList(
 	page *Page,
 	itemHref string,
 	ids []string,
+	titleProperty string,
 	properties []string,
 	rxa kvas.ReduxAssets) (*List, error) {
 
@@ -37,8 +39,11 @@ func NewList(
 
 	for _, id := range ids {
 
+		title, _ := rxa.GetFirstVal(titleProperty, id)
+
 		li := &ListItem{
 			Id:             id,
+			Title:          title,
 			Properties:     properties,
 			PropertyValues: make(map[string]string, len(properties)),
 		}
