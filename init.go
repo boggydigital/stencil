@@ -14,10 +14,10 @@ var (
 )
 
 var templateFuncs = template.FuncMap{
-	"concat": concat,
+	"join": join,
 }
 
-func concat(strs []string) string {
+func join(strs []string) string {
 	return strings.Join(strs, ", ")
 }
 

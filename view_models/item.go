@@ -7,7 +7,10 @@ import (
 type Formatter func(property, link string) string
 
 type Item struct {
-	Id string
+	*Page
+	Id        string
+	Title     string
+	CoverHref string
 	// Text properties
 	Properties      map[string]map[string]string
 	PropertyOrder   []string
@@ -19,8 +22,11 @@ type Item struct {
 }
 
 func NewItem(
+	page *Page,
 	id string,
+	coverHref string,
 	properties []string,
+	titleProperty string,
 	propertyTitles map[string]string,
 	sections []string,
 	sectionTitles map[string]string,
@@ -31,8 +37,13 @@ func NewItem(
 		return nil, err
 	}
 
+	title, _ := rxa.GetFirstVal(titleProperty, id)
+
 	ivm := &Item{
+		Page:           page,
 		Id:             id,
+		CoverHref:      coverHref,
+		Title:          title,
 		Properties:     make(map[string]map[string]string),
 		PropertyOrder:  properties,
 		PropertyTitles: propertyTitles,

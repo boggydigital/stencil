@@ -1,23 +1,23 @@
 {{define "item"}}
-    <section id="book" data-id="{{.Id}}">
+    <section id="item" data-id="{{.Id}}">
 
         <div class="cover-image">
-            <img src="/cover?id={{.Id}}"/>
+            <img src="{{.CoverHref}}{{.Id}}"/>
         </div>
 
-        <div class="book-details">
+        <div class="item-details">
 
             <h1 class="title">{{.Title}}</h1>
-            <div class="labels">
-                <a class="type {{.Type}}" href="/search?book-type={{.Type}}">{{.Type}}</a></div>
+            {{/*            <div class="labels">*/}}
+            {{/*                <a class="type {{.Type}}" href="/search?book-type={{.Type}}">{{.Type}}</a></div>*/}}
 
             <section class="text-properties">
-                {{template "book-properties" .}}
+                {{template "item-properties" .}}
             </section>
 
-            {{template "book-sections" .}}
+            {{template "item-sections" .}}
 
         </div>
 
-        </section>
+    </section>
 {{end}}

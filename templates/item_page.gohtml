@@ -1,14 +1,15 @@
 {{define "item-page"}}
     <!doctype html>
     <html lang="en" id="_top">
-    {{template "head"}}
+    {{template "head" .Head}}
     <head>
-        {{template "css-book"}}
+        {{template "css-item"}}
+        {{template "app-css"}}
     </head>
     <body>
     {{template "script-iframe-size-receive-message"}}
     {{template "svg-icons"}}
-    {{template "nav"}}
+    {{template "nav" .Nav}}
     {{template "item" .}}
     <div class="footer-spacer"></div>
     {{template "footer"}}
