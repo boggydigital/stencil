@@ -8,8 +8,16 @@
         <div class="item-details">
 
             <h1 class="title">{{.Title}}</h1>
-            {{/*            <div class="labels">*/}}
-            {{/*                <a class="type {{.Type}}" href="/search?book-type={{.Type}}">{{.Type}}</a></div>*/}}
+            <ul class="labels">
+                {{$properties := .Properties}}
+
+                {{range $label := .Labels}}
+                    {{$labelTitles := index $properties $label}}
+                    {{range $title, $link := $labelTitles}}
+                        <a class="label {{$label}} {{$title}}" href="{{$link}}">{{$title}}</a>
+                    {{end}}
+                {{end}}
+            </ul>
 
             <section class="text-properties">
                 {{template "item-properties" .}}
