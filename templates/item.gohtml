@@ -8,6 +8,7 @@
         <div class="item-details">
 
             <h1 class="title">{{.Title}}</h1>
+
             <ul class="labels">
                 {{$properties := .Properties}}
 
@@ -18,6 +19,18 @@
                     {{end}}
                 {{end}}
             </ul>
+
+            {{if .Sections}}
+                <section class="shortcuts">
+                    <ul class="property-value flexible">
+                        {{$sectionTitles := .SectionTitles}}
+                        {{range .Sections}}
+                            {{$title := index $sectionTitles .}}
+                            <li><a href="#{{.}}">{{$title}}</a></li>
+                        {{end}}
+                    </ul>
+                </section>
+            {{end}}
 
             <section class="text-properties">
                 {{template "item-properties" .}}
