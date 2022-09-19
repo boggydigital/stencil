@@ -24,9 +24,19 @@ func NewSearch(
 	propertyTitles map[string]string,
 	digests map[string][]string,
 	digestTitles map[string]string,
+	fmtTitle Formatter,
 	rxa kvas.ReduxAssets) (*Search, error) {
 
-	lvm, err := NewList(page, itemPath, ids, titleProperty, labels, listProperties, propertyTitles, rxa)
+	lvm, err := NewList(
+		page,
+		itemPath,
+		ids,
+		titleProperty,
+		labels,
+		listProperties,
+		propertyTitles,
+		fmtTitle,
+		rxa)
 
 	svm := &Search{
 		Query:          query,

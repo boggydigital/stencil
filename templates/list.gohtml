@@ -7,6 +7,7 @@
             {{$itemPath := .ItemPath}}
             {{range .Items}}
                 {{$propertyValues := .PropertyValues}}
+                {{$labelValues := .LabelValues}}
                 <a href="{{$itemPath}}?id={{.Id}}" data-id="{{.Id}}" class="item">
                     <ul>
 
@@ -16,8 +17,10 @@
                             <li class="labels">
                                 <ul>
                                     {{range $label := $labels}}
-                                        {{$value := index $propertyValues $label}}
-                                        <li class="label {{$label}} {{$value}}">{{$value}}</li>
+                                        {{$labelValue := index $labelValues $label}}
+                                        {{if $labelValue}}
+                                            <li class="label {{$label}} {{$labelValue}}">{{$labelValue}}</li>
+                                        {{end}}
                                     {{end}}
                                 </ul>
                             </li>

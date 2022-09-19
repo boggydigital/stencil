@@ -1,0 +1,30 @@
+{{define "css-labels"}}
+    <style id="css-labels">
+
+        .labels {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 0;
+            row-gap: var(--x-small);
+            column-gap: var(--x-small);
+            list-style: none;
+        }
+
+        .label a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .label {
+            padding: 0 var(--x-small);
+            border: var(--xxx-small) solid var(--color);
+            border-radius: var(--border-radius);
+            border-color: inherit;
+            font-weight: bold;
+            cursor: default;
+            background-color: var(--highlight-color);
+        }
+
+    </style>
+{{end}}

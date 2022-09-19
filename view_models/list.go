@@ -9,6 +9,7 @@ type ListItem struct {
 	Id             string
 	Title          string
 	Properties     []string
+	LabelValues    map[string]string
 	PropertyValues map[string]string
 	PropertyTitles map[string]string
 }
@@ -28,6 +29,7 @@ func NewList(
 	labels []string,
 	properties []string,
 	propertyTitles map[string]string,
+	fmtTitle Formatter,
 	rxa kvas.ReduxAssets) (*List, error) {
 
 	if err := rxa.IsSupported(properties...); err != nil {
@@ -51,11 +53,18 @@ func NewList(
 			Properties:     properties,
 			PropertyValues: make(map[string]string, len(properties)),
 			PropertyTitles: propertyTitles,
+			LabelValues:    make(map[string]string, len(labels)),
 		}
 
 		for _, p := range properties {
 			values, _ := rxa.GetAllUnchangedValues(p, id)
 			li.PropertyValues[p] = strings.Join(values, ", ")
+		}
+
+		for _, l := range labels {
+			if value, ok := rxa.GetFirstVal(l, id); ok {
+				li.LabelValues[l] = fmtTitle(id, l, value)
+			}
 		}
 
 		lvm.Items = append(lvm.Items, li)

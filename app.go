@@ -132,6 +132,7 @@ func (app *ReduxApp) RenderList(navItem string, ids []string, w io.Writer) error
 		app.labels,
 		app.listProperties,
 		app.propertyTitles,
+		view_models.Formatter(app.itemTitleFormatter),
 		app.rxa); err != nil {
 		return err
 	} else {
@@ -162,6 +163,7 @@ func (app *ReduxApp) RenderSearch(
 		app.propertyTitles,
 		digests,
 		app.digestTitles,
+		view_models.Formatter(app.itemTitleFormatter),
 		app.rxa); err != nil {
 		return err
 	} else {
@@ -224,6 +226,7 @@ func (app *ReduxApp) RenderGroup(navItem string, groupOrder []string, groupItems
 		app.labels,
 		app.listProperties,
 		app.propertyTitles,
+		view_models.Formatter(app.itemTitleFormatter),
 		app.rxa); err != nil {
 		return err
 	} else {

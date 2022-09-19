@@ -120,8 +120,21 @@
             color: var(--color);
         }
 
+        .items .item .labels {
+            margin: 0 0 var(--small);
+            min-height: var(--normal);
+        }
+
+        .items .item .labels ul {
+            flex-direction: row;
+            row-gap: var(--x-small);
+            column-gap: var(--x-small);
+        }
+
         .items .item .label {
             font-size: var(--fs-xx-smaller);
+            display: flex;
+            align-items: center;
             width: min-content;
             text-transform: uppercase;
             padding: var(--xx-small) var(--x-small);
