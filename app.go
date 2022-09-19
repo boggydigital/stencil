@@ -4,6 +4,7 @@ import (
 	"github.com/boggydigital/kvas"
 	"github.com/boggydigital/stencil/render"
 	"github.com/boggydigital/stencil/view_models"
+	"html/template"
 	"io"
 )
 
@@ -31,8 +32,8 @@ func NewApp(title, favIcon string, rxa kvas.ReduxAssets) *ReduxApp {
 	return &ReduxApp{
 		page: &view_models.Page{
 			Head: &view_models.Header{
-				Title:   title,
-				FavIcon: favIcon,
+				AppTitle: title,
+				FavIcon:  template.HTML(favIcon),
 			},
 		},
 		rxa: rxa,
@@ -159,8 +160,6 @@ func (app *ReduxApp) RenderSearch(
 
 func (app *ReduxApp) RenderItem(id string, w io.Writer) error {
 
-	app.SetCurrentNav("")
-
 	if ivm, err := view_models.NewItem(
 		app.page,
 		id,
@@ -176,6 +175,9 @@ func (app *ReduxApp) RenderItem(id string, w io.Writer) error {
 		app.rxa); err != nil {
 		return err
 	} else {
+
+		app.SetCurrentNav(ivm.Title)
+
 		if err := render.Item(tmpl, ivm, w); err != nil {
 			return err
 		}

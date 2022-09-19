@@ -1,6 +1,8 @@
 package view_models
 
+import "html/template"
+
 type Header struct {
-	Title   string
-	FavIcon string
+	AppTitle string
+	FavIcon  template.HTML
 }

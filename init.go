@@ -14,8 +14,9 @@ var (
 )
 
 var templateFuncs = template.FuncMap{
-	"join":     join,
-	"contains": contains,
+	"commaJoin": commaJoin,
+	"concat":    concat,
+	"contains":  contains,
 }
 
 func contains(slice []string, val string) bool {
@@ -27,8 +28,12 @@ func contains(slice []string, val string) bool {
 	return false
 }
 
-func join(strs []string) string {
+func commaJoin(strs []string) string {
 	return strings.Join(strs, ", ")
+}
+
+func concat(strs ...string) string {
+	return strings.Join(strs, "")
 }
 
 func init() {
