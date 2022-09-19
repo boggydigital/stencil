@@ -192,3 +192,27 @@ func (app *ReduxApp) RenderSection(id, section, content string, w io.Writer) err
 
 	return nil
 }
+
+func (app *ReduxApp) RenderGroup(navItem string, groupOrder []string, groupItems map[string][]string, groupTitles map[string]string, w io.Writer) error {
+
+	app.SetCurrentNav(navItem)
+
+	if gvm, err := view_models.NewGroup(
+		app.page,
+		app.listItemPath,
+		groupOrder,
+		groupItems,
+		groupTitles,
+		app.titleProperty,
+		app.labels,
+		app.listProperties,
+		app.rxa); err != nil {
+		return err
+	} else {
+		if err := render.Group(tmpl, gvm, w); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}

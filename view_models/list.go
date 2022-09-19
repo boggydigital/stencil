@@ -14,10 +14,9 @@ type ListItem struct {
 
 type List struct {
 	*Page
-	AppTemplates []string
-	Labels       []string
-	ItemPath     string
-	Items        []*ListItem
+	Labels   []string
+	ItemPath string
+	Items    []*ListItem
 }
 
 func NewList(

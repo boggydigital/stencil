@@ -2,7 +2,7 @@
     <section id="items-list">
         {{$count := len .Items}}
         {{$labels := .Labels}}
-        <div class="items-count">Items: {{$count}}</div>
+        <div class="items-count">{{$count}} item(s)</div>
         <div class="items">
             {{$itemPath := .ItemPath}}
             {{range .Items}}

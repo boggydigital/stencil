@@ -1,0 +1,17 @@
+{{define "group-page"}}
+    <!doctype html>
+    <html lang="en" id="_top">
+    {{template "head" .Head}}
+    <head>
+        {{template "css-group"}}
+        {{template "css-list"}}
+    </head>
+    <body>
+    {{template "svg-icons"}}
+    {{template "nav" .Nav}}
+    {{template "group" .}}
+    <div class="footer-spacer"></div>
+    {{template "footer"}}
+    </body>
+    </html>
+{{end}}

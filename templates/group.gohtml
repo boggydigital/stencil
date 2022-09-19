@@ -1,0 +1,22 @@
+{{define "group"}}
+    <section class="shortcuts">
+        <ul class="property-value flexible">
+            {{$groupTitles := .GroupTitles}}
+            {{range $group := .GroupOrder}}
+                {{$groupTitle := index $groupTitles $group}}
+                <li><a href="#{{$group}}">{{$groupTitle}}</a></li>
+            {{end}}
+        </ul>
+    </section>
+    <section class="group-lists">
+        {{$groupLists := .GroupLists}}
+        {{range $group := .GroupOrder}}
+            {{$groupTitle := index $groupTitles $group}}
+            <h1 class="section-title" id="{{$group}}">{{$groupTitle}}<a class="back-to-top-link"
+                                                                        href="#_top">{{template "svg-icon" "back-to-top"}}</a>
+            </h1>
+            {{$list := index $groupLists $group}}
+            {{template "list" $list}}
+        {{end}}
+    </section>
+{{end}}
