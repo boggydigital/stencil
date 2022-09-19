@@ -1,3 +1,5 @@
 {{define "footer"}}
-    <footer>👋 from&nbsp;<a href="https://github.com/beauxarts">New York, 🇺🇸</a></footer>
+    {{if .Location}}
+        <footer>👋 from&nbsp;<a href="{{.RepoUrl}}">{{.Location}}</a></footer>
+    {{end}}
 {{end}}

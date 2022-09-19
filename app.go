@@ -41,8 +41,16 @@ func NewApp(title, favIconAccent string, rxa kvas.ReduxAssets) *ReduxApp {
 				AppTitle:      title,
 				FavIconAccent: favIconAccent,
 			},
+			Foot: &view_models.Footer{},
 		},
 		rxa: rxa,
+	}
+}
+
+func (app *ReduxApp) SetFooter(location, repoUrl string) {
+	app.page.Foot = &view_models.Footer{
+		Location: location,
+		RepoUrl:  repoUrl,
 	}
 }
 
