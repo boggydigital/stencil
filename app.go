@@ -4,7 +4,6 @@ import (
 	"github.com/boggydigital/kvas"
 	"github.com/boggydigital/stencil/render"
 	"github.com/boggydigital/stencil/view_models"
-	"html/template"
 	"io"
 )
 
@@ -28,12 +27,12 @@ type ReduxApp struct {
 	digestTitles       map[string]string
 }
 
-func NewApp(title, favIcon string, rxa kvas.ReduxAssets) *ReduxApp {
+func NewApp(title, favIconAccent string, rxa kvas.ReduxAssets) *ReduxApp {
 	return &ReduxApp{
 		page: &view_models.Page{
 			Head: &view_models.Header{
-				AppTitle: title,
-				FavIcon:  template.HTML(favIcon),
+				AppTitle:      title,
+				FavIconAccent: favIconAccent,
 			},
 		},
 		rxa: rxa,
