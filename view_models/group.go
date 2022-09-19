@@ -18,6 +18,7 @@ func NewGroup(
 	titleProperty string,
 	labels []string,
 	listProperties []string,
+	propertyTitles map[string]string,
 	rxa kvas.ReduxAssets) (*Group, error) {
 
 	gvm := &Group{
@@ -28,7 +29,7 @@ func NewGroup(
 	}
 
 	for group, items := range groupItems {
-		lvm, err := NewList(page, itemPath, items, titleProperty, labels, listProperties, rxa)
+		lvm, err := NewList(page, itemPath, items, titleProperty, labels, listProperties, propertyTitles, rxa)
 		if err != nil {
 			return gvm, err
 		}

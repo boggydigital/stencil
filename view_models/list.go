@@ -10,6 +10,7 @@ type ListItem struct {
 	Title          string
 	Properties     []string
 	PropertyValues map[string]string
+	PropertyTitles map[string]string
 }
 
 type List struct {
@@ -26,6 +27,7 @@ func NewList(
 	titleProperty string,
 	labels []string,
 	properties []string,
+	propertyTitles map[string]string,
 	rxa kvas.ReduxAssets) (*List, error) {
 
 	if err := rxa.IsSupported(properties...); err != nil {
@@ -48,6 +50,7 @@ func NewList(
 			Title:          title,
 			Properties:     properties,
 			PropertyValues: make(map[string]string, len(properties)),
+			PropertyTitles: propertyTitles,
 		}
 
 		for _, p := range properties {

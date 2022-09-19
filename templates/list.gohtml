@@ -23,11 +23,16 @@
                             </li>
                         {{end}}
 
+                        {{$propertyTitles := .PropertyTitles}}
                         {{range $property := .Properties}}
                             {{if contains $labels $property}}
                             {{else}}
                                 {{$value := index $propertyValues $property}}
-                                <li class="property {{$property}}">{{$value}}</li>
+                                {{$propertyTitle := index $propertyTitles $property}}
+                                <li class="property {{$property}}">
+                                    <span class="property-title">{{$propertyTitle}}</span>
+                                    <span class="property-value">{{$value}}</span>
+                                </li>
                             {{end}}
                         {{end}}
 

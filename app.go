@@ -116,6 +116,7 @@ func (app *ReduxApp) RenderList(navItem string, ids []string, w io.Writer) error
 		app.titleProperty,
 		app.labels,
 		app.listProperties,
+		app.propertyTitles,
 		app.rxa); err != nil {
 		return err
 	} else {
@@ -206,6 +207,7 @@ func (app *ReduxApp) RenderGroup(navItem string, groupOrder []string, groupItems
 		app.titleProperty,
 		app.labels,
 		app.listProperties,
+		app.propertyTitles,
 		app.rxa); err != nil {
 		return err
 	} else {

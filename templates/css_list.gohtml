@@ -56,6 +56,7 @@
         }
 
         .items .item {
+            font-size: var(--fs-larger);
             color: inherit;
             padding: var(--normal);
             padding-block-start: var(--small);
@@ -87,8 +88,33 @@
 
         .items .item .title {
             margin: var(--x-small) 0;
-            font-size: var(--fs-larger);
+            font-size: inherit;
             font-weight: bold;
+        }
+
+        .items .item .property {
+            color: var(--subtle-color);
+            font-size: var(--fs-xx-smaller);
+            font-weight: normal;
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            align-content: center;
+            grid-column-gap: var(--small);
+            grid-row-gap: var(--x-small);
+            align-items: center;
+        }
+
+        .items .item .property .property-title {
+
+        }
+
+        .items .item .property .property-value {
+            font-weight: bold;
+            max-width: calc(80vw - 7 * var(--normal));
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--color);
         }
 
         .items .item .label {
