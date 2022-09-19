@@ -66,7 +66,7 @@
             box-shadow: var(--box-shadow);
             content-visibility: auto;
             /* 123px is the average size of the element in "Products > all" section */
-            contain-intrinsic-size: var(--product-card-width) 83px;
+            contain-intrinsic-size: var(--product-card-width) 120px;
             overflow: hidden;
         }
 
@@ -87,8 +87,11 @@
         }
 
         .items .item .title {
-            margin: var(--x-small) 0;
+            margin: var(--x-small) 0 calc(3 * var(--x-small));
             font-size: inherit;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             font-weight: bold;
         }
 
