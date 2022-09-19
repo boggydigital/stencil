@@ -16,13 +16,13 @@ type List struct {
 	*Page
 	AppTemplates []string
 	Labels       []string
-	ItemHref     string
+	ItemPath     string
 	Items        []*ListItem
 }
 
 func NewList(
 	page *Page,
-	itemHref string,
+	itemPath string,
 	ids []string,
 	titleProperty string,
 	labels []string,
@@ -36,7 +36,7 @@ func NewList(
 	lvm := &List{
 		Page:     page,
 		Labels:   labels,
-		ItemHref: itemHref,
+		ItemPath: itemPath,
 		Items:    make([]*ListItem, 0, len(ids)),
 	}
 

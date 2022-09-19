@@ -11,7 +11,7 @@ type Item struct {
 	Id        string
 	Title     string
 	Labels    []string
-	CoverHref string
+	CoverPath string
 	// Text properties
 	Properties      map[string]map[string]string
 	PropertyOrder   []string
@@ -25,7 +25,7 @@ type Item struct {
 func NewItem(
 	page *Page,
 	id string,
-	coverHref string,
+	coverPath string,
 	properties []string,
 	titleProperty string,
 	labels []string,
@@ -44,7 +44,7 @@ func NewItem(
 	ivm := &Item{
 		Page:           page,
 		Id:             id,
-		CoverHref:      coverHref,
+		CoverPath:      coverPath,
 		Title:          title,
 		Labels:         labels,
 		Properties:     make(map[string]map[string]string),

@@ -12,11 +12,11 @@ type PropertyLinkFormatter view_models.Formatter
 type ReduxApp struct {
 	page               *view_models.Page
 	rxa                kvas.ReduxAssets
-	listItemHref       string
+	listItemPath       string
 	listProperties     []string
 	itemProperties     []string
 	labels             []string
-	itemCoverHref      string
+	itemCoverPath      string
 	itemSections       []string
 	itemHrefFormatter  PropertyLinkFormatter
 	itemTitleFormatter PropertyLinkFormatter
@@ -50,9 +50,7 @@ func (app *ReduxApp) SetNavigation(
 	}
 }
 
-func (app *ReduxApp) SetListParams(
-	properties,
-	labels []string) error {
+func (app *ReduxApp) SetListParams(properties []string) error {
 	if err := app.rxa.IsSupported(properties...); err != nil {
 		return err
 	}
@@ -94,11 +92,11 @@ func (app *ReduxApp) SetLabels(labels []string) error {
 	return nil
 }
 
-func (app *ReduxApp) SetHrefParams(
-	listItem, itemCover string,
+func (app *ReduxApp) SetLinkParams(
+	listItemPath, itemCoverPath string,
 	fmtTitle, fmtHref PropertyLinkFormatter) {
-	app.listItemHref = listItem
-	app.itemCoverHref = itemCover
+	app.listItemPath = listItemPath
+	app.itemCoverPath = itemCoverPath
 	app.itemTitleFormatter = fmtTitle
 	app.itemHrefFormatter = fmtHref
 }
@@ -113,7 +111,7 @@ func (app *ReduxApp) RenderList(navItem string, ids []string, w io.Writer) error
 
 	if lvm, err := view_models.NewList(
 		app.page,
-		app.listItemHref,
+		app.listItemPath,
 		ids,
 		app.titleProperty,
 		app.labels,
@@ -138,7 +136,7 @@ func (app *ReduxApp) RenderSearch(
 
 	if svm, err := view_models.NewSearch(
 		app.page,
-		app.listItemHref,
+		app.listItemPath,
 		query,
 		ids,
 		app.searchProperties,
@@ -165,7 +163,7 @@ func (app *ReduxApp) RenderItem(id string, w io.Writer) error {
 	if ivm, err := view_models.NewItem(
 		app.page,
 		id,
-		app.itemCoverHref,
+		app.itemCoverPath,
 		app.itemProperties,
 		app.titleProperty,
 		app.labels,
@@ -181,5 +179,16 @@ func (app *ReduxApp) RenderItem(id string, w io.Writer) error {
 			return err
 		}
 	}
+	return nil
+}
+
+func (app *ReduxApp) RenderSection(id, section, content string, w io.Writer) error {
+
+	cvm := view_models.NewSection(id, section, content)
+
+	if err := render.Section(tmpl, cvm, w); err != nil {
+		return err
+	}
+
 	return nil
 }

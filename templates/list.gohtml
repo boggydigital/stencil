@@ -4,10 +4,10 @@
         {{$labels := .Labels}}
         <div class="items-count">Items: {{$count}}</div>
         <div class="items">
-            {{$itemHref := .ItemHref}}
+            {{$itemPath := .ItemPath}}
             {{range .Items}}
                 {{$propertyValues := .PropertyValues}}
-                <a href="{{$itemHref}}{{.Id}}" data-id="{{.Id}}" class="item">
+                <a href="{{$itemPath}}?id={{.Id}}" data-id="{{.Id}}" class="item">
                     <ul>
 
                         <li class="title">{{.Title}}</li>

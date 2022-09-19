@@ -14,7 +14,7 @@ type Search struct {
 
 func NewSearch(
 	page *Page,
-	itemHref string,
+	itemPath string,
 	query map[string][]string,
 	ids []string,
 	searchProperties []string,
@@ -26,7 +26,7 @@ func NewSearch(
 	digestTitles map[string]string,
 	rxa kvas.ReduxAssets) (*Search, error) {
 
-	lvm, err := NewList(page, itemHref, ids, titleProperty, labels, listProperties, rxa)
+	lvm, err := NewList(page, itemPath, ids, titleProperty, labels, listProperties, rxa)
 
 	svm := &Search{
 		Query:          query,
