@@ -10,6 +10,9 @@
     {{template "svg-icons"}}
     {{template "nav" .Nav}}
     {{template "group" .}}
+    {{if .Updated}}
+        <span class="updated"><span class="highlight">Updated:</span>&nbsp;<time>{{.Updated}}</time></span>
+    {{end}}
     <div class="footer-spacer"></div>
     {{template "footer" .Foot}}
     </body>

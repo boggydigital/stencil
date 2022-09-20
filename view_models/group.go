@@ -7,6 +7,7 @@ type Group struct {
 	GroupOrder  []string
 	GroupLists  map[string]*List
 	GroupTitles map[string]string
+	Updated     string
 }
 
 func NewGroup(
@@ -20,6 +21,7 @@ func NewGroup(
 	listProperties []string,
 	propertyTitles map[string]string,
 	fmtTitle Formatter,
+	updated string,
 	rxa kvas.ReduxAssets) (*Group, error) {
 
 	gvm := &Group{
@@ -27,6 +29,7 @@ func NewGroup(
 		GroupOrder:  groupOrder,
 		GroupLists:  make(map[string]*List),
 		GroupTitles: groupTitles,
+		Updated:     updated,
 	}
 
 	for group, items := range groupItems {

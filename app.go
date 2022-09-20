@@ -212,7 +212,13 @@ func (app *ReduxApp) RenderSection(id, section, content string, w io.Writer) err
 	return nil
 }
 
-func (app *ReduxApp) RenderGroup(navItem string, groupOrder []string, groupItems map[string][]string, groupTitles map[string]string, w io.Writer) error {
+func (app *ReduxApp) RenderGroup(
+	navItem string,
+	groupOrder []string,
+	groupItems map[string][]string,
+	groupTitles map[string]string,
+	updated string,
+	w io.Writer) error {
 
 	app.SetCurrentNav(navItem)
 
@@ -227,6 +233,7 @@ func (app *ReduxApp) RenderGroup(navItem string, groupOrder []string, groupItems
 		app.listProperties,
 		app.propertyTitles,
 		view_models.Formatter(app.itemTitleFormatter),
+		updated,
 		app.rxa); err != nil {
 		return err
 	} else {
