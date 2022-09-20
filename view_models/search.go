@@ -1,20 +1,29 @@
 package view_models
 
-import "github.com/boggydigital/kvas"
+import (
+	"github.com/boggydigital/kvas"
+	"net/url"
+	"strings"
+)
 
 type Search struct {
 	*Page
+	Scopes         []string
+	ScopeQueries   map[string]string
+	CurrentScope   string
 	Properties     []string
 	PropertyTitles map[string]string
 	Query          map[string][]string
 	Digests        map[string][]string
 	DigestsTitles  map[string]string
-	List           *List
+	Found          *List
 }
 
 func NewSearch(
 	page *Page,
-	itemPath string,
+	navPath string,
+	scopes []string,
+	scopeQueries map[string]string,
 	query map[string][]string,
 	ids []string,
 	searchProperties []string,
@@ -29,7 +38,7 @@ func NewSearch(
 
 	lvm, err := NewList(
 		page,
-		itemPath,
+		navPath,
 		ids,
 		titleProperty,
 		labels,
@@ -39,14 +48,36 @@ func NewSearch(
 		rxa)
 
 	svm := &Search{
+		Scopes:         scopes,
+		ScopeQueries:   scopeQueries,
+		CurrentScope:   currentScope(query, scopeQueries),
 		Query:          query,
 		Page:           page,
 		Properties:     searchProperties,
 		PropertyTitles: propertyTitles,
 		Digests:        digests,
 		DigestsTitles:  digestTitles,
-		List:           lvm,
+		Found:          lvm,
 	}
 
 	return svm, err
+}
+
+func currentScope(query map[string][]string, scopeUrls map[string]string) string {
+
+	q := url.Values{}
+
+	for k, vs := range query {
+		q.Set(k, strings.Join(vs, ","))
+	}
+
+	if eq, err := url.QueryUnescape(q.Encode()); err == nil {
+		for scope, scopeUrl := range scopeUrls {
+			if scopeUrl == eq {
+				return scope
+			}
+		}
+	}
+
+	return ""
 }

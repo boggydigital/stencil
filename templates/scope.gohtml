@@ -1,0 +1,19 @@
+{{define "scope"}}
+    <section id="scope">
+        <ul class="scope">
+            {{$scopeQueries := .ScopeQueries}}
+            {{$currentScope := .CurrentScope}}
+            {{$currentHref := index .Page.Nav.Hrefs .Page.Nav.Current}}
+            {{range $scope := .Scopes}}
+                {{$scopeQuery := index $scopeQueries $scope}}
+                <li {{if eq $scope $currentScope}}class="current"{{end}}>
+                    {{$url := $currentHref}}
+                    {{if $scopeQuery}}
+                        {{$url = concat $url "?" $scopeQuery}}
+                    {{end}}
+                    <a href="{{$url}}">{{$scope}}</a>
+                </li>
+            {{end}}
+        </ul>
+    </section>
+{{end}}

@@ -5,6 +5,7 @@ import (
 	"github.com/boggydigital/stencil/render"
 	"github.com/boggydigital/stencil/view_models"
 	"io"
+	"net/url"
 )
 
 var ScriptHashes = []string{
@@ -27,6 +28,8 @@ type ReduxApp struct {
 	itemSections       []string
 	itemHrefFormatter  PropertyLinkFormatter
 	itemTitleFormatter PropertyLinkFormatter
+	searchScopes       []string
+	searchScopeQueries map[string]string
 	searchProperties   []string
 	titleProperty      string
 	propertyTitles     map[string]string
@@ -85,8 +88,25 @@ func (app *ReduxApp) SetItemParams(
 	return nil
 }
 
-func (app *ReduxApp) SetSearchParams(properties []string) {
+func (app *ReduxApp) SetSearchParams(
+	scopes []string,
+	scopeQueries map[string]string,
+	properties []string) error {
+	app.searchScopes = scopes
 	app.searchProperties = properties
+	app.searchScopeQueries = make(map[string]string, len(scopeQueries))
+
+	for scope, query := range scopeQueries {
+		q, err := url.ParseQuery(query)
+		if err != nil {
+			return err
+		}
+		app.searchScopeQueries[scope], err = url.QueryUnescape(q.Encode())
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (app *ReduxApp) SetTitles(
@@ -154,6 +174,8 @@ func (app *ReduxApp) RenderSearch(
 	if svm, err := view_models.NewSearch(
 		app.page,
 		app.listItemPath,
+		app.searchScopes,
+		app.searchScopeQueries,
 		query,
 		ids,
 		app.searchProperties,

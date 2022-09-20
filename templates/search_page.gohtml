@@ -10,11 +10,12 @@
     <body>
     {{template "svg-icons"}}
     {{template "nav" .Nav}}
+    {{template "scope" .}}
     {{template "search-properties" .}}
     {{if .Query}}
         {{template "search-query" .}}
     {{end}}
-    {{template "list" .List}}
+    {{template "list" .Found}}
     <div class="footer-spacer"></div>
     {{template "footer" .Foot}}
     </body>
