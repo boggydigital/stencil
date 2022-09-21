@@ -2,6 +2,7 @@
     <section id="items-list">
         {{$count := len .Items}}
         {{$labels := .Labels}}
+        {{$titleProperty := .TitleProperty}}
         <div class="items-count">{{$count}} item(s)</div>
         <div class="items">
             {{$itemPath := .ItemPath}}
@@ -28,14 +29,17 @@
 
                         {{$propertyTitles := .PropertyTitles}}
                         {{range $property := .Properties}}
-                            {{if contains $labels $property}}
+                            {{if eq $property $titleProperty}}
                             {{else}}
-                                {{$value := index $propertyValues $property}}
-                                {{$propertyTitle := index $propertyTitles $property}}
-                                <li class="property {{$property}}">
-                                    <span class="property-title">{{$propertyTitle}}</span>
-                                    <span class="property-value">{{$value}}</span>
-                                </li>
+                                {{if contains $labels $property}}
+                                {{else}}
+                                    {{$value := index $propertyValues $property}}
+                                    {{$propertyTitle := index $propertyTitles $property}}
+                                    <li class="property {{$property}}">
+                                        <span class="property-title">{{$propertyTitle}}</span>
+                                        <span class="property-value">{{$value}}</span>
+                                    </li>
+                                {{end}}
                             {{end}}
                         {{end}}
 

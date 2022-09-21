@@ -17,9 +17,9 @@ var ScriptHashes = []string{
 
 type PropertyLinkFormatter view_models.Formatter
 
-type ReduxApp struct {
-	page               *view_models.Page
-	rxa                kvas.ReduxAssets
+type App struct {
+	page *view_models.Page
+	//rxa                kvas.ReduxAssets
 	listItemPath       string
 	listProperties     []string
 	itemProperties     []string
@@ -37,8 +37,8 @@ type ReduxApp struct {
 	digestTitles       map[string]string
 }
 
-func NewApp(title, favIconAccent string, rxa kvas.ReduxAssets) *ReduxApp {
-	return &ReduxApp{
+func NewApp(title, favIconAccent string) *App {
+	return &App{
 		page: &view_models.Page{
 			Head: &view_models.Header{
 				AppTitle:      title,
@@ -46,18 +46,17 @@ func NewApp(title, favIconAccent string, rxa kvas.ReduxAssets) *ReduxApp {
 			},
 			Foot: &view_models.Footer{},
 		},
-		rxa: rxa,
 	}
 }
 
-func (app *ReduxApp) SetFooter(location, repoUrl string) {
+func (app *App) SetFooter(location, repoUrl string) {
 	app.page.Foot = &view_models.Footer{
 		Location: location,
 		RepoUrl:  repoUrl,
 	}
 }
 
-func (app *ReduxApp) SetNavigation(
+func (app *App) SetNavigation(
 	items []string,
 	icons map[string]string,
 	hrefs map[string]string) {
@@ -68,19 +67,24 @@ func (app *ReduxApp) SetNavigation(
 	}
 }
 
-func (app *ReduxApp) SetListParams(properties []string) error {
-	if err := app.rxa.IsSupported(properties...); err != nil {
-		return err
+func (app *App) SetListParams(properties []string, rxa kvas.ReduxAssets) error {
+	if rxa != nil {
+		if err := rxa.IsSupported(properties...); err != nil {
+			return err
+		}
 	}
 
 	app.listProperties = properties
 	return nil
 }
 
-func (app *ReduxApp) SetItemParams(
-	properties, sections []string) error {
-	if err := app.rxa.IsSupported(properties...); err != nil {
-		return err
+func (app *App) SetItemParams(
+	properties, sections []string,
+	rxa kvas.ReduxAssets) error {
+	if rxa != nil {
+		if err := rxa.IsSupported(properties...); err != nil {
+			return err
+		}
 	}
 
 	app.itemProperties = properties
@@ -88,7 +92,7 @@ func (app *ReduxApp) SetItemParams(
 	return nil
 }
 
-func (app *ReduxApp) SetSearchParams(
+func (app *App) SetSearchParams(
 	scopes []string,
 	scopeQueries map[string]string,
 	properties []string) error {
@@ -109,7 +113,7 @@ func (app *ReduxApp) SetSearchParams(
 	return nil
 }
 
-func (app *ReduxApp) SetTitles(
+func (app *App) SetTitles(
 	titleProperty string,
 	propertyTitles, sectionTitles, digestTitles map[string]string) {
 	app.titleProperty = titleProperty
@@ -118,16 +122,18 @@ func (app *ReduxApp) SetTitles(
 	app.digestTitles = digestTitles
 }
 
-func (app *ReduxApp) SetLabels(labels []string) error {
-	if err := app.rxa.IsSupported(labels...); err != nil {
-		return err
+func (app *App) SetLabels(labels []string, rxa kvas.ReduxAssets) error {
+	if rxa != nil {
+		if err := rxa.IsSupported(labels...); err != nil {
+			return err
+		}
 	}
 
 	app.labels = labels
 	return nil
 }
 
-func (app *ReduxApp) SetLinkParams(
+func (app *App) SetLinkParams(
 	listItemPath, itemCoverPath string,
 	fmtTitle, fmtHref PropertyLinkFormatter) {
 	app.listItemPath = listItemPath
@@ -136,11 +142,11 @@ func (app *ReduxApp) SetLinkParams(
 	app.itemHrefFormatter = fmtHref
 }
 
-func (app *ReduxApp) SetCurrentNav(item string) {
+func (app *App) SetCurrentNav(item string) {
 	app.page.Nav.Current = item
 }
 
-func (app *ReduxApp) RenderList(navItem string, ids []string, w io.Writer) error {
+func (app *App) RenderList(navItem string, ids []string, rxa kvas.ReduxAssets, w io.Writer) error {
 
 	app.SetCurrentNav(navItem)
 
@@ -153,7 +159,7 @@ func (app *ReduxApp) RenderList(navItem string, ids []string, w io.Writer) error
 		app.listProperties,
 		app.propertyTitles,
 		view_models.Formatter(app.itemTitleFormatter),
-		app.rxa); err != nil {
+		rxa); err != nil {
 		return err
 	} else {
 		if err := render.List(tmpl, lvm, w); err != nil {
@@ -163,11 +169,12 @@ func (app *ReduxApp) RenderList(navItem string, ids []string, w io.Writer) error
 	return nil
 }
 
-func (app *ReduxApp) RenderSearch(
+func (app *App) RenderSearch(
 	navItem string,
 	query map[string][]string,
 	ids []string,
 	digests map[string][]string,
+	rxa kvas.ReduxAssets,
 	w io.Writer) error {
 	app.SetCurrentNav(navItem)
 
@@ -186,7 +193,7 @@ func (app *ReduxApp) RenderSearch(
 		digests,
 		app.digestTitles,
 		view_models.Formatter(app.itemTitleFormatter),
-		app.rxa); err != nil {
+		rxa); err != nil {
 		return err
 	} else {
 		if err := render.Search(tmpl, svm, w); err != nil {
@@ -196,7 +203,7 @@ func (app *ReduxApp) RenderSearch(
 	return nil
 }
 
-func (app *ReduxApp) RenderItem(id string, w io.Writer) error {
+func (app *App) RenderItem(id string, rxa kvas.ReduxAssets, w io.Writer) error {
 
 	if ivm, err := view_models.NewItem(
 		app.page,
@@ -210,7 +217,7 @@ func (app *ReduxApp) RenderItem(id string, w io.Writer) error {
 		app.sectionTitles,
 		view_models.Formatter(app.itemTitleFormatter),
 		view_models.Formatter(app.itemHrefFormatter),
-		app.rxa); err != nil {
+		rxa); err != nil {
 		return err
 	} else {
 
@@ -223,7 +230,7 @@ func (app *ReduxApp) RenderItem(id string, w io.Writer) error {
 	return nil
 }
 
-func (app *ReduxApp) RenderSection(id, section, content string, w io.Writer) error {
+func (app *App) RenderSection(id, section, content string, w io.Writer) error {
 
 	cvm := view_models.NewSection(id, section, content)
 
@@ -234,12 +241,13 @@ func (app *ReduxApp) RenderSection(id, section, content string, w io.Writer) err
 	return nil
 }
 
-func (app *ReduxApp) RenderGroup(
+func (app *App) RenderGroup(
 	navItem string,
 	groupOrder []string,
 	groupItems map[string][]string,
 	groupTitles map[string]string,
 	updated string,
+	rxa kvas.ReduxAssets,
 	w io.Writer) error {
 
 	app.SetCurrentNav(navItem)
@@ -256,7 +264,7 @@ func (app *ReduxApp) RenderGroup(
 		app.propertyTitles,
 		view_models.Formatter(app.itemTitleFormatter),
 		updated,
-		app.rxa); err != nil {
+		rxa); err != nil {
 		return err
 	} else {
 		if err := render.Group(tmpl, gvm, w); err != nil {

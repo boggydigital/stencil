@@ -16,9 +16,10 @@ type ListItem struct {
 
 type List struct {
 	*Page
-	Labels   []string
-	ItemPath string
-	Items    []*ListItem
+	Labels        []string
+	ItemPath      string
+	Items         []*ListItem
+	TitleProperty string
 }
 
 func NewList(
@@ -37,10 +38,11 @@ func NewList(
 	}
 
 	lvm := &List{
-		Page:     page,
-		Labels:   labels,
-		ItemPath: itemPath,
-		Items:    make([]*ListItem, 0, len(ids)),
+		Page:          page,
+		Labels:        labels,
+		ItemPath:      itemPath,
+		Items:         make([]*ListItem, 0, len(ids)),
+		TitleProperty: titleProperty,
 	}
 
 	for _, id := range ids {
