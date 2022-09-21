@@ -3,6 +3,7 @@
         {{$count := len .Items}}
         {{$labels := .Labels}}
         {{$titleProperty := .TitleProperty}}
+        {{$icons := .Icons}}
         <div class="items-count">{{$count}} item(s)</div>
         <div class="items">
             {{$itemPath := .ItemPath}}
@@ -30,14 +31,26 @@
                         {{$propertyTitles := .PropertyTitles}}
                         {{range $property := .Properties}}
                             {{if eq $property $titleProperty}}
+                                {{/* skip title property */}}
                             {{else}}
                                 {{if contains $labels $property}}
+                                    {{/* skip label properties */}}
                                 {{else}}
-                                    {{$value := index $propertyValues $property}}
+                                    {{$values := index $propertyValues $property}}
                                     {{$propertyTitle := index $propertyTitles $property}}
                                     <li class="property {{$property}}">
                                         <span class="property-title">{{$propertyTitle}}</span>
-                                        <span class="property-value">{{$value}}</span>
+
+                                        {{if contains $icons $property}}
+                                            <span class="property-value horizontal">
+                                                {{range $value := $values}}
+                                                    {{template "svg-icon" $value}}
+                                                {{end}}
+                                            </span>
+                                        {{else}}
+                                            <span class="property-value">{{commaJoin $values}}</span>
+                                        {{end}}
+
                                     </li>
                                 {{end}}
                             {{end}}

@@ -2,7 +2,6 @@ package view_models
 
 import (
 	"github.com/boggydigital/kvas"
-	"strings"
 )
 
 type ListItem struct {
@@ -10,13 +9,14 @@ type ListItem struct {
 	Title          string
 	Properties     []string
 	LabelValues    map[string]string
-	PropertyValues map[string]string
+	PropertyValues map[string][]string
 	PropertyTitles map[string]string
 }
 
 type List struct {
 	*Page
 	Labels        []string
+	Icons         []string
 	ItemPath      string
 	Items         []*ListItem
 	TitleProperty string
@@ -28,6 +28,7 @@ func NewList(
 	ids []string,
 	titleProperty string,
 	labels []string,
+	icons []string,
 	properties []string,
 	propertyTitles map[string]string,
 	fmtTitle Formatter,
@@ -40,6 +41,7 @@ func NewList(
 	lvm := &List{
 		Page:          page,
 		Labels:        labels,
+		Icons:         icons,
 		ItemPath:      itemPath,
 		Items:         make([]*ListItem, 0, len(ids)),
 		TitleProperty: titleProperty,
@@ -53,14 +55,14 @@ func NewList(
 			Id:             id,
 			Title:          title,
 			Properties:     properties,
-			PropertyValues: make(map[string]string, len(properties)),
+			PropertyValues: make(map[string][]string, len(properties)),
 			PropertyTitles: propertyTitles,
 			LabelValues:    make(map[string]string, len(labels)),
 		}
 
 		for _, p := range properties {
 			values, _ := rxa.GetAllUnchangedValues(p, id)
-			li.PropertyValues[p] = strings.Join(values, ", ")
+			li.PropertyValues[p] = values
 		}
 
 		for _, l := range labels {

@@ -24,6 +24,7 @@ type App struct {
 	listProperties     []string
 	itemProperties     []string
 	labels             []string
+	icons              []string
 	itemCoverPath      string
 	itemSections       []string
 	itemHrefFormatter  PropertyLinkFormatter
@@ -133,6 +134,17 @@ func (app *App) SetLabels(labels []string, rxa kvas.ReduxAssets) error {
 	return nil
 }
 
+func (app *App) SetIcons(icons []string, rxa kvas.ReduxAssets) error {
+	if rxa != nil {
+		if err := rxa.IsSupported(icons...); err != nil {
+			return err
+		}
+	}
+
+	app.icons = icons
+	return nil
+}
+
 func (app *App) SetLinkParams(
 	listItemPath, itemCoverPath string,
 	fmtTitle, fmtHref PropertyLinkFormatter) {
@@ -156,6 +168,7 @@ func (app *App) RenderList(navItem string, ids []string, rxa kvas.ReduxAssets, w
 		ids,
 		app.titleProperty,
 		app.labels,
+		app.icons,
 		app.listProperties,
 		app.propertyTitles,
 		view_models.Formatter(app.itemTitleFormatter),
@@ -188,6 +201,7 @@ func (app *App) RenderSearch(
 		app.searchProperties,
 		app.titleProperty,
 		app.labels,
+		app.icons,
 		app.listProperties,
 		app.propertyTitles,
 		digests,
@@ -260,6 +274,7 @@ func (app *App) RenderGroup(
 		groupTitles,
 		app.titleProperty,
 		app.labels,
+		app.icons,
 		app.listProperties,
 		app.propertyTitles,
 		view_models.Formatter(app.itemTitleFormatter),

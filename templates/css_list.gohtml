@@ -141,5 +141,17 @@
             border-radius: var(--border-radius);
         }
 
+        .items .item .property-value.horizontal {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: var(--small);
+        }
+
+        .items .item .property-value.horizontal svg.icon {
+            width: calc(3 * var(--x-small));
+            height: calc(3 * var(--x-small));
+        }
+
     </style>
 {{end}}
