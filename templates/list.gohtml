@@ -8,6 +8,9 @@
         <div class="items">
             {{$itemPath := .ItemPath}}
             {{range .Items}}
+
+                {{if eq .Title ""}}{{continue}}{{end}}
+
                 {{$propertyValues := .PropertyValues}}
                 {{$labelValues := .LabelValues}}
                 <a href="{{$itemPath}}?id={{.Id}}" data-id="{{.Id}}" class="item">
@@ -30,32 +33,27 @@
 
                         {{$propertyTitles := .PropertyTitles}}
                         {{range $property := .Properties}}
-                            {{if eq $property $titleProperty}}
-                                {{/* skip title property */}}
-                            {{else}}
-                                {{if contains $labels $property}}
-                                    {{/* skip label properties */}}
-                                {{else}}
-                                    {{$values := index $propertyValues $property}}
-                                    {{$propertyTitle := index $propertyTitles $property}}
-                                    <li class="property {{$property}}">
-                                        <span class="property-title">{{$propertyTitle}}</span>
 
-                                        {{if contains $icons $property}}
-                                            <span class="property-value horizontal">
-                                                {{range $value := $values}}
-                                                    {{template "svg-icon" $value}}
-                                                {{end}}
-                                            </span>
-                                        {{else}}
-                                            <span class="property-value">{{commaJoin $values}}</span>
+                            {{if eq $property $titleProperty}}{{continue}}{{end}}
+                            {{if contains $labels $property}}{{continue}}{{end}}
+
+                            {{$values := index $propertyValues $property}}
+                            {{$propertyTitle := index $propertyTitles $property}}
+                            <li class="property {{$property}}">
+                                <span class="property-title">{{$propertyTitle}}</span>
+
+                                {{if contains $icons $property}}
+                                    <span class="property-value horizontal">
+                                        {{range $value := $values}}
+                                            {{template "svg-icon" $value}}
                                         {{end}}
-
-                                    </li>
+                                    </span>
+                                {{else}}
+                                    <span class="property-value">{{commaJoin $values}}</span>
                                 {{end}}
-                            {{end}}
-                        {{end}}
 
+                            </li>
+                        {{end}}
                     </ul>
                 </a>
             {{end}}
