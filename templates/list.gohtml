@@ -3,6 +3,8 @@
         {{$count := len .Items}}
         {{$labels := .Labels}}
         {{$titleProperty := .TitleProperty}}
+        {{$coverProperty := .CoverProperty}}
+        {{$coverPath := .CoverPath}}
         {{$icons := .Icons}}
         <div class="items-count">{{$count}} item(s)</div>
         <div class="items">
@@ -14,6 +16,14 @@
                 {{$propertyValues := .PropertyValues}}
                 {{$labelValues := .LabelValues}}
                 <a href="{{$itemPath}}?id={{.Id}}" data-id="{{.Id}}" class="item">
+
+                    {{if $coverProperty}}
+                        {{$coverId := index $propertyValues $coverProperty}}
+                        {{range $coverId}}
+                            <img loading="lazy" class="item-cover" src="{{$coverPath}}?id={{.}}"/>
+                        {{end}}
+                    {{end}}
+
                     <ul>
 
                         <li class="title">{{.Title}}</li>
@@ -35,6 +45,7 @@
                         {{range $property := .Properties}}
 
                             {{if eq $property $titleProperty}}{{continue}}{{end}}
+                            {{if eq $property $coverProperty}}{{continue}}{{end}}
                             {{if contains $labels $property}}{{continue}}{{end}}
 
                             {{$values := index $propertyValues $property}}

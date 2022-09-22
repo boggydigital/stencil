@@ -20,6 +20,8 @@ type List struct {
 	ItemPath      string
 	Items         []*ListItem
 	TitleProperty string
+	CoverProperty string
+	CoverPath     string
 }
 
 func NewList(
@@ -27,6 +29,8 @@ func NewList(
 	itemPath string,
 	ids []string,
 	titleProperty string,
+	coverProperty string,
+	coverPath string,
 	labels []string,
 	icons []string,
 	properties []string,
@@ -45,6 +49,8 @@ func NewList(
 		ItemPath:      itemPath,
 		Items:         make([]*ListItem, 0, len(ids)),
 		TitleProperty: titleProperty,
+		CoverProperty: coverProperty,
+		CoverPath:     coverPath,
 	}
 
 	for _, id := range ids {

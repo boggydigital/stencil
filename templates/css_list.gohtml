@@ -58,8 +58,8 @@
         .items .item {
             font-size: var(--fs-larger);
             color: inherit;
-            padding: var(--normal);
-            padding-block-start: var(--small);
+            padding: calc(1.5 * var(--small));
+            /*padding-block-start: var(--small);*/
             text-decoration: none;
             background-color: var(--highlight-color);
             border-radius: var(--border-radius);
@@ -68,6 +68,8 @@
             /* 123px is the average size of the element in "Products > all" section */
             contain-intrinsic-size: var(--product-card-width) 120px;
             overflow: hidden;
+            display: flex;
+            column-gap: calc(1.5 * var(--small));
         }
 
         @media only screen and (max-width: 700px) {
@@ -77,6 +79,14 @@
             }
         }
 
+        .items .item .item-cover {
+            width: 85.5px;
+            height: 120.5px;
+            background: var(--background-color);
+            border-radius: var(--border-radius);
+            flex-shrink: 0;
+        }
+
         .items .item ul {
             list-style: none;
             padding-inline-start: 0;
@@ -84,16 +94,25 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            width: 100%;
             row-gap: var(--x-small);
+            overflow: hidden;
         }
 
         .items .item .title {
-            margin: var(--small) 0;
+            margin: 0 0 var(--small) 0;
             font-size: inherit;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             font-weight: bold;
+            /*max-width: calc(var(--product-card-width) - 85px - 3*var(--normal));*/
+        }
+
+        @media only screen and (max-width: 700px) {
+            .items .item .title {
+                max-width: min-content;
+            }
         }
 
         .items .item .property {
@@ -101,7 +120,7 @@
             font-size: var(--fs-xx-smaller);
             font-weight: normal;
             display: grid;
-            grid-template-columns: 2fr 7fr;
+            grid-template-columns: calc(var(--normal) * 4) auto;
             align-content: center;
             grid-column-gap: var(--small);
             grid-row-gap: var(--small);
@@ -123,10 +142,13 @@
 
         .items .item .labels {
             min-height: var(--normal);
+            width: 100%;
+            overflow: hidden;
         }
 
         .items .item .labels ul {
             flex-direction: row;
+            flex-wrap: wrap;
             row-gap: var(--x-small);
             column-gap: var(--x-small);
         }

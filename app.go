@@ -25,7 +25,7 @@ type App struct {
 	itemProperties     []string
 	labels             []string
 	icons              []string
-	itemCoverPath      string
+	coverPath          string
 	itemSections       []string
 	itemHrefFormatter  PropertyLinkFormatter
 	itemTitleFormatter PropertyLinkFormatter
@@ -33,6 +33,7 @@ type App struct {
 	searchScopeQueries map[string]string
 	searchProperties   []string
 	titleProperty      string
+	listCoverProperty  string
 	propertyTitles     map[string]string
 	sectionTitles      map[string]string
 	digestTitles       map[string]string
@@ -68,13 +69,17 @@ func (app *App) SetNavigation(
 	}
 }
 
-func (app *App) SetListParams(properties []string, rxa kvas.ReduxAssets) error {
+func (app *App) SetListParams(
+	listCoverProperty string,
+	properties []string,
+	rxa kvas.ReduxAssets) error {
 	if rxa != nil {
 		if err := rxa.IsSupported(properties...); err != nil {
 			return err
 		}
 	}
 
+	app.listCoverProperty = listCoverProperty
 	app.listProperties = properties
 	return nil
 }
@@ -146,10 +151,10 @@ func (app *App) SetIcons(icons []string, rxa kvas.ReduxAssets) error {
 }
 
 func (app *App) SetLinkParams(
-	listItemPath, itemCoverPath string,
+	listItemPath, coverPath string,
 	fmtTitle, fmtHref PropertyLinkFormatter) {
 	app.listItemPath = listItemPath
-	app.itemCoverPath = itemCoverPath
+	app.coverPath = coverPath
 	app.itemTitleFormatter = fmtTitle
 	app.itemHrefFormatter = fmtHref
 }
@@ -167,6 +172,8 @@ func (app *App) RenderList(navItem string, ids []string, rxa kvas.ReduxAssets, w
 		app.listItemPath,
 		ids,
 		app.titleProperty,
+		app.listCoverProperty,
+		app.coverPath,
 		app.labels,
 		app.icons,
 		app.listProperties,
@@ -200,6 +207,8 @@ func (app *App) RenderSearch(
 		ids,
 		app.searchProperties,
 		app.titleProperty,
+		app.listCoverProperty,
+		app.coverPath,
 		app.labels,
 		app.icons,
 		app.listProperties,
@@ -222,7 +231,7 @@ func (app *App) RenderItem(id string, rxa kvas.ReduxAssets, w io.Writer) error {
 	if ivm, err := view_models.NewItem(
 		app.page,
 		id,
-		app.itemCoverPath,
+		app.coverPath,
 		app.itemProperties,
 		app.titleProperty,
 		app.labels,
@@ -273,6 +282,8 @@ func (app *App) RenderGroup(
 		groupItems,
 		groupTitles,
 		app.titleProperty,
+		app.listCoverProperty,
+		app.coverPath,
 		app.labels,
 		app.icons,
 		app.listProperties,
