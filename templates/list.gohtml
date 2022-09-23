@@ -18,10 +18,15 @@
                 <a href="{{$itemPath}}?id={{.Id}}" data-id="{{.Id}}" class="item">
 
                     {{if $coverProperty}}
-                        {{$coverId := index $propertyValues $coverProperty}}
-                        {{range $coverId}}
-                            <img loading="lazy" class="item-cover" src="{{$coverPath}}?id={{.}}"/>
+                        {{if eq $coverProperty "id"}}
+                            <img loading="lazy" class="item-cover" src="{{$coverPath}}?id={{.Id}}"/>
+                        {{else}}
+                            {{$coverId := index $propertyValues $coverProperty}}
+                            {{range $coverId}}
+                                <img loading="lazy" class="item-cover" src="{{$coverPath}}?id={{.}}"/>
+                            {{end}}
                         {{end}}
+
                     {{end}}
 
                     <ul>
