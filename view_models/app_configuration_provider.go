@@ -32,6 +32,10 @@ type ListCoverPropertyGetter interface {
 	GetListCoverProperty() string
 }
 
+type ListClassPropertiesGetter interface {
+	GetListClassProperties() []string
+}
+
 type ItemPropertiesGetter interface {
 	GetItemProperties() []string
 }
@@ -46,6 +50,10 @@ type ItemHrefFormatterGetter interface {
 
 type ItemTitleFormatterGetter interface {
 	GetItemTitleFormatter() Formatter
+}
+
+type ItemClassFormatterGetter interface {
+	GetItemClassFormatter() Formatter
 }
 
 type SearchScopesGetter interface {
@@ -83,11 +91,13 @@ type AppConfigurationProvider interface {
 	ListItemPathGetter
 	ListPropertiesGetter
 	ListCoverPropertyGetter
+	ListClassPropertiesGetter
 	/* Item */
 	ItemPropertiesGetter
 	ItemSectionsGetter
 	ItemHrefFormatterGetter
 	ItemTitleFormatterGetter
+	ItemClassFormatterGetter
 	/* Search */
 	SearchScopesGetter
 	SearchScopeQueriesGetter

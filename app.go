@@ -20,23 +20,25 @@ var ScriptHashes = []string{
 type App struct {
 	page *view_models.Page
 	//rxa                kvas.ReduxAssets
-	listItemPath       string
-	listProperties     []string
-	itemProperties     []string
-	labels             []string
-	icons              []string
-	coverPath          string
-	itemSections       []string
-	itemHrefFormatter  view_models.Formatter
-	itemTitleFormatter view_models.Formatter
-	searchScopes       []string
-	searchScopeQueries map[string]string
-	searchProperties   []string
-	titleProperty      string
-	listCoverProperty  string
-	propertyTitles     map[string]string
-	sectionTitles      map[string]string
-	digestTitles       map[string]string
+	listItemPath        string
+	listProperties      []string
+	listCoverProperty   string
+	listClassProperties []string
+	itemProperties      []string
+	labels              []string
+	icons               []string
+	coverPath           string
+	itemSections        []string
+	itemHrefFormatter   view_models.Formatter
+	itemTitleFormatter  view_models.Formatter
+	itemClassFormatter  view_models.Formatter
+	searchScopes        []string
+	searchScopeQueries  map[string]string
+	searchProperties    []string
+	titleProperty       string
+	propertyTitles      map[string]string
+	sectionTitles       map[string]string
+	digestTitles        map[string]string
 }
 
 func NewApp(title, favIconAccent string) *App {
@@ -83,6 +85,10 @@ func (a *App) GetListCoverProperty() string {
 	return a.listCoverProperty
 }
 
+func (a *App) GetListClassProperties() []string {
+	return a.listClassProperties
+}
+
 func (a *App) GetItemProperties() []string {
 	return a.itemProperties
 }
@@ -97,6 +103,10 @@ func (a *App) GetItemHrefFormatter() view_models.Formatter {
 
 func (a *App) GetItemTitleFormatter() view_models.Formatter {
 	return a.itemTitleFormatter
+}
+
+func (a *App) GetItemClassFormatter() view_models.Formatter {
+	return a.itemClassFormatter
 }
 
 func (a *App) GetSearchScopes() []string {
@@ -143,16 +153,18 @@ func (app *App) SetNavigation(
 
 func (app *App) SetListParams(
 	listCoverProperty string,
-	properties []string,
+	listProperties []string,
+	listClassProperties []string,
 	rxa kvas.ReduxAssets) error {
 	if rxa != nil {
-		if err := rxa.IsSupported(properties...); err != nil {
+		if err := rxa.IsSupported(listProperties...); err != nil {
 			return err
 		}
 	}
 
 	app.listCoverProperty = listCoverProperty
-	app.listProperties = properties
+	app.listProperties = listProperties
+	app.listClassProperties = listClassProperties
 	return nil
 }
 
@@ -224,11 +236,12 @@ func (app *App) SetIcons(icons []string, rxa kvas.ReduxAssets) error {
 
 func (app *App) SetLinkParams(
 	listItemPath, coverPath string,
-	fmtTitle, fmtHref view_models.Formatter) {
+	fmtTitle, fmtHref, fmtClass view_models.Formatter) {
 	app.listItemPath = listItemPath
 	app.coverPath = coverPath
 	app.itemTitleFormatter = fmtTitle
 	app.itemHrefFormatter = fmtHref
+	app.itemClassFormatter = fmtClass
 }
 
 func (app *App) SetCurrentNav(item string) {

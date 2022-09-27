@@ -4,7 +4,7 @@ import (
 	"github.com/boggydigital/kvas"
 )
 
-type Formatter func(id, property, link string) string
+type Formatter func(id, property, link string, rxa kvas.ReduxAssets) string
 
 type Item struct {
 	*Page
@@ -69,8 +69,8 @@ func getPropertyLinks(
 	values, _ := rxa.GetAllUnchangedValues(property, id)
 
 	for _, value := range values {
-		linkTitle := fmtTitle(id, property, value)
-		propertyLinks[linkTitle] = fmtHref(id, property, value)
+		linkTitle := fmtTitle(id, property, value, rxa)
+		propertyLinks[linkTitle] = fmtHref(id, property, value, rxa)
 	}
 
 	return propertyLinks

@@ -6,6 +6,7 @@
         {{$coverProperty := .CoverProperty}}
         {{$coverPath := .CoverPath}}
         {{$icons := .Icons}}
+        {{$classProperties := .ClassProperties}}
         <div class="items-count">{{$count}} item(s)</div>
         <div class="items">
             {{$itemPath := .ItemPath}}
@@ -15,6 +16,7 @@
 
                 {{$propertyValues := .PropertyValues}}
                 {{$labelValues := .LabelValues}}
+                {{$propertyClasses := .PropertyClasses}}
                 <a href="{{$itemPath}}?id={{.Id}}" data-id="{{.Id}}" class="item">
 
                     {{if $coverProperty}}
@@ -39,9 +41,11 @@
                             <li class="labels">
                                 <ul>
                                     {{range $label := $labels}}
+                                        {{if contains $classProperties $label}}{{continue}}{{end}}
                                         {{$labelValue := index $labelValues $label}}
+                                        {{$labelClass := index $propertyClasses $label}}
                                         {{if $labelValue}}
-                                            <li class="label {{$label}} {{$labelValue}}">{{$labelValue}}</li>
+                                            <li class="label {{$label}} {{$labelValue}} {{$labelClass}}">{{$labelValue}}</li>
                                         {{end}}
                                     {{end}}
                                 </ul>
@@ -54,6 +58,7 @@
                             {{if eq $property $titleProperty}}{{continue}}{{end}}
                             {{if eq $property $coverProperty}}{{continue}}{{end}}
                             {{if contains $labels $property}}{{continue}}{{end}}
+                            {{if contains $classProperties $property}}{{continue}}{{end}}
 
                             {{$values := index $propertyValues $property}}
                             {{$propertyTitle := index $propertyTitles $property}}
