@@ -23,39 +23,36 @@ type Item struct {
 }
 
 func NewItem(
-	page *Page,
+	acp AppConfigurationProvider,
 	id string,
-	coverPath string,
-	properties []string,
-	titleProperty string,
-	labels []string,
-	propertyTitles map[string]string,
-	sections []string,
-	sectionTitles map[string]string,
-	fmtTitle, fmtHref Formatter,
 	rxa kvas.ReduxAssets) (*Item, error) {
 
-	if err := rxa.IsSupported(properties...); err != nil {
+	if err := rxa.IsSupported(acp.GetItemProperties()...); err != nil {
 		return nil, err
 	}
 
-	title, _ := rxa.GetFirstVal(titleProperty, id)
+	title, _ := rxa.GetFirstVal(acp.GetTitleProperty(), id)
 
 	ivm := &Item{
-		Page:           page,
+		Page:           acp.GetPage(),
 		Id:             id,
-		CoverPath:      coverPath,
+		CoverPath:      acp.GetCoverPath(),
 		Title:          title,
-		Labels:         labels,
+		Labels:         acp.GetLabels(),
 		Properties:     make(map[string]map[string]string),
-		PropertyOrder:  properties,
-		PropertyTitles: propertyTitles,
-		Sections:       sections,
-		SectionTitles:  sectionTitles,
+		PropertyOrder:  acp.GetItemProperties(),
+		PropertyTitles: acp.GetPropertyTitles(),
+		Sections:       acp.GetItemSections(),
+		SectionTitles:  acp.GetSectionTitles(),
 	}
 
-	for _, p := range properties {
-		ivm.Properties[p] = getPropertyLinks(id, p, fmtTitle, fmtHref, rxa)
+	for _, p := range acp.GetItemProperties() {
+		ivm.Properties[p] = getPropertyLinks(
+			id,
+			p,
+			acp.GetItemTitleFormatter(),
+			acp.GetItemHrefFormatter(),
+			rxa)
 	}
 
 	return ivm, nil

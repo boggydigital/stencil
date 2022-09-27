@@ -17,8 +17,6 @@ var ScriptHashes = []string{
 	"'sha256-mHF+LRXfnTXY5tSp3gx9qjKNUv7/AgPvHeyrgmVqJoA='",
 }
 
-type PropertyLinkFormatter view_models.Formatter
-
 type App struct {
 	page *view_models.Page
 	//rxa                kvas.ReduxAssets
@@ -29,8 +27,8 @@ type App struct {
 	icons              []string
 	coverPath          string
 	itemSections       []string
-	itemHrefFormatter  PropertyLinkFormatter
-	itemTitleFormatter PropertyLinkFormatter
+	itemHrefFormatter  view_models.Formatter
+	itemTitleFormatter view_models.Formatter
 	searchScopes       []string
 	searchScopeQueries map[string]string
 	searchProperties   []string
@@ -51,6 +49,78 @@ func NewApp(title, favIconAccent string) *App {
 			Foot: &view_models.Footer{},
 		},
 	}
+}
+
+func (a *App) GetPage() *view_models.Page {
+	return a.page
+}
+
+func (a *App) GetCoverPath() string {
+	return a.coverPath
+}
+
+func (a *App) GetLabels() []string {
+	return a.labels
+}
+
+func (a *App) GetIcons() []string {
+	return a.icons
+}
+
+func (a *App) GetTitleProperty() string {
+	return a.titleProperty
+}
+
+func (a *App) GetListItemPath() string {
+	return a.listItemPath
+}
+
+func (a *App) GetListProperties() []string {
+	return a.listProperties
+}
+
+func (a *App) GetListCoverProperty() string {
+	return a.listCoverProperty
+}
+
+func (a *App) GetItemProperties() []string {
+	return a.itemProperties
+}
+
+func (a *App) GetItemSections() []string {
+	return a.itemSections
+}
+
+func (a *App) GetItemHrefFormatter() view_models.Formatter {
+	return a.itemHrefFormatter
+}
+
+func (a *App) GetItemTitleFormatter() view_models.Formatter {
+	return a.itemTitleFormatter
+}
+
+func (a *App) GetSearchScopes() []string {
+	return a.searchScopes
+}
+
+func (a *App) GetSearchScopeQueries() map[string]string {
+	return a.searchScopeQueries
+}
+
+func (a *App) GetSearchProperties() []string {
+	return a.searchProperties
+}
+
+func (a *App) GetPropertyTitles() map[string]string {
+	return a.propertyTitles
+}
+
+func (a *App) GetSectionTitles() map[string]string {
+	return a.sectionTitles
+}
+
+func (a *App) GetDigestTitles() map[string]string {
+	return a.digestTitles
 }
 
 func (app *App) SetFooter(location, repoUrl string) {
@@ -154,7 +224,7 @@ func (app *App) SetIcons(icons []string, rxa kvas.ReduxAssets) error {
 
 func (app *App) SetLinkParams(
 	listItemPath, coverPath string,
-	fmtTitle, fmtHref PropertyLinkFormatter) {
+	fmtTitle, fmtHref view_models.Formatter) {
 	app.listItemPath = listItemPath
 	app.coverPath = coverPath
 	app.itemTitleFormatter = fmtTitle
@@ -169,19 +239,7 @@ func (app *App) RenderList(navItem string, ids []string, rxa kvas.ReduxAssets, w
 
 	app.SetCurrentNav(navItem)
 
-	if lvm, err := view_models.NewList(
-		app.page,
-		app.listItemPath,
-		ids,
-		app.titleProperty,
-		app.listCoverProperty,
-		app.coverPath,
-		app.labels,
-		app.icons,
-		app.listProperties,
-		app.propertyTitles,
-		view_models.Formatter(app.itemTitleFormatter),
-		rxa); err != nil {
+	if lvm, err := view_models.NewList(app, ids, rxa); err != nil {
 		return err
 	} else {
 		if err := render.List(tmpl, lvm, w); err != nil {
@@ -201,23 +259,10 @@ func (app *App) RenderSearch(
 	app.SetCurrentNav(navItem)
 
 	if svm, err := view_models.NewSearch(
-		app.page,
-		app.listItemPath,
-		app.searchScopes,
-		app.searchScopeQueries,
+		app,
 		query,
 		ids,
-		app.searchProperties,
-		app.titleProperty,
-		app.listCoverProperty,
-		app.coverPath,
-		app.labels,
-		app.icons,
-		app.listProperties,
-		app.propertyTitles,
 		digests,
-		app.digestTitles,
-		view_models.Formatter(app.itemTitleFormatter),
 		rxa); err != nil {
 		return err
 	} else {
@@ -230,19 +275,7 @@ func (app *App) RenderSearch(
 
 func (app *App) RenderItem(id string, rxa kvas.ReduxAssets, w io.Writer) error {
 
-	if ivm, err := view_models.NewItem(
-		app.page,
-		id,
-		app.coverPath,
-		app.itemProperties,
-		app.titleProperty,
-		app.labels,
-		app.propertyTitles,
-		app.itemSections,
-		app.sectionTitles,
-		view_models.Formatter(app.itemTitleFormatter),
-		view_models.Formatter(app.itemHrefFormatter),
-		rxa); err != nil {
+	if ivm, err := view_models.NewItem(app, id, rxa); err != nil {
 		return err
 	} else {
 
@@ -278,19 +311,10 @@ func (app *App) RenderGroup(
 	app.SetCurrentNav(navItem)
 
 	if gvm, err := view_models.NewGroup(
-		app.page,
-		app.listItemPath,
+		app,
 		groupOrder,
 		groupItems,
 		groupTitles,
-		app.titleProperty,
-		app.listCoverProperty,
-		app.coverPath,
-		app.labels,
-		app.icons,
-		app.listProperties,
-		app.propertyTitles,
-		view_models.Formatter(app.itemTitleFormatter),
 		updated,
 		rxa); err != nil {
 		return err

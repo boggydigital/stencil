@@ -20,49 +20,24 @@ type Search struct {
 }
 
 func NewSearch(
-	page *Page,
-	navPath string,
-	scopes []string,
-	scopeQueries map[string]string,
+	acp AppConfigurationProvider,
 	query map[string][]string,
 	ids []string,
-	searchProperties []string,
-	titleProperty string,
-	coverProperty string,
-	coverPath string,
-	labels []string,
-	icons []string,
-	listProperties []string,
-	propertyTitles map[string]string,
 	digests map[string][]string,
-	digestTitles map[string]string,
-	fmtTitle Formatter,
 	rxa kvas.ReduxAssets) (*Search, error) {
 
-	lvm, err := NewList(
-		page,
-		navPath,
-		ids,
-		titleProperty,
-		coverProperty,
-		coverPath,
-		labels,
-		icons,
-		listProperties,
-		propertyTitles,
-		fmtTitle,
-		rxa)
+	lvm, err := NewList(acp, ids, rxa)
 
 	svm := &Search{
-		Scopes:         scopes,
-		ScopeQueries:   scopeQueries,
-		CurrentScope:   currentScope(query, scopeQueries),
+		Scopes:         acp.GetSearchScopes(),
+		ScopeQueries:   acp.GetSearchScopeQueries(),
+		CurrentScope:   currentScope(query, acp.GetSearchScopeQueries()),
 		Query:          query,
-		Page:           page,
-		Properties:     searchProperties,
-		PropertyTitles: propertyTitles,
+		Page:           acp.GetPage(),
+		Properties:     acp.GetSearchProperties(),
+		PropertyTitles: acp.GetPropertyTitles(),
 		Digests:        digests,
-		DigestsTitles:  digestTitles,
+		DigestsTitles:  acp.GetDigestTitles(),
 		Found:          lvm,
 	}
 

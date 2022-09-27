@@ -11,24 +11,15 @@ type Group struct {
 }
 
 func NewGroup(
-	page *Page,
-	itemPath string,
+	acp AppConfigurationProvider,
 	groupOrder []string,
 	groupItems map[string][]string,
 	groupTitles map[string]string,
-	titleProperty string,
-	coverProperty string,
-	coverPath string,
-	labels []string,
-	icons []string,
-	listProperties []string,
-	propertyTitles map[string]string,
-	fmtTitle Formatter,
 	updated string,
 	rxa kvas.ReduxAssets) (*Group, error) {
 
 	gvm := &Group{
-		Page:        page,
+		Page:        acp.GetPage(),
 		GroupOrder:  groupOrder,
 		GroupLists:  make(map[string]*List),
 		GroupTitles: groupTitles,
@@ -36,19 +27,7 @@ func NewGroup(
 	}
 
 	for group, items := range groupItems {
-		lvm, err := NewList(
-			page,
-			itemPath,
-			items,
-			titleProperty,
-			coverProperty,
-			coverPath,
-			labels,
-			icons,
-			listProperties,
-			propertyTitles,
-			fmtTitle,
-			rxa)
+		lvm, err := NewList(acp, items, rxa)
 		if err != nil {
 			return gvm, err
 		}

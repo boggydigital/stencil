@@ -25,55 +25,46 @@ type List struct {
 }
 
 func NewList(
-	page *Page,
-	itemPath string,
+	acp AppConfigurationProvider,
 	ids []string,
-	titleProperty string,
-	coverProperty string,
-	coverPath string,
-	labels []string,
-	icons []string,
-	properties []string,
-	propertyTitles map[string]string,
-	fmtTitle Formatter,
 	rxa kvas.ReduxAssets) (*List, error) {
 
-	if err := rxa.IsSupported(properties...); err != nil {
+	if err := rxa.IsSupported(acp.GetListProperties()...); err != nil {
 		return nil, err
 	}
 
 	lvm := &List{
-		Page:          page,
-		Labels:        labels,
-		Icons:         icons,
-		ItemPath:      itemPath,
+		Page:          acp.GetPage(),
+		Labels:        acp.GetLabels(),
+		Icons:         acp.GetIcons(),
+		ItemPath:      acp.GetListItemPath(),
 		Items:         make([]*ListItem, 0, len(ids)),
-		TitleProperty: titleProperty,
-		CoverProperty: coverProperty,
-		CoverPath:     coverPath,
+		TitleProperty: acp.GetTitleProperty(),
+		CoverProperty: acp.GetListCoverProperty(),
+		CoverPath:     acp.GetCoverPath(),
 	}
 
 	for _, id := range ids {
 
-		title, _ := rxa.GetFirstVal(titleProperty, id)
+		title, _ := rxa.GetFirstVal(acp.GetTitleProperty(), id)
 
 		li := &ListItem{
 			Id:             id,
 			Title:          title,
-			Properties:     properties,
-			PropertyValues: make(map[string][]string, len(properties)),
-			PropertyTitles: propertyTitles,
-			LabelValues:    make(map[string]string, len(labels)),
+			Properties:     acp.GetListProperties(),
+			PropertyValues: make(map[string][]string, len(acp.GetListProperties())),
+			PropertyTitles: acp.GetPropertyTitles(),
+			LabelValues:    make(map[string]string, len(acp.GetLabels())),
 		}
 
-		for _, p := range properties {
+		for _, p := range acp.GetListProperties() {
 			values, _ := rxa.GetAllUnchangedValues(p, id)
 			li.PropertyValues[p] = values
 		}
 
-		for _, l := range labels {
+		for _, l := range acp.GetLabels() {
 			if value, ok := rxa.GetFirstVal(l, id); ok {
-				li.LabelValues[l] = fmtTitle(id, l, value)
+				li.LabelValues[l] = acp.GetItemTitleFormatter()(id, l, value)
 			}
 		}
 
