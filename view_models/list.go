@@ -69,8 +69,10 @@ func NewList(
 		for _, l := range acp.GetLabels() {
 			if value, ok := rxa.GetFirstVal(l, id); ok {
 				li.LabelValues[l] = acp.GetItemTitleFormatter()(id, l, value, rxa)
-				if class := acp.GetItemClassFormatter()(id, l, value, rxa); class != "" {
-					li.PropertyClasses[l] = class
+				if acp.GetItemClassFormatter() != nil {
+					if class := acp.GetItemClassFormatter()(id, l, value, rxa); class != "" {
+						li.PropertyClasses[l] = class
+					}
 				}
 			}
 		}
