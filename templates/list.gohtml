@@ -3,11 +3,11 @@
         {{$count := len .Items}}
         {{$labels := .Labels}}
         {{$titleProperty := .TitleProperty}}
-        {{$coverProperty := .CoverProperty}}
-        {{$coverPath := .CoverPath}}
+        {{$imageProperty := .ImageProperty}}
+        {{$imagePath := .ImagePath}}
         {{$icons := .Icons}}
         {{$classProperties := .ClassProperties}}
-        {{$eagerLoadingCovers := .EagerLoadingCovers}}
+        {{$eagerLoadingImages := .EagerLoadingImages}}
         <div class="items-count">{{$count}} item(s)</div>
         <div class="items">
             {{$itemPath := .ItemPath}}
@@ -20,16 +20,16 @@
                 {{$propertyClasses := $item.PropertyClasses}}
                 <a href="{{$itemPath}}?id={{$item.Id}}" data-id="{{$item.Id}}" class="item">
 
-                    {{if $coverProperty}}
-                        <div class="item-cover-placeholder">
-                            {{if eq $coverProperty "id"}}
+                    {{if $imageProperty}}
+                        <div class="item-image-placeholder">
+                            {{if eq $imageProperty "id"}}
                                 {{$loading := "lazy"}}
-                                {{if lt $ii $eagerLoadingCovers}}{{$loading = "eager"}}{{end}}
-                                <img loading="{{$loading}}" class="item-cover" src="{{$coverPath}}?id={{$item.Id}}"/>
+                                {{if lt $ii $eagerLoadingImages}}{{$loading = "eager"}}{{end}}
+                                <img loading="{{$loading}}" class="item-image" src="{{$imagePath}}?id={{$item.Id}}"/>
                             {{else}}
-                                {{$coverId := index $propertyValues $coverProperty}}
-                                {{range $coverId}}
-                                    <img loading="lazy" class="item-cover loading" src="{{$coverPath}}?id={{.}}"/>
+                                {{$imageIds := index $propertyValues $imageProperty}}
+                                {{range $imageIds}}
+                                    <img loading="lazy" class="item-image loading" src="{{$imagePath}}?id={{.}}"/>
                                 {{end}}
                             {{end}}
                         </div>
@@ -59,7 +59,7 @@
                         {{range $property := .Properties}}
 
                             {{if eq $property $titleProperty}}{{continue}}{{end}}
-                            {{if eq $property $coverProperty}}{{continue}}{{end}}
+                            {{if eq $property $imageProperty}}{{continue}}{{end}}
                             {{if contains $labels $property}}{{continue}}{{end}}
                             {{if contains $classProperties $property}}{{continue}}{{end}}
 

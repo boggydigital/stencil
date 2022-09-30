@@ -8,10 +8,11 @@ type Formatter func(id, property, link string, rxa kvas.ReduxAssets) string
 
 type Item struct {
 	*Page
-	Id        string
-	Title     string
-	Labels    []string
-	CoverPath string
+	Id            string
+	Title         string
+	Labels        []string
+	ImagePath     string
+	ImageProperty string
 	// Text properties
 	Properties      map[string]map[string]string
 	PropertyOrder   []string
@@ -39,7 +40,8 @@ func NewItem(
 	ivm := &Item{
 		Page:           acp.GetPage(),
 		Id:             id,
-		CoverPath:      icp.GetImagePath(),
+		ImagePath:      icp.GetImagePath(),
+		ImageProperty:  icp.GetImageProperty(),
 		Title:          title,
 		Labels:         ccp.GetLabels(),
 		Properties:     make(map[string]map[string]string),

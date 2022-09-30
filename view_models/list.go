@@ -4,7 +4,7 @@ import (
 	"github.com/boggydigital/kvas"
 )
 
-const eagerLoadingCovers = 10
+const eagerLoadingImages = 10
 
 type ListItem struct {
 	Id              string
@@ -26,7 +26,7 @@ type List struct {
 	TitleProperty      string
 	ImageProperty      string
 	ImagePath          string
-	EagerLoadingCovers int
+	EagerLoadingImages int
 }
 
 func NewList(
@@ -51,7 +51,7 @@ func NewList(
 		TitleProperty:      ccp.GetTitleProperty(),
 		ImageProperty:      lcp.GetImageProperty(),
 		ImagePath:          lcp.GetImagePath(),
-		EagerLoadingCovers: eagerLoadingCovers,
+		EagerLoadingImages: eagerLoadingImages,
 	}
 
 	for _, id := range ids {

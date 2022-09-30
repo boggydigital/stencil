@@ -1,8 +1,15 @@
 {{define "item"}}
     <section id="item" data-id="{{.Id}}">
 
-        <div class="cover-image">
-            <img src="{{.CoverPath}}?id={{.Id}}"/>
+        <div class="image">
+            {{$imageId := ""}}
+            {{if eq .ImageProperty "id"}}
+                {{$imageId = .Id}}
+            {{else}}
+                {{/* fill image id with .ImageProperty here */}}
+            {{end}}
+
+            <img src="{{.ImagePath}}?id={{$imageId}}"/>
         </div>
 
         <div class="item-details">

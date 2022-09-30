@@ -25,6 +25,10 @@ func NewAppConfig(title, favIconAccent string) *AppConfiguration {
 			},
 			Foot: &view_models.Footer{},
 		},
+		commonConfig: &CommonConfiguration{},
+		listConfig:   &ListConfiguration{},
+		itemConfig:   &ItemConfiguration{},
+		searchConfig: &SearchConfiguration{},
 	}
 }
 
@@ -46,6 +50,13 @@ func (a *AppConfiguration) GetSearchConfigurationProvider() view_models.SearchCo
 
 func (a *AppConfiguration) GetCommonConfigurationProvider() view_models.CommonConfigurationProvider {
 	return a.commonConfig
+}
+
+func (a *AppConfiguration) SetFooter(location, repoUrl string) {
+	a.page.Foot = &view_models.Footer{
+		Location: location,
+		RepoUrl:  repoUrl,
+	}
 }
 
 func (a *AppConfiguration) SetNavigation(
@@ -101,9 +112,9 @@ func (a *AppConfiguration) SetItemConfiguration(
 }
 
 func (a *AppConfiguration) SetSearchConfiguration(
+	properties []string,
 	scopes []string,
-	scopeQueries map[string]string,
-	properties []string) error {
+	scopeQueries map[string]string) error {
 
 	a.searchConfig.properties = properties
 	a.searchConfig.scopes = scopes
