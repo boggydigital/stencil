@@ -27,31 +27,34 @@ func NewItem(
 	id string,
 	rxa kvas.ReduxAssets) (*Item, error) {
 
-	if err := rxa.IsSupported(acp.GetItemProperties()...); err != nil {
+	icp := acp.GetItemConfigurationProvider()
+	ccp := acp.GetCommonConfigurationProvider()
+
+	if err := rxa.IsSupported(icp.GetProperties()...); err != nil {
 		return nil, err
 	}
 
-	title, _ := rxa.GetFirstVal(acp.GetTitleProperty(), id)
+	title, _ := rxa.GetFirstVal(ccp.GetTitleProperty(), id)
 
 	ivm := &Item{
 		Page:           acp.GetPage(),
 		Id:             id,
-		CoverPath:      acp.GetCoverPath(),
+		CoverPath:      icp.GetImagePath(),
 		Title:          title,
-		Labels:         acp.GetLabels(),
+		Labels:         ccp.GetLabels(),
 		Properties:     make(map[string]map[string]string),
-		PropertyOrder:  acp.GetItemProperties(),
-		PropertyTitles: acp.GetPropertyTitles(),
-		Sections:       acp.GetItemSections(),
-		SectionTitles:  acp.GetSectionTitles(),
+		PropertyOrder:  icp.GetProperties(),
+		PropertyTitles: ccp.GetPropertyTitles(),
+		Sections:       icp.GetSections(),
+		SectionTitles:  ccp.GetSectionTitles(),
 	}
 
-	for _, p := range acp.GetItemProperties() {
+	for _, p := range icp.GetProperties() {
 		ivm.Properties[p] = getPropertyLinks(
 			id,
 			p,
-			acp.GetItemTitleFormatter(),
-			acp.GetItemHrefFormatter(),
+			icp.GetTitleFormatter(),
+			icp.GetHrefFormatter(),
 			rxa)
 	}
 

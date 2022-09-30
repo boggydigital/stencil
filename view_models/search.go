@@ -28,16 +28,19 @@ func NewSearch(
 
 	lvm, err := NewList(acp, ids, rxa)
 
+	scp := acp.GetSearchConfigurationProvider()
+	ccp := acp.GetCommonConfigurationProvider()
+
 	svm := &Search{
-		Scopes:         acp.GetSearchScopes(),
-		ScopeQueries:   acp.GetSearchScopeQueries(),
-		CurrentScope:   currentScope(query, acp.GetSearchScopeQueries()),
+		Scopes:         scp.GetScopes(),
+		ScopeQueries:   scp.GetScopeQueries(),
+		CurrentScope:   currentScope(query, scp.GetScopeQueries()),
 		Query:          query,
 		Page:           acp.GetPage(),
-		Properties:     acp.GetSearchProperties(),
-		PropertyTitles: acp.GetPropertyTitles(),
+		Properties:     scp.GetProperties(),
+		PropertyTitles: ccp.GetPropertyTitles(),
 		Digests:        digests,
-		DigestsTitles:  acp.GetDigestTitles(),
+		DigestsTitles:  ccp.GetDigestTitles(),
 		Found:          lvm,
 	}
 

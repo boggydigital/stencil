@@ -24,8 +24,8 @@ type List struct {
 	ItemPath           string
 	Items              []*ListItem
 	TitleProperty      string
-	CoverProperty      string
-	CoverPath          string
+	ImageProperty      string
+	ImagePath          string
 	EagerLoadingCovers int
 }
 
@@ -34,47 +34,52 @@ func NewList(
 	ids []string,
 	rxa kvas.ReduxAssets) (*List, error) {
 
-	if err := rxa.IsSupported(acp.GetListProperties()...); err != nil {
+	lcp := acp.GetListConfigurationProvider()
+	ccp := acp.GetCommonConfigurationProvider()
+
+	if err := rxa.IsSupported(lcp.GetProperties()...); err != nil {
 		return nil, err
 	}
 
 	lvm := &List{
 		Page:               acp.GetPage(),
-		Labels:             acp.GetLabels(),
-		Icons:              acp.GetIcons(),
-		ClassProperties:    acp.GetListClassProperties(),
-		ItemPath:           acp.GetListItemPath(),
+		Labels:             ccp.GetLabels(),
+		Icons:              ccp.GetIcons(),
+		ClassProperties:    lcp.GetClassProperties(),
+		ItemPath:           lcp.GetItemPath(),
 		Items:              make([]*ListItem, 0, len(ids)),
-		TitleProperty:      acp.GetTitleProperty(),
-		CoverProperty:      acp.GetListCoverProperty(),
-		CoverPath:          acp.GetCoverPath(),
+		TitleProperty:      ccp.GetTitleProperty(),
+		ImageProperty:      lcp.GetImageProperty(),
+		ImagePath:          lcp.GetImagePath(),
 		EagerLoadingCovers: eagerLoadingCovers,
 	}
 
 	for _, id := range ids {
 
-		title, _ := rxa.GetFirstVal(acp.GetTitleProperty(), id)
+		title, _ := rxa.GetFirstVal(ccp.GetTitleProperty(), id)
 
 		li := &ListItem{
 			Id:              id,
 			Title:           title,
-			Properties:      acp.GetListProperties(),
-			PropertyValues:  make(map[string][]string, len(acp.GetListProperties())),
-			PropertyTitles:  acp.GetPropertyTitles(),
-			LabelValues:     make(map[string]string, len(acp.GetLabels())),
-			PropertyClasses: make(map[string]string, len(acp.GetLabels())),
+			Properties:      lcp.GetProperties(),
+			PropertyValues:  make(map[string][]string, len(lcp.GetProperties())),
+			PropertyTitles:  ccp.GetPropertyTitles(),
+			LabelValues:     make(map[string]string, len(ccp.GetLabels())),
+			PropertyClasses: make(map[string]string, len(ccp.GetLabels())),
 		}
 
-		for _, p := range acp.GetListProperties() {
+		for _, p := range lcp.GetProperties() {
 			values, _ := rxa.GetAllUnchangedValues(p, id)
 			li.PropertyValues[p] = values
 		}
 
-		for _, l := range acp.GetLabels() {
+		icp := acp.GetItemConfigurationProvider()
+
+		for _, l := range ccp.GetLabels() {
 			if value, ok := rxa.GetFirstVal(l, id); ok {
-				li.LabelValues[l] = acp.GetItemTitleFormatter()(id, l, value, rxa)
-				if acp.GetItemClassFormatter() != nil {
-					if class := acp.GetItemClassFormatter()(id, l, value, rxa); class != "" {
+				li.LabelValues[l] = icp.GetTitleFormatter()(id, l, value, rxa)
+				if icp.GetClassFormatter() != nil {
+					if class := icp.GetClassFormatter()(id, l, value, rxa); class != "" {
 						li.PropertyClasses[l] = class
 					}
 				}
