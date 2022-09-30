@@ -13,8 +13,6 @@ var ScriptHashes = []string{
 	"'sha256-EoiesIg5jhsIaHn7PSaZ/oT9Yi0MCUx9WzALOyH9HkE='",
 	//script-iframe-post-message.gohtml
 	"'sha256-vEdzDTUjeRFG21L/pW+qldt1k+gnTSWl4v2E16iqJPc='",
-	//script_images_fade_in.gohtml
-	"'sha256-mHF+LRXfnTXY5tSp3gx9qjKNUv7/AgPvHeyrgmVqJoA='",
 }
 
 type App struct {

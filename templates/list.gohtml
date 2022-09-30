@@ -7,22 +7,25 @@
         {{$coverPath := .CoverPath}}
         {{$icons := .Icons}}
         {{$classProperties := .ClassProperties}}
+        {{$eagerLoadingCovers := .EagerLoadingCovers}}
         <div class="items-count">{{$count}} item(s)</div>
         <div class="items">
             {{$itemPath := .ItemPath}}
-            {{range .Items}}
+            {{range $ii, $item := .Items}}
 
-                {{if eq .Title ""}}{{continue}}{{end}}
+                {{if eq $item.Title ""}}{{continue}}{{end}}
 
-                {{$propertyValues := .PropertyValues}}
-                {{$labelValues := .LabelValues}}
-                {{$propertyClasses := .PropertyClasses}}
-                <a href="{{$itemPath}}?id={{.Id}}" data-id="{{.Id}}" class="item">
+                {{$propertyValues := $item.PropertyValues}}
+                {{$labelValues := $item.LabelValues}}
+                {{$propertyClasses := $item.PropertyClasses}}
+                <a href="{{$itemPath}}?id={{$item.Id}}" data-id="{{$item.Id}}" class="item">
 
                     {{if $coverProperty}}
                         <div class="item-cover-placeholder">
                             {{if eq $coverProperty "id"}}
-                                <img loading="lazy" class="item-cover loading" src="{{$coverPath}}?id={{.Id}}"/>
+                                {{$loading := "lazy"}}
+                                {{if lt $ii $eagerLoadingCovers}}{{$loading = "eager"}}{{end}}
+                                <img loading="{{$loading}}" class="item-cover" src="{{$coverPath}}?id={{$item.Id}}"/>
                             {{else}}
                                 {{$coverId := index $propertyValues $coverProperty}}
                                 {{range $coverId}}

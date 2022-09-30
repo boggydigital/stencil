@@ -4,6 +4,8 @@ import (
 	"github.com/boggydigital/kvas"
 )
 
+const eagerLoadingCovers = 10
+
 type ListItem struct {
 	Id              string
 	Title           string
@@ -16,14 +18,15 @@ type ListItem struct {
 
 type List struct {
 	*Page
-	Labels          []string
-	Icons           []string
-	ClassProperties []string
-	ItemPath        string
-	Items           []*ListItem
-	TitleProperty   string
-	CoverProperty   string
-	CoverPath       string
+	Labels             []string
+	Icons              []string
+	ClassProperties    []string
+	ItemPath           string
+	Items              []*ListItem
+	TitleProperty      string
+	CoverProperty      string
+	CoverPath          string
+	EagerLoadingCovers int
 }
 
 func NewList(
@@ -36,15 +39,16 @@ func NewList(
 	}
 
 	lvm := &List{
-		Page:            acp.GetPage(),
-		Labels:          acp.GetLabels(),
-		Icons:           acp.GetIcons(),
-		ClassProperties: acp.GetListClassProperties(),
-		ItemPath:        acp.GetListItemPath(),
-		Items:           make([]*ListItem, 0, len(ids)),
-		TitleProperty:   acp.GetTitleProperty(),
-		CoverProperty:   acp.GetListCoverProperty(),
-		CoverPath:       acp.GetCoverPath(),
+		Page:               acp.GetPage(),
+		Labels:             acp.GetLabels(),
+		Icons:              acp.GetIcons(),
+		ClassProperties:    acp.GetListClassProperties(),
+		ItemPath:           acp.GetListItemPath(),
+		Items:              make([]*ListItem, 0, len(ids)),
+		TitleProperty:      acp.GetTitleProperty(),
+		CoverProperty:      acp.GetListCoverProperty(),
+		CoverPath:          acp.GetCoverPath(),
+		EagerLoadingCovers: eagerLoadingCovers,
 	}
 
 	for _, id := range ids {
