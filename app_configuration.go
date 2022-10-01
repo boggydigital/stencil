@@ -71,10 +71,8 @@ func (a *AppConfiguration) SetNavigation(
 }
 
 func (a *AppConfiguration) SetListConfiguration(
-	properties []string,
-	itemPath string,
-	imageProperty, imagePath string,
-	classProperties []string,
+	properties, skippedProperties []string,
+	itemPath, imageProperty, imagePath string,
 	rxa kvas.ReduxAssets) error {
 	if rxa != nil {
 		if err := rxa.IsSupported(properties...); err != nil {
@@ -86,12 +84,13 @@ func (a *AppConfiguration) SetListConfiguration(
 	a.listConfig.itemPath = itemPath
 	a.listConfig.imageProperty = imageProperty
 	a.listConfig.imagePath = imagePath
-	a.listConfig.classProperties = classProperties
+	a.listConfig.skippedProperties = skippedProperties
 	return nil
 }
 
 func (a *AppConfiguration) SetItemConfiguration(
-	properties, classProperties, sections []string,
+	properties, computedProperties, skippedProperties []string,
+	sections []string,
 	imageProperty, imagePath string,
 	fmtTitle, fmtHref, fmtClass view_models.Formatter,
 	rxa kvas.ReduxAssets) error {
@@ -102,7 +101,8 @@ func (a *AppConfiguration) SetItemConfiguration(
 	}
 
 	a.itemConfig.properties = properties
-	a.itemConfig.classProperties = classProperties
+	a.itemConfig.computedProperties = computedProperties
+	a.itemConfig.skippedProperties = skippedProperties
 	a.itemConfig.sections = sections
 	a.itemConfig.imageProperty = imageProperty
 	a.itemConfig.imagePath = imagePath

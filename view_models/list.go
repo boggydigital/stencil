@@ -9,7 +9,6 @@ const eagerLoadingImages = 10
 type ListItem struct {
 	Id              string
 	Title           string
-	Properties      []string
 	LabelValues     map[string]string
 	PropertyValues  map[string][]string
 	PropertyClasses map[string]string
@@ -18,9 +17,10 @@ type ListItem struct {
 
 type List struct {
 	*Page
+	Properties         []string
 	Labels             []string
 	Icons              []string
-	ClassProperties    []string
+	SkippedProperties  []string
 	ItemPath           string
 	Items              []*ListItem
 	TitleProperty      string
@@ -43,9 +43,10 @@ func NewList(
 
 	lvm := &List{
 		Page:               acp.GetPage(),
+		Properties:         lcp.GetProperties(),
 		Labels:             ccp.GetLabels(),
 		Icons:              ccp.GetIcons(),
-		ClassProperties:    lcp.GetClassProperties(),
+		SkippedProperties:  lcp.GetSkippedProperties(),
 		ItemPath:           lcp.GetItemPath(),
 		Items:              make([]*ListItem, 0, len(ids)),
 		TitleProperty:      ccp.GetTitleProperty(),
@@ -61,7 +62,6 @@ func NewList(
 		li := &ListItem{
 			Id:              id,
 			Title:           title,
-			Properties:      lcp.GetProperties(),
 			PropertyValues:  make(map[string][]string, len(lcp.GetProperties())),
 			PropertyTitles:  ccp.GetPropertyTitles(),
 			LabelValues:     make(map[string]string, len(ccp.GetLabels())),

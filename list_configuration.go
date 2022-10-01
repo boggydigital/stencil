@@ -1,11 +1,11 @@
 package stencil
 
 type ListConfiguration struct {
-	properties      []string
-	itemPath        string
-	imageProperty   string
-	imagePath       string
-	classProperties []string
+	properties        []string
+	itemPath          string
+	imageProperty     string
+	imagePath         string
+	skippedProperties []string
 }
 
 func (lc *ListConfiguration) GetProperties() []string {
@@ -24,6 +24,6 @@ func (lc *ListConfiguration) GetImagePath() string {
 	return lc.imagePath
 }
 
-func (lc *ListConfiguration) GetClassProperties() []string {
-	return lc.classProperties
+func (lc *ListConfiguration) GetSkippedProperties() []string {
+	return lc.skippedProperties
 }

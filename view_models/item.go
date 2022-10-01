@@ -8,13 +8,13 @@ type Formatter func(id, property, link string, rxa kvas.ReduxAssets) string
 
 type Item struct {
 	*Page
-	Id              string
-	Title           string
-	Labels          []string
-	ImagePath       string
-	ImageProperty   string
-	TitleProperty   string
-	ClassProperties []string
+	Id                string
+	Title             string
+	Labels            []string
+	ImagePath         string
+	ImageProperty     string
+	TitleProperty     string
+	SkippedProperties []string
 	// Text properties
 	Properties      map[string]map[string]string
 	PropertyOrder   []string
@@ -47,26 +47,28 @@ func NewItem(
 
 	title, _ := rxa.GetFirstVal(ccp.GetTitleProperty(), id)
 
+	propertyOrder := append(icp.GetProperties(), icp.GetComputedProperties()...)
+
 	ivm := &Item{
-		Page:            acp.GetPage(),
-		Id:              id,
-		ImagePath:       icp.GetImagePath(),
-		ImageProperty:   icp.GetImageProperty(),
-		TitleProperty:   ccp.GetTitleProperty(),
-		ClassProperties: icp.GetClassProperties(),
-		Title:           title,
-		Labels:          ccp.GetLabels(),
-		Properties:      make(map[string]map[string]string),
-		PropertyOrder:   icp.GetProperties(),
-		PropertyTitles:  ccp.GetPropertyTitles(),
-		PropertyClasses: make(map[string]string),
-		Icons:           ccp.GetIcons(),
-		Sections:        icp.GetSections(),
-		HasSections:     hasSections,
-		SectionTitles:   ccp.GetSectionTitles(),
+		Page:              acp.GetPage(),
+		Id:                id,
+		ImagePath:         icp.GetImagePath(),
+		ImageProperty:     icp.GetImageProperty(),
+		TitleProperty:     ccp.GetTitleProperty(),
+		SkippedProperties: icp.GetSkippedProperties(),
+		Title:             title,
+		Labels:            ccp.GetLabels(),
+		Properties:        make(map[string]map[string]string),
+		PropertyOrder:     propertyOrder,
+		PropertyTitles:    ccp.GetPropertyTitles(),
+		PropertyClasses:   make(map[string]string),
+		Icons:             ccp.GetIcons(),
+		Sections:          icp.GetSections(),
+		HasSections:       hasSections,
+		SectionTitles:     ccp.GetSectionTitles(),
 	}
 
-	for _, p := range icp.GetProperties() {
+	for _, p := range propertyOrder {
 		ivm.Properties[p] = getPropertyLinks(
 			id,
 			p,

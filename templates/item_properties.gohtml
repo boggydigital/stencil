@@ -1,9 +1,10 @@
 {{define "item-properties"}}
     {{$labels := .Labels}}
     {{if .Properties}}
+        {{$properties := .Properties}}
+        {{$skippedProperties := .SkippedProperties}}
         {{$propertyTitles := .PropertyTitles}}
         {{$propertyClasses := .PropertyClasses}}
-        {{$properties := .Properties}}
         {{$titleProperty := .TitleProperty}}
         {{$imageProperty := .ImageProperty}}
         {{$icons := .Icons}}
@@ -12,6 +13,7 @@
             {{if eq $property $titleProperty}}{{continue}}{{end}}
             {{if eq $property $imageProperty}}{{continue}}{{end}}
             {{if contains $labels $property}}{{continue}}{{end}}
+            {{if contains $skippedProperties $property}}{{continue}}{{end}}
 
             {{$titleLinks := index $properties $property}}
             {{if $titleLinks}}

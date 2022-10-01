@@ -3,26 +3,31 @@ package stencil
 import "github.com/boggydigital/stencil/view_models"
 
 type ItemConfiguration struct {
-	properties      []string
-	imageProperty   string
-	classProperties []string
-	imagePath       string
-	sections        []string
-	hrefFormatter   view_models.Formatter
-	titleFormatter  view_models.Formatter
-	classFormatter  view_models.Formatter
+	properties         []string
+	computedProperties []string
+	imageProperty      string
+	skippedProperties  []string
+	imagePath          string
+	sections           []string
+	hrefFormatter      view_models.Formatter
+	titleFormatter     view_models.Formatter
+	classFormatter     view_models.Formatter
 }
 
 func (ic *ItemConfiguration) GetProperties() []string {
 	return ic.properties
 }
 
+func (ic *ItemConfiguration) GetComputedProperties() []string {
+	return ic.computedProperties
+}
+
 func (ic *ItemConfiguration) GetImageProperty() string {
 	return ic.imageProperty
 }
 
-func (ic *ItemConfiguration) GetClassProperties() []string {
-	return ic.classProperties
+func (ic *ItemConfiguration) GetSkippedProperties() []string {
+	return ic.skippedProperties
 }
 
 func (ic *ItemConfiguration) GetImagePath() string {

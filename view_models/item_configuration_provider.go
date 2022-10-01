@@ -1,5 +1,9 @@
 package view_models
 
+type ComputedPropertiesGetter interface {
+	GetComputedProperties() []string
+}
+
 type SectionsGetter interface {
 	GetSections() []string
 }
@@ -18,10 +22,11 @@ type ClassFormatterGetter interface {
 
 type ItemConfigurationProvider interface {
 	PropertiesGetter
+	ComputedPropertiesGetter
 	ImagePropertyGetter
 	ImagePathGetter
 	SectionsGetter
-	ClassPropertiesGetter
+	SkippedPropertiesGetter
 	HrefFormatterGetter
 	TitleFormatterGetter
 	ClassFormatterGetter
