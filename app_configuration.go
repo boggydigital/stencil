@@ -91,7 +91,7 @@ func (a *AppConfiguration) SetListConfiguration(
 }
 
 func (a *AppConfiguration) SetItemConfiguration(
-	properties, sections []string,
+	properties, classProperties, sections []string,
 	imageProperty, imagePath string,
 	fmtTitle, fmtHref, fmtClass view_models.Formatter,
 	rxa kvas.ReduxAssets) error {
@@ -102,6 +102,7 @@ func (a *AppConfiguration) SetItemConfiguration(
 	}
 
 	a.itemConfig.properties = properties
+	a.itemConfig.classProperties = classProperties
 	a.itemConfig.sections = sections
 	a.itemConfig.imageProperty = imageProperty
 	a.itemConfig.imagePath = imagePath
@@ -198,9 +199,9 @@ func (a *AppConfiguration) RenderSearch(
 	return nil
 }
 
-func (a *AppConfiguration) RenderItem(id string, rxa kvas.ReduxAssets, w io.Writer) error {
+func (a *AppConfiguration) RenderItem(id string, hasSections []string, rxa kvas.ReduxAssets, w io.Writer) error {
 
-	if ivm, err := view_models.NewItem(a, id, rxa); err != nil {
+	if ivm, err := view_models.NewItem(a, id, hasSections, rxa); err != nil {
 		return err
 	} else {
 

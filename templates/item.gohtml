@@ -6,7 +6,10 @@
             {{if eq .ImageProperty "id"}}
                 {{$imageId = .Id}}
             {{else}}
-                {{/* fill image id with .ImageProperty here */}}
+                {{$titleValues := index .Properties .ImageProperty}}
+                {{range $iid, $values := $titleValues}}
+                    {{$imageId = $iid}}
+                {{end}}
             {{end}}
 
             <img src="{{.ImagePath}}?id={{$imageId}}"/>
@@ -18,20 +21,29 @@
 
             <ul class="labels">
                 {{$properties := .Properties}}
+                {{$propertyClasses := .PropertyClasses}}
+                {{$classProperties := .ClassProperties}}
 
                 {{range $label := .Labels}}
+
+                    {{if contains $classProperties $label}}{{continue}}{{end}}
+
                     {{$labelTitles := index $properties $label}}
+                    {{$labelClass := index $propertyClasses $label}}
+
                     {{range $title, $link := $labelTitles}}
-                        <a class="label {{$label}} {{$title}}" href="{{$link}}">{{$title}}</a>
+                        {{if $title}}
+                            <a class="label {{$label}} {{$title}} {{$labelClass}}" href="{{$link}}">{{$title}}</a>
+                        {{end}}
                     {{end}}
                 {{end}}
             </ul>
 
-            {{if .Sections}}
+            {{if .HasSections}}
                 <section class="shortcuts">
                     <ul class="property-value flexible">
                         {{$sectionTitles := .SectionTitles}}
-                        {{range .Sections}}
+                        {{range .HasSections}}
                             {{$title := index $sectionTitles .}}
                             <li><a href="#{{.}}">{{$title}}</a></li>
                         {{end}}

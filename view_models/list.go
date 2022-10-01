@@ -75,13 +75,17 @@ func NewList(
 
 		icp := acp.GetItemConfigurationProvider()
 
+		gtf := icp.GetTitleFormatter()
+		gcf := icp.GetClassFormatter()
+
 		for _, l := range ccp.GetLabels() {
 			if value, ok := rxa.GetFirstVal(l, id); ok {
-				li.LabelValues[l] = icp.GetTitleFormatter()(id, l, value, rxa)
-				if icp.GetClassFormatter() != nil {
-					if class := icp.GetClassFormatter()(id, l, value, rxa); class != "" {
-						li.PropertyClasses[l] = class
-					}
+				li.LabelValues[l] = gtf(id, l, value, rxa)
+				if gcf == nil {
+					continue
+				}
+				if class := gcf(id, l, value, rxa); class != "" {
+					li.PropertyClasses[l] = class
 				}
 			}
 		}

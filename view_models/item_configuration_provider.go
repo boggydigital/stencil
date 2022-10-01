@@ -21,6 +21,7 @@ type ItemConfigurationProvider interface {
 	ImagePropertyGetter
 	ImagePathGetter
 	SectionsGetter
+	ClassPropertiesGetter
 	HrefFormatterGetter
 	TitleFormatterGetter
 	ClassFormatterGetter

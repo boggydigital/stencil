@@ -4,10 +4,15 @@
         {{$propertyTitles := .PropertyTitles}}
         {{$propertyClasses := .PropertyClasses}}
         {{$properties := .Properties}}
+        {{$titleProperty := .TitleProperty}}
+        {{$imageProperty := .ImageProperty}}
+        {{$icons := .Icons}}
         {{range $property := .PropertyOrder}}
-            {{if contains $labels $property}}
-                {{continue}}
-            {{end}}
+
+            {{if eq $property $titleProperty}}{{continue}}{{end}}
+            {{if eq $property $imageProperty}}{{continue}}{{end}}
+            {{if contains $labels $property}}{{continue}}{{end}}
+
             {{$titleLinks := index $properties $property}}
             {{if $titleLinks}}
                 <div class="text-property {{$property}}">
@@ -19,7 +24,7 @@
 
                     {{if gt $valuesLen 3}}
                     <details>
-                        <summary>{{$valuesLen}} шт.{{template "svg-icon-show-more-less"}}</summary>
+                        <summary>{{$valuesLen}} item(s){{template "svg-icon-show-more-less"}}</summary>
                         {{end}}
 
                         {{$class := index $propertyClasses $property}}
@@ -27,8 +32,16 @@
                         <ul class="property-value flexible {{if gt $valuesLen 3}}vertical{{end}} {{if $class}}{{$class}}{{end}}">
                             {{range $linkTitle, $link := $titleLinks}}
                                 <li>
-                                    {{if $link}}<a href="{{$link}}">{{$linkTitle}}</a>
-                                    {{else}}{{$linkTitle}}{{end}}
+                                    {{if $link}}<a href="{{$link}}">{{end}}
+
+                                        {{if contains $icons $property}}
+                                            {{template "svg-icon" $linkTitle}}
+                                        {{else}}
+                                            {{$linkTitle}}
+                                        {{end}}
+
+
+                                        {{if $link}}</a>{{end}}
                                 </li>
                             {{end}}
                         </ul>
