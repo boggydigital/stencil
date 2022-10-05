@@ -10,10 +10,11 @@ import (
 
 type AppConfiguration struct {
 	page         *view_models.Page
+	commonConfig *CommonConfiguration
 	listConfig   *ListConfiguration
 	itemConfig   *ItemConfiguration
+	fmtConfig    *FormatterConfiguration
 	searchConfig *SearchConfiguration
-	commonConfig *CommonConfiguration
 }
 
 func NewAppConfig(title, favIconAccent string) *AppConfiguration {
@@ -28,6 +29,7 @@ func NewAppConfig(title, favIconAccent string) *AppConfiguration {
 		commonConfig: &CommonConfiguration{},
 		listConfig:   &ListConfiguration{},
 		itemConfig:   &ItemConfiguration{},
+		fmtConfig:    &FormatterConfiguration{},
 		searchConfig: &SearchConfiguration{},
 	}
 }
@@ -42,6 +44,10 @@ func (a *AppConfiguration) GetListConfigurationProvider() view_models.ListConfig
 
 func (a *AppConfiguration) GetItemConfigurationProvider() view_models.ItemConfigurationProvider {
 	return a.itemConfig
+}
+
+func (a *AppConfiguration) GetFormatterConfigurationProvider() view_models.FormatterConfigurationProvider {
+	return a.fmtConfig
 }
 
 func (a *AppConfiguration) GetSearchConfigurationProvider() view_models.SearchConfigurationProvider {
@@ -71,7 +77,7 @@ func (a *AppConfiguration) SetNavigation(
 }
 
 func (a *AppConfiguration) SetListConfiguration(
-	properties, skippedProperties []string,
+	properties, hiddenProperties []string,
 	itemPath, imageProperty, imagePath string,
 	rxa kvas.ReduxAssets) error {
 	if rxa != nil {
@@ -84,15 +90,14 @@ func (a *AppConfiguration) SetListConfiguration(
 	a.listConfig.itemPath = itemPath
 	a.listConfig.imageProperty = imageProperty
 	a.listConfig.imagePath = imagePath
-	a.listConfig.skippedProperties = skippedProperties
+	a.listConfig.hiddenProperties = hiddenProperties
 	return nil
 }
 
 func (a *AppConfiguration) SetItemConfiguration(
-	properties, computedProperties, skippedProperties []string,
+	properties, computedProperties, hiddenProperties []string,
 	sections []string,
 	imageProperty, imagePath string,
-	fmtTitle, fmtHref, fmtClass view_models.Formatter,
 	rxa kvas.ReduxAssets) error {
 	if rxa != nil {
 		if err := rxa.IsSupported(properties...); err != nil {
@@ -102,14 +107,20 @@ func (a *AppConfiguration) SetItemConfiguration(
 
 	a.itemConfig.properties = properties
 	a.itemConfig.computedProperties = computedProperties
-	a.itemConfig.skippedProperties = skippedProperties
+	a.itemConfig.hiddenProperties = hiddenProperties
 	a.itemConfig.sections = sections
 	a.itemConfig.imageProperty = imageProperty
 	a.itemConfig.imagePath = imagePath
-	a.itemConfig.titleFormatter = fmtTitle
-	a.itemConfig.hrefFormatter = fmtHref
-	a.itemConfig.classFormatter = fmtClass
 	return nil
+}
+
+func (a *AppConfiguration) SetFormatterConfiguration(
+	fmtTitle, fmtHref, fmtClass, fmtAction view_models.Formatter) {
+
+	a.fmtConfig.titleFormatter = fmtTitle
+	a.fmtConfig.hrefFormatter = fmtHref
+	a.fmtConfig.classFormatter = fmtClass
+	a.fmtConfig.actionFormatter = fmtAction
 }
 
 func (a *AppConfiguration) SetSearchConfiguration(
@@ -135,7 +146,7 @@ func (a *AppConfiguration) SetSearchConfiguration(
 }
 
 func (a *AppConfiguration) SetCommonConfiguration(
-	labels, icons []string,
+	labels, hiddenLabels, icons []string,
 	titleProperty string,
 	propertyTitles, sectionTitles, digestTitles map[string]string,
 	rxa kvas.ReduxAssets) error {
@@ -147,6 +158,7 @@ func (a *AppConfiguration) SetCommonConfiguration(
 	}
 
 	a.commonConfig.labels = labels
+	a.commonConfig.hiddenLabels = hiddenLabels
 	a.commonConfig.icons = icons
 	a.commonConfig.titleProperty = titleProperty
 	a.commonConfig.propertyTitles = propertyTitles

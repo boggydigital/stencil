@@ -19,8 +19,9 @@ type List struct {
 	*Page
 	Properties         []string
 	Labels             []string
+	HiddenLabels       []string
 	Icons              []string
-	SkippedProperties  []string
+	HiddenProperties   []string
 	ItemPath           string
 	Items              []*ListItem
 	TitleProperty      string
@@ -45,8 +46,9 @@ func NewList(
 		Page:               acp.GetPage(),
 		Properties:         lcp.GetProperties(),
 		Labels:             ccp.GetLabels(),
+		HiddenLabels:       ccp.GetHiddenLabels(),
 		Icons:              ccp.GetIcons(),
-		SkippedProperties:  lcp.GetSkippedProperties(),
+		HiddenProperties:   lcp.GetHiddenProperties(),
 		ItemPath:           lcp.GetItemPath(),
 		Items:              make([]*ListItem, 0, len(ids)),
 		TitleProperty:      ccp.GetTitleProperty(),
@@ -73,10 +75,10 @@ func NewList(
 			li.PropertyValues[p] = values
 		}
 
-		icp := acp.GetItemConfigurationProvider()
+		fcp := acp.GetFormatterConfigurationProvider()
 
-		gtf := icp.GetTitleFormatter()
-		gcf := icp.GetClassFormatter()
+		gtf := fcp.GetTitleFormatter()
+		gcf := fcp.GetClassFormatter()
 
 		for _, l := range ccp.GetLabels() {
 			if value, ok := rxa.GetFirstVal(l, id); ok {

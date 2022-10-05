@@ -2,6 +2,7 @@ package stencil
 
 type CommonConfiguration struct {
 	labels         []string
+	hiddenLabels   []string
 	icons          []string
 	titleProperty  string
 	propertyTitles map[string]string
@@ -11,6 +12,10 @@ type CommonConfiguration struct {
 
 func (cc *CommonConfiguration) GetLabels() []string {
 	return cc.labels
+}
+
+func (cc *CommonConfiguration) GetHiddenLabels() []string {
+	return cc.hiddenLabels
 }
 
 func (cc *CommonConfiguration) GetIcons() []string {

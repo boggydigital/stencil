@@ -2,7 +2,7 @@
     {{$labels := .Labels}}
     {{if .Properties}}
         {{$properties := .Properties}}
-        {{$skippedProperties := .SkippedProperties}}
+        {{$hiddenProperties := .HiddenProperties}}
         {{$propertyTitles := .PropertyTitles}}
         {{$propertyClasses := .PropertyClasses}}
         {{$titleProperty := .TitleProperty}}
@@ -12,8 +12,7 @@
 
             {{if eq $property $titleProperty}}{{continue}}{{end}}
             {{if eq $property $imageProperty}}{{continue}}{{end}}
-            {{if contains $labels $property}}{{continue}}{{end}}
-            {{if contains $skippedProperties $property}}{{continue}}{{end}}
+            {{if contains $hiddenProperties $property}}{{continue}}{{end}}
 
             {{$titleLinks := index $properties $property}}
             {{if $titleLinks}}

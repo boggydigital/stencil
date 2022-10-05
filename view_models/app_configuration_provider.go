@@ -9,5 +9,6 @@ type AppConfigurationProvider interface {
 	CommonConfigurationProviderGetter
 	ListConfigurationProviderGetter
 	ItemConfigurationProviderGetter
+	FormatterConfigurationProviderGetter
 	SearchConfigurationProviderGetter
 }

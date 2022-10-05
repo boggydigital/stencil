@@ -3,11 +3,12 @@
         {{$count := len .Items}}
         {{$properties := .Properties}}
         {{$labels := .Labels}}
+        {{$hiddenLabels := .HiddenLabels}}
         {{$titleProperty := .TitleProperty}}
         {{$imageProperty := .ImageProperty}}
         {{$imagePath := .ImagePath}}
         {{$icons := .Icons}}
-        {{$skippedProperties := .SkippedProperties}}
+        {{$hiddenProperties := .HiddenProperties}}
         {{$eagerLoadingImages := .EagerLoadingImages}}
         <div class="items-count">{{$count}} item(s)</div>
         <div class="items">
@@ -45,7 +46,9 @@
                             <li class="labels">
                                 <ul>
                                     {{range $label := $labels}}
-                                        {{if contains $skippedProperties $label}}{{continue}}{{end}}
+
+                                        {{if contains $hiddenLabels $label}}{{continue}}{{end}}
+
                                         {{$labelValue := index $labelValues $label}}
                                         {{$labelClass := index $propertyClasses $label}}
                                         {{if $labelValue}}
@@ -61,8 +64,7 @@
 
                             {{if eq $property $titleProperty}}{{continue}}{{end}}
                             {{if eq $property $imageProperty}}{{continue}}{{end}}
-                            {{if contains $labels $property}}{{continue}}{{end}}
-                            {{if contains $skippedProperties $property}}{{continue}}{{end}}
+                            {{if contains $hiddenProperties $property}}{{continue}}{{end}}
 
                             {{$values := index $propertyValues $property}}
                             {{$propertyTitle := index $propertyTitles $property}}

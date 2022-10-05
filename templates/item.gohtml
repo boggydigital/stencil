@@ -22,11 +22,11 @@
             <ul class="labels">
                 {{$properties := .Properties}}
                 {{$propertyClasses := .PropertyClasses}}
-                {{$skippedProperties := .SkippedProperties}}
+                {{$hiddenLabels := .HiddenLabels}}
 
                 {{range $label := .Labels}}
 
-                    {{if contains $skippedProperties $label}}{{continue}}{{end}}
+                    {{if contains $hiddenLabels $label}}{{continue}}{{end}}
 
                     {{$labelTitles := index $properties $label}}
                     {{$labelClass := index $propertyClasses $label}}

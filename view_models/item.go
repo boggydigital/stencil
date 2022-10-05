@@ -8,13 +8,14 @@ type Formatter func(id, property, link string, rxa kvas.ReduxAssets) string
 
 type Item struct {
 	*Page
-	Id                string
-	Title             string
-	Labels            []string
-	ImagePath         string
-	ImageProperty     string
-	TitleProperty     string
-	SkippedProperties []string
+	Id               string
+	Title            string
+	Labels           []string
+	HiddenLabels     []string
+	ImagePath        string
+	ImageProperty    string
+	TitleProperty    string
+	HiddenProperties []string
 	// Text properties
 	Properties      map[string]map[string]string
 	PropertyOrder   []string
@@ -35,6 +36,7 @@ func NewItem(
 	rxa kvas.ReduxAssets) (*Item, error) {
 
 	icp := acp.GetItemConfigurationProvider()
+	fcp := acp.GetFormatterConfigurationProvider()
 	ccp := acp.GetCommonConfigurationProvider()
 
 	if hasSections == nil {
@@ -50,32 +52,33 @@ func NewItem(
 	propertyOrder := append(icp.GetProperties(), icp.GetComputedProperties()...)
 
 	ivm := &Item{
-		Page:              acp.GetPage(),
-		Id:                id,
-		ImagePath:         icp.GetImagePath(),
-		ImageProperty:     icp.GetImageProperty(),
-		TitleProperty:     ccp.GetTitleProperty(),
-		SkippedProperties: icp.GetSkippedProperties(),
-		Title:             title,
-		Labels:            ccp.GetLabels(),
-		Properties:        make(map[string]map[string]string),
-		PropertyOrder:     propertyOrder,
-		PropertyTitles:    ccp.GetPropertyTitles(),
-		PropertyClasses:   make(map[string]string),
-		Icons:             ccp.GetIcons(),
-		Sections:          icp.GetSections(),
-		HasSections:       hasSections,
-		SectionTitles:     ccp.GetSectionTitles(),
+		Page:             acp.GetPage(),
+		Id:               id,
+		ImagePath:        icp.GetImagePath(),
+		ImageProperty:    icp.GetImageProperty(),
+		TitleProperty:    ccp.GetTitleProperty(),
+		Title:            title,
+		Labels:           ccp.GetLabels(),
+		HiddenLabels:     ccp.GetHiddenLabels(),
+		Properties:       make(map[string]map[string]string),
+		PropertyOrder:    propertyOrder,
+		HiddenProperties: icp.GetHiddenProperties(),
+		PropertyTitles:   ccp.GetPropertyTitles(),
+		PropertyClasses:  make(map[string]string),
+		Icons:            ccp.GetIcons(),
+		Sections:         icp.GetSections(),
+		HasSections:      hasSections,
+		SectionTitles:    ccp.GetSectionTitles(),
 	}
 
 	for _, p := range propertyOrder {
 		ivm.Properties[p] = getPropertyLinks(
 			id,
 			p,
-			icp.GetTitleFormatter(),
-			icp.GetHrefFormatter(),
+			fcp.GetTitleFormatter(),
+			fcp.GetHrefFormatter(),
 			rxa)
-		if gcf := icp.GetClassFormatter(); gcf != nil {
+		if gcf := fcp.GetClassFormatter(); gcf != nil {
 			value, _ := rxa.GetFirstVal(p, id)
 			ivm.PropertyClasses[p] = gcf(id, p, value, rxa)
 		}

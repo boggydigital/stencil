@@ -16,15 +16,15 @@ type ImagePathGetter interface {
 	GetImagePath() string
 }
 
-type SkippedPropertiesGetter interface {
-	GetSkippedProperties() []string
+type HiddenPropertiesGetter interface {
+	GetHiddenProperties() []string
 }
 
 type ListConfigurationProvider interface {
 	PropertiesGetter
+	HiddenPropertiesGetter
 	ImagePropertyGetter
 	ImagePathGetter
-	SkippedPropertiesGetter
 	ItemPathGetter
 }
 

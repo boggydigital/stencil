@@ -4,6 +4,10 @@ type LabelsGetter interface {
 	GetLabels() []string
 }
 
+type HiddenLabelsGetter interface {
+	GetHiddenLabels() []string
+}
+
 type IconsGetter interface {
 	GetIcons() []string
 }
@@ -26,6 +30,7 @@ type DigestTitlesGetter interface {
 
 type CommonConfigurationProvider interface {
 	LabelsGetter
+	HiddenLabelsGetter
 	IconsGetter
 	TitlePropertyGetter
 	PropertyTitlesGetter
