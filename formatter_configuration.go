@@ -3,10 +3,15 @@ package stencil
 import "github.com/boggydigital/stencil/view_models"
 
 type FormatterConfiguration struct {
+	labelFormatter  view_models.Formatter
 	titleFormatter  view_models.Formatter
 	hrefFormatter   view_models.Formatter
 	classFormatter  view_models.Formatter
 	actionFormatter view_models.Formatter
+}
+
+func (fc *FormatterConfiguration) GetLabelFormatter() view_models.Formatter {
+	return fc.labelFormatter
 }
 
 func (fc *FormatterConfiguration) GetTitleFormatter() view_models.Formatter {

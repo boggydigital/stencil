@@ -115,8 +115,9 @@ func (a *AppConfiguration) SetItemConfiguration(
 }
 
 func (a *AppConfiguration) SetFormatterConfiguration(
-	fmtTitle, fmtHref, fmtClass, fmtAction view_models.Formatter) {
+	fmtLabel, fmtTitle, fmtHref, fmtClass, fmtAction view_models.Formatter) {
 
+	a.fmtConfig.labelFormatter = fmtLabel
 	a.fmtConfig.titleFormatter = fmtTitle
 	a.fmtConfig.hrefFormatter = fmtHref
 	a.fmtConfig.classFormatter = fmtClass

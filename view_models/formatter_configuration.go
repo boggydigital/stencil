@@ -1,5 +1,9 @@
 package view_models
 
+type LabelFormatterGetter interface {
+	GetLabelFormatter() Formatter
+}
+
 type TitleFormatterGetter interface {
 	GetTitleFormatter() Formatter
 }
@@ -17,6 +21,7 @@ type ActionFormatterGetter interface {
 }
 
 type FormatterConfigurationProvider interface {
+	LabelFormatterGetter
 	TitleFormatterGetter
 	HrefFormatterGetter
 	ClassFormatterGetter

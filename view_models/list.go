@@ -77,12 +77,12 @@ func NewList(
 
 		fcp := acp.GetFormatterConfigurationProvider()
 
-		gtf := fcp.GetTitleFormatter()
+		glf := fcp.GetLabelFormatter()
 		gcf := fcp.GetClassFormatter()
 
 		for _, l := range ccp.GetLabels() {
 			if value, ok := rxa.GetFirstVal(l, id); ok {
-				li.LabelValues[l] = gtf(id, l, value, rxa)
+				li.LabelValues[l] = glf(id, l, value, rxa)
 				if gcf == nil {
 					continue
 				}

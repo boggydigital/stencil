@@ -23,18 +23,17 @@
                 {{$properties := .Properties}}
                 {{$propertyClasses := .PropertyClasses}}
                 {{$hiddenLabels := .HiddenLabels}}
+                {{$labelValues := .LabelValues}}
 
                 {{range $label := .Labels}}
 
                     {{if contains $hiddenLabels $label}}{{continue}}{{end}}
 
-                    {{$labelTitles := index $properties $label}}
+                    {{$labelValue := index $labelValues $label}}
                     {{$labelClass := index $propertyClasses $label}}
 
-                    {{range $title, $link := $labelTitles}}
-                        {{if $title}}
-                            <a class="label {{$label}} {{$title}} {{$labelClass}}" href="{{$link}}">{{$title}}</a>
-                        {{end}}
+                    {{if $labelValue}}
+                        <span class="label {{$label}} {{$labelValue}} {{$labelClass}}">{{$labelValue}}</span>
                     {{end}}
                 {{end}}
             </ul>

@@ -12,6 +12,7 @@ type Item struct {
 	Title            string
 	Labels           []string
 	HiddenLabels     []string
+	LabelValues      map[string]string
 	ImagePath        string
 	ImageProperty    string
 	TitleProperty    string
@@ -60,6 +61,7 @@ func NewItem(
 		Title:            title,
 		Labels:           ccp.GetLabels(),
 		HiddenLabels:     ccp.GetHiddenLabels(),
+		LabelValues:      make(map[string]string),
 		Properties:       make(map[string]map[string]string),
 		PropertyOrder:    propertyOrder,
 		HiddenProperties: icp.GetHiddenProperties(),
@@ -84,6 +86,14 @@ func NewItem(
 		}
 	}
 
+	glf := fcp.GetLabelFormatter()
+
+	for _, l := range ccp.GetLabels() {
+		if value, ok := rxa.GetFirstVal(l, id); ok {
+			ivm.LabelValues[l] = glf(id, l, value, rxa)
+		}
+	}
+
 	return ivm, nil
 }
 
@@ -99,6 +109,9 @@ func getPropertyLinks(
 
 	for _, value := range values {
 		linkTitle := fmtTitle(id, property, value, rxa)
+		if linkTitle == "" {
+			continue
+		}
 		propertyLinks[linkTitle] = fmtHref(id, property, value, rxa)
 	}
 

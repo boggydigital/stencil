@@ -14,14 +14,16 @@
             {{if eq $property $imageProperty}}{{continue}}{{end}}
             {{if contains $hiddenProperties $property}}{{continue}}{{end}}
 
+            {{$title := index $propertyTitles $property}}
+
             {{$titleLinks := index $properties $property}}
+
             {{if $titleLinks}}
                 <div class="text-property {{$property}}">
 
-                    {{$title := index $propertyTitles $property}}
-                    {{$valuesLen := len $titleLinks}}
-
                     <h2 class="property-title" title="{{$title}}">{{$title}}</h2>
+
+                    {{$valuesLen := len $titleLinks}}
 
                     {{if gt $valuesLen 3}}
                     <details>
