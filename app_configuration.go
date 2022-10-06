@@ -229,14 +229,13 @@ func (a *AppConfiguration) RenderItem(id string, hasSections []string, rxa kvas.
 }
 
 func (a *AppConfiguration) RenderSection(id, section, content string, w io.Writer) error {
-
 	cvm := view_models.NewSection(id, section, content)
+	return render.Section(tmpl, cvm, w)
+}
 
-	if err := render.Section(tmpl, cvm, w); err != nil {
-		return err
-	}
-
-	return nil
+func (a *AppConfiguration) RenderPage(id, content string, w io.Writer) error {
+	pvm := view_models.NewPage(a, id, content)
+	return render.Page(tmpl, pvm, w)
 }
 
 func (a *AppConfiguration) RenderGroup(

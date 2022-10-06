@@ -18,8 +18,14 @@
             {{$title := index $propertyTitles $property}}
 
             {{$titleLinks := index $properties $property}}
+            {{$action := index $propertyActions $property}}
 
-            {{if $titleLinks}}
+            {{$hasContent := false}}
+
+            {{if $titleLinks}}{{$hasContent = true}}{{end}}
+            {{if $action}}{{$hasContent = true}}{{end}}
+
+            {{if $hasContent}}
                 <div class="text-property {{$property}}">
 
                     <h2 class="property-title" title="{{$title}}">{{$title}}</h2>
@@ -32,7 +38,6 @@
                         {{end}}
 
                         {{$class := index $propertyClasses $property}}
-                        {{$action := index $propertyActions $property}}
 
                         <ul class="property-value flexible {{if gt $valuesLen 3}}vertical{{end}} {{if $class}}{{$class}}{{end}}">
                             {{range $linkTitle, $link := $titleLinks}}
@@ -47,12 +52,11 @@
 
                                         {{if $link}}</a>{{end}}
                                 </li>
-                                {{range $actionTitle, $actionHref := $action}}
-                                    <li>
-                                        <a class="action" href="{{$actionHref}}">{{$actionTitle}}</a>
-                                    </li>
-                                {{end}}
-
+                            {{end}}
+                            {{range $actionTitle, $actionHref := $action}}
+                                <li>
+                                    <a class="action" href="{{$actionHref}}">{{$actionTitle}}</a>
+                                </li>
                             {{end}}
                         </ul>
 
