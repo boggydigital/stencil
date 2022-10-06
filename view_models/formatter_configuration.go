@@ -20,12 +20,17 @@ type ActionFormatterGetter interface {
 	GetActionFormatter() Formatter
 }
 
+type ActionHrefFormatterGetter interface {
+	GetActionHrefFormatter() Formatter
+}
+
 type FormatterConfigurationProvider interface {
 	LabelFormatterGetter
 	TitleFormatterGetter
 	HrefFormatterGetter
 	ClassFormatterGetter
 	ActionFormatterGetter
+	ActionHrefFormatterGetter
 }
 
 type FormatterConfigurationProviderGetter interface {

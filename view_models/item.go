@@ -22,6 +22,7 @@ type Item struct {
 	PropertyOrder   []string
 	PropertyTitles  map[string]string
 	PropertyClasses map[string]string
+	PropertyActions map[string]map[string]string
 	// Icons
 	Icons []string
 	// Sections
@@ -67,6 +68,7 @@ func NewItem(
 		HiddenProperties: icp.GetHiddenProperties(),
 		PropertyTitles:   ccp.GetPropertyTitles(),
 		PropertyClasses:  make(map[string]string),
+		PropertyActions:  make(map[string]map[string]string),
 		Icons:            ccp.GetIcons(),
 		Sections:         icp.GetSections(),
 		HasSections:      hasSections,
@@ -74,6 +76,7 @@ func NewItem(
 	}
 
 	for _, p := range propertyOrder {
+		value, _ := rxa.GetFirstVal(p, id)
 		ivm.Properties[p] = getPropertyLinks(
 			id,
 			p,
@@ -81,8 +84,16 @@ func NewItem(
 			fcp.GetHrefFormatter(),
 			rxa)
 		if gcf := fcp.GetClassFormatter(); gcf != nil {
-			value, _ := rxa.GetFirstVal(p, id)
 			ivm.PropertyClasses[p] = gcf(id, p, value, rxa)
+		}
+		if pa := getPropertyActions(
+			id,
+			p,
+			value,
+			fcp.GetActionFormatter(),
+			fcp.GetActionHrefFormatter(),
+			rxa); len(pa) > 0 {
+			ivm.PropertyActions[p] = pa
 		}
 	}
 
@@ -98,8 +109,7 @@ func NewItem(
 }
 
 func getPropertyLinks(
-	id string,
-	property string,
+	id, property string,
 	fmtTitle, fmtHref Formatter,
 	rxa kvas.ReduxAssets) map[string]string {
 
@@ -116,4 +126,18 @@ func getPropertyLinks(
 	}
 
 	return propertyLinks
+}
+
+func getPropertyActions(
+	id, property, value string,
+	fmtAction, fmtActionHref Formatter,
+	rxa kvas.ReduxAssets) map[string]string {
+
+	actions := make(map[string]string)
+
+	if a := fmtAction(id, property, value, rxa); a != "" {
+		actions[a] = fmtActionHref(id, property, a, rxa)
+	}
+
+	return actions
 }

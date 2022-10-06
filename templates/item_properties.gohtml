@@ -5,6 +5,7 @@
         {{$hiddenProperties := .HiddenProperties}}
         {{$propertyTitles := .PropertyTitles}}
         {{$propertyClasses := .PropertyClasses}}
+        {{$propertyActions := .PropertyActions}}
         {{$titleProperty := .TitleProperty}}
         {{$imageProperty := .ImageProperty}}
         {{$icons := .Icons}}
@@ -31,6 +32,7 @@
                         {{end}}
 
                         {{$class := index $propertyClasses $property}}
+                        {{$action := index $propertyActions $property}}
 
                         <ul class="property-value flexible {{if gt $valuesLen 3}}vertical{{end}} {{if $class}}{{$class}}{{end}}">
                             {{range $linkTitle, $link := $titleLinks}}
@@ -43,11 +45,17 @@
                                             {{$linkTitle}}
                                         {{end}}
 
-
                                         {{if $link}}</a>{{end}}
                                 </li>
+                                {{range $actionTitle, $actionHref := $action}}
+                                    <li>
+                                        <a class="action" href="{{$actionHref}}">{{$actionTitle}}</a>
+                                    </li>
+                                {{end}}
+
                             {{end}}
                         </ul>
+
 
                         {{if gt $valuesLen 3}}</details>{{end}}
 

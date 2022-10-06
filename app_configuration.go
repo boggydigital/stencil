@@ -115,13 +115,14 @@ func (a *AppConfiguration) SetItemConfiguration(
 }
 
 func (a *AppConfiguration) SetFormatterConfiguration(
-	fmtLabel, fmtTitle, fmtHref, fmtClass, fmtAction view_models.Formatter) {
+	fmtLabel, fmtTitle, fmtHref, fmtClass, fmtAction, fmtActionHref view_models.Formatter) {
 
 	a.fmtConfig.labelFormatter = fmtLabel
 	a.fmtConfig.titleFormatter = fmtTitle
 	a.fmtConfig.hrefFormatter = fmtHref
 	a.fmtConfig.classFormatter = fmtClass
 	a.fmtConfig.actionFormatter = fmtAction
+	a.fmtConfig.actionHrefFormatter = fmtActionHref
 }
 
 func (a *AppConfiguration) SetSearchConfiguration(
