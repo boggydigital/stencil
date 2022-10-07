@@ -233,7 +233,8 @@ func (a *AppConfiguration) RenderSection(id, section, content string, w io.Write
 	return render.Section(tmpl, cvm, w)
 }
 
-func (a *AppConfiguration) RenderPage(id, content string, w io.Writer) error {
+func (a *AppConfiguration) RenderPage(id, title, content string, w io.Writer) error {
+	a.SetCurrentNav(title)
 	pvm := view_models.NewPage(a, id, content)
 	return render.Page(tmpl, pvm, w)
 }

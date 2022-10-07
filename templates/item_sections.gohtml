@@ -6,7 +6,7 @@
             {{range .HasSections}}
                 {{$title := index $sectionTitles .}}
                 <details id="{{.}}" class="{{.}}">
-                    <summary>{{$title}}{{template "svg-icon-show-more-less"}}</summary>
+                    <summary>{{$title}}</summary>
                     <iframe src="/{{.}}?id={{$id}}" loading="lazy"></iframe>
                 </details>
             {{end}}

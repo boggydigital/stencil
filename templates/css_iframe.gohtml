@@ -25,33 +25,35 @@
             }
         }
 
-        /*.downloads {*/
-        /*    list-style: none;*/
-        /*    margin: 0;*/
-        /*    padding-inline-start: 0;*/
-        /*}*/
+        a {
+            text-decoration: none;
+            color: var(--system-blue-color);
+        }
 
-        /*.downloads .link {*/
-        /*    display: block;*/
-        /*    margin-block-end: var(--normal);*/
-        /*    color: var(--color);*/
-        /*    text-decoration: none;*/
-        /*    padding: var(--normal);*/
-        /*    margin: var(--normal);*/
-        /*    border: 2px solid var(--background-color);*/
-        /*    border-radius: var(--border-radius);*/
-        /*}*/
+        ul {
+            padding-inline-start: var(--normal);
+        }
 
-        /*.downloads .link .format {*/
-        /*    font-size: var(--fs-larger);*/
-        /*    font-weight: bold;*/
-        /*    margin-block-end: var(--small);*/
-        /*}*/
+        hr {
+            margin: 0;
+            padding: 0;
+            border: var(--xxx-small) solid var(--subtle-color);
+        }
 
-        /*.downloads .link .desc {*/
-        /*    color: var(--subtle-color);*/
-        /*    font-size: var(--fs-smaller);*/
-        /*}*/
+        img,
+        video {
+            max-width: 100%;
+        }
+
+        h1, h2, h3, h4, h5, h6, h7, h8, h9 {
+            font-size: var(--normal);
+            margin: 0;
+        }
+
+        summary {
+            cursor: pointer;
+            margin: var(--normal) 0;
+        }
 
     </style>
 {{end}}
