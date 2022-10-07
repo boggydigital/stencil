@@ -1,11 +1,12 @@
-{{define "iframe-page"}}
+{{define "section-page"}}
     <!doctype html>
     <html lang="en" id="_top">
     {{template "head"}}
     <head>
-        {{template "css-iframe"}}
+        {{template "css-section"}}
     </head>
     <body id="{{.Section}}">
+    {{template "svg-icons"}}
     {{template "script-iframe-post-message"}}
     <div id="{{.Section}}-content" class="iframe-content">
         {{.Content}}

@@ -7,5 +7,5 @@ import (
 )
 
 func Section(tmpl *template.Template, scvm *view_models.Section, w io.Writer) error {
-	return tmpl.ExecuteTemplate(w, "iframe-page", scvm)
+	return tmpl.ExecuteTemplate(w, "section-page", scvm)
 }
