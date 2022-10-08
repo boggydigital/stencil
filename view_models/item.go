@@ -133,6 +133,10 @@ func getPropertyActions(
 	fmtAction, fmtActionHref Formatter,
 	rxa kvas.ReduxAssets) map[string]string {
 
+	if fmtAction == nil {
+		return nil
+	}
+
 	actions := make(map[string]string)
 
 	if a := fmtAction(id, property, value, rxa); a != "" {
