@@ -266,3 +266,29 @@ func (a *AppConfiguration) RenderGroup(
 
 	return nil
 }
+
+func (a *AppConfiguration) RenderPropertyEditor(
+	id, title, propertyTitle string,
+	condition bool, conditionalMessage string,
+	selectedValues map[string]bool, allValues []string, allowNewValues bool,
+	applyEndpoint string,
+	w io.Writer) error {
+
+	a.SetCurrentNav("Edit " + propertyTitle)
+
+	if pevm := view_models.NewPropertyEditor(
+		a,
+		id,
+		title,
+		propertyTitle,
+		condition,
+		conditionalMessage,
+		selectedValues,
+		allValues,
+		allowNewValues,
+		applyEndpoint); pevm != nil {
+		return render.PropertyEditor(tmpl, pevm, w)
+	}
+
+	return nil
+}

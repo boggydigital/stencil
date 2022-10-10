@@ -1,0 +1,55 @@
+{{define "property-editor-page"}}
+    <!doctype html>
+    <html lang="en" id="_top">
+    {{template "head" .}}
+    <head>
+        {{template "css-property-editor"}}
+    </head>
+    <body>
+    {{template "svg-icons"}}
+    {{template "nav" .Nav}}
+
+    <form class="property-edit-form" method="get" action="{{.ApplyEndpoint}}">
+
+        <input type="hidden" name="id" value="{{.Id}}"/>
+        <input type="hidden" name="condition" value="{{.Condition}}"/>
+
+        <h1>{{.Title}}</h1>
+
+        {{$condition := .Condition}}
+
+        <h2>{{.PropertyTitle}}</h2>
+
+        {{if eq $condition false}}
+            <div class="conditional-message">{{.ConditionalMessage}}</div>
+        {{end}}
+
+        <div class="property-values {{if eq $condition false}}disabled{{end}}">
+            {{$selectedValues := .SelectedValues}}
+            {{range $value := .AllValues}}
+                {{$selected := index $selectedValues $value}}
+                <div class="value-container">
+                    <input id="{{$value}}" type="checkbox" name="value"
+                           value="{{$value}}" {{if $selected}}checked{{end}} {{if eq $condition false}}disabled{{end}}/>
+                    <label for="{{$value}}" class="{{if $selected}}selected{{end}}">{{.}}</label>
+                </div>
+            {{end}}
+            {{if .AllowNewValues}}
+                <div class="new-property-value-container">
+                    <input id="new-property-value" type="text" name="new-property-value"
+                           placeholder="Add new value"/>
+                </div>
+            {{end}}
+        </div>
+
+        <div class="submit-container">
+            <input id="submit" type="submit" value="Apply">
+        </div>
+
+    </form>
+
+    <div class="footer-spacer"></div>
+    {{template "footer" .Foot}}
+    </body>
+    </html>
+{{end}}
