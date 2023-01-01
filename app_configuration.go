@@ -178,7 +178,7 @@ func (a *AppConfiguration) RenderList(navItem string, ids []string, rxa kvas.Red
 
 	a.SetCurrentNav(navItem)
 
-	if lvm, err := view_models.NewList(a, ids, rxa); err != nil {
+	if lvm, err := view_models.NewList(a, ids, 0, len(ids), len(ids), nil, rxa); err != nil {
 		return err
 	} else {
 		if err := render.List(tmpl, lvm, w); err != nil {
@@ -192,6 +192,8 @@ func (a *AppConfiguration) RenderSearch(
 	navItem string,
 	query map[string][]string,
 	ids []string,
+	from, to, total int,
+	u *url.URL,
 	digests map[string][]string,
 	rxa kvas.ReduxAssets,
 	w io.Writer) error {
@@ -202,6 +204,8 @@ func (a *AppConfiguration) RenderSearch(
 		a,
 		query,
 		ids,
+		from, to, total,
+		u,
 		digests,
 		rxa); err != nil {
 		return err

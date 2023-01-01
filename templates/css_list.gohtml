@@ -18,6 +18,16 @@
             justify-content: center;
         }
 
+        .next-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .next-container button {
+            width: calc(5 * var(--large))
+        }
+
         @media only screen and (max-width: 1200px) {
             .items {
                 grid-template-columns: repeat(2, var(--product-card-width));

@@ -2,6 +2,8 @@ package view_models
 
 import (
 	"github.com/boggydigital/kvas"
+	"net/url"
+	"strconv"
 )
 
 const eagerLoadingImages = 10
@@ -24,6 +26,8 @@ type List struct {
 	HiddenProperties   []string
 	ItemPath           string
 	Items              []*ListItem
+	From, To, Total    int
+	NextUrl            string
 	TitleProperty      string
 	ImageProperty      string
 	ImagePath          string
@@ -33,6 +37,8 @@ type List struct {
 func NewList(
 	acp AppConfigurationProvider,
 	ids []string,
+	from, to, total int,
+	u *url.URL,
 	rxa kvas.ReduxAssets) (*List, error) {
 
 	lcp := acp.GetListConfigurationProvider()
@@ -51,10 +57,21 @@ func NewList(
 		HiddenProperties:   lcp.GetHiddenProperties(),
 		ItemPath:           lcp.GetItemPath(),
 		Items:              make([]*ListItem, 0, len(ids)),
+		From:               from + 1,
+		To:                 to,
+		Total:              total,
 		TitleProperty:      ccp.GetTitleProperty(),
 		ImageProperty:      lcp.GetImageProperty(),
 		ImagePath:          lcp.GetImagePath(),
 		EagerLoadingImages: eagerLoadingImages,
+	}
+
+	if u != nil &&
+		to < total {
+		q := u.Query()
+		q.Set("from", strconv.Itoa(to))
+		u.RawQuery = q.Encode()
+		lvm.NextUrl = u.String()
 	}
 
 	for _, id := range ids {

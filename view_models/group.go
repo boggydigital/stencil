@@ -27,7 +27,7 @@ func NewGroup(
 	}
 
 	for group, items := range groupItems {
-		lvm, err := NewList(acp, items, rxa)
+		lvm, err := NewList(acp, items, 0, len(items), len(items), nil, rxa)
 		if err != nil {
 			return gvm, err
 		}

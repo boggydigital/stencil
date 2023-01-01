@@ -1,6 +1,8 @@
 {{define "list"}}
     <section id="items-list">
-        {{$count := len .Items}}
+        {{$from := .From}}
+        {{$to := .To}}
+        {{$total := .Total}}
         {{$properties := .Properties}}
         {{$labels := .Labels}}
         {{$hiddenLabels := .HiddenLabels}}
@@ -10,7 +12,17 @@
         {{$icons := .Icons}}
         {{$hiddenProperties := .HiddenProperties}}
         {{$eagerLoadingImages := .EagerLoadingImages}}
-        <div class="items-count">{{$count}} item(s)</div>
+
+        {{if gt $total 0}}
+            {{if eq $from $to}}
+                <div class="items-count">{{$total}} item(s)</div>
+
+            {{else}}
+                <div class="items-count">{{$from}}-{{$to}} out of {{$total}} item(s)</div>
+
+            {{end}}
+        {{end}}
+
         <div class="items">
             {{$itemPath := .ItemPath}}
             {{range $ii, $item := .Items}}
@@ -87,5 +99,14 @@
                 </a>
             {{end}}
         </div>
+        {{if .NextUrl}}
+            {{if gt .Total 0}}
+                <div class="next-container">
+                    <a class="button" href="{{.NextUrl}}">
+                        <button>More...</button>
+                    </a>
+                </div>
+            {{end}}
+        {{end}}
     </section>
 {{end}}

@@ -23,10 +23,12 @@ func NewSearch(
 	acp AppConfigurationProvider,
 	query map[string][]string,
 	ids []string,
+	from, to, total int,
+	u *url.URL,
 	digests map[string][]string,
 	rxa kvas.ReduxAssets) (*Search, error) {
 
-	lvm, err := NewList(acp, ids, rxa)
+	lvm, err := NewList(acp, ids, from, to, total, u, rxa)
 
 	scp := acp.GetSearchConfigurationProvider()
 	ccp := acp.GetCommonConfigurationProvider()
