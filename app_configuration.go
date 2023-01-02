@@ -127,10 +127,12 @@ func (a *AppConfiguration) SetFormatterConfiguration(
 
 func (a *AppConfiguration) SetSearchConfiguration(
 	properties []string,
+	digestProperties []string,
 	scopes []string,
 	scopeQueries map[string]string) error {
 
 	a.searchConfig.properties = properties
+	a.searchConfig.digestProperties = digestProperties
 	a.searchConfig.scopes = scopes
 	a.searchConfig.scopeQueries = make(map[string]string, len(scopeQueries))
 
@@ -150,7 +152,7 @@ func (a *AppConfiguration) SetSearchConfiguration(
 func (a *AppConfiguration) SetCommonConfiguration(
 	labels, hiddenLabels, icons []string,
 	titleProperty string,
-	propertyTitles, sectionTitles, digestTitles map[string]string,
+	propertyTitles, sectionTitles map[string]string,
 	rxa kvas.ReduxAssets) error {
 
 	if rxa != nil {
@@ -165,7 +167,7 @@ func (a *AppConfiguration) SetCommonConfiguration(
 	a.commonConfig.titleProperty = titleProperty
 	a.commonConfig.propertyTitles = propertyTitles
 	a.commonConfig.sectionTitles = sectionTitles
-	a.commonConfig.digestTitles = digestTitles
+	//a.commonConfig.digestTitles = digestTitles
 
 	return nil
 }
@@ -194,7 +196,7 @@ func (a *AppConfiguration) RenderSearch(
 	ids []string,
 	from, to, total int,
 	u *url.URL,
-	digests map[string][]string,
+	//digests map[string][]string,
 	rxa kvas.ReduxAssets,
 	w io.Writer) error {
 
@@ -206,7 +208,7 @@ func (a *AppConfiguration) RenderSearch(
 		ids,
 		from, to, total,
 		u,
-		digests,
+		//digests,
 		rxa); err != nil {
 		return err
 	} else {

@@ -6,6 +6,7 @@
         {{template "css-search"}}
         {{template "css-list"}}
         {{template "app-css"}}
+        {{template "script-onfocus-digest"}}
     </head>
     <body>
     {{template "svg-icons"}}
@@ -16,6 +17,7 @@
         {{template "search-query" .}}
     {{end}}
     {{template "list" .Found}}
+    <div id="digests-container"></div>
     <div class="footer-spacer"></div>
     {{template "footer" .Foot}}
     </body>

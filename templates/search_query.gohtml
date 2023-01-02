@@ -1,7 +1,7 @@
 {{define "search-query"}}
     <section class="search-query-container">
         <ul class="search-query">
-            {{$digestsTitles := .DigestsTitles}}
+{{/*            {{$digestsTitles := .DigestsTitles}}*/}}
             {{$propertyTitles := .PropertyTitles}}
             {{range $property, $values := .Query}}
                 {{$propertyTitle := index $propertyTitles $property}}
@@ -9,9 +9,9 @@
                 <li>
                     <span class="property-title">{{$propertyTitle}}:</span>
                     {{range $value := $values}}
-                        {{$digestTitle := index $digestsTitles $value}}
-                        {{if eq $digestTitle ""}}{{$digestTitle = $value}}{{end}}
-                        <span class="property-value">{{$digestTitle}}</span>
+{{/*                        {{$digestTitle := index $digestsTitles $value}}*/}}
+{{/*                        {{if eq $digestTitle ""}}{{$digestTitle = $value}}{{end}}*/}}
+                        <span class="property-value">{{$value}}</span>
                     {{end}}
                 </li>
             {{end}}

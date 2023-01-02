@@ -1,0 +1,39 @@
+{{define "script-onfocus-digest"}}
+    <script id="onfocus-digest">
+    const attachDigest = async (e) => {
+        const inp = e.target
+        if (inp.getAttribute("list")) {
+            return
+        }
+        const digestsContainer = document.getElementById("digests-container")
+        if (!digestsContainer) {
+            return
+        }
+        const property = inp.getAttribute("name")
+        let datalist = digestsContainer.querySelector("datalist#"+property)
+        if (!datalist) {
+            datalist = document.createElement("datalist")
+            datalist.id = property
+
+            const resp = await fetch("/digest?property="+property)
+            const values = await resp.json()
+            for (let v of values) {
+                let opt = document.createElement("option")
+                opt.innerText = v
+                datalist.appendChild(opt)
+            }
+
+            digestsContainer.appendChild(datalist)
+            inp.setAttribute("list", property)
+        }
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchProperties = document.querySelector("section.search-properties")
+        if (!searchProperties) {return}
+        const digestInputs = searchProperties.querySelectorAll("input[data-digest=true]")
+        for (let di of digestInputs) {
+            di.addEventListener("focus", attachDigest)
+        }
+    })
+    </script>
+{{end}}
