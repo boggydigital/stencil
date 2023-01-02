@@ -3,11 +3,11 @@
         <section class="additional-properties">
             {{$id := .Id}}
             {{$sectionTitles := .SectionTitles}}
-            {{range .HasSections}}
-                {{$title := index $sectionTitles .}}
-                <details id="{{.}}" class="{{.}}">
+            {{range $index, $section := .HasSections}}
+                {{$title := index $sectionTitles $section}}
+                <details id="{{$section}}" class="{{$section}}" tabindex="{{$index}}">
                     <summary>{{$title}}</summary>
-                    <iframe src="/{{.}}?id={{$id}}" loading="lazy"></iframe>
+                    <iframe src="/{{$section}}?id={{$id}}" loading="lazy"></iframe>
                 </details>
             {{end}}
         </section>

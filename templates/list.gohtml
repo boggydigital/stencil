@@ -11,15 +11,12 @@
         {{$imagePath := .ImagePath}}
         {{$icons := .Icons}}
         {{$hiddenProperties := .HiddenProperties}}
-        {{$eagerLoadingImages := .EagerLoadingImages}}
 
         {{if gt $total 0}}
             {{if eq $from $to}}
                 <div class="items-count">{{$total}} item(s)</div>
-
             {{else}}
                 <div class="items-count">{{$from}}-{{$to}} out of {{$total}} item(s)</div>
-
             {{end}}
         {{end}}
 
@@ -37,9 +34,7 @@
                     {{if $imageProperty}}
                         <div class="item-image-placeholder">
                             {{if eq $imageProperty "id"}}
-                                {{$loading := "lazy"}}
-                                {{if lt $ii $eagerLoadingImages}}{{$loading = "eager"}}{{end}}
-                                <img loading="{{$loading}}" class="item-image" src="{{$imagePath}}?id={{$item.Id}}"/>
+                                <img loading="lazy" class="item-image" src="{{$imagePath}}?id={{$item.Id}}"/>
                             {{else}}
                                 {{$imageIds := index $propertyValues $imageProperty}}
                                 {{range $imageIds}}
