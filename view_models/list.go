@@ -6,8 +6,6 @@ import (
 	"strconv"
 )
 
-const eagerLoadingImages = 10
-
 type ListItem struct {
 	Id              string
 	Title           string
@@ -19,19 +17,18 @@ type ListItem struct {
 
 type List struct {
 	*Page
-	Properties         []string
-	Labels             []string
-	HiddenLabels       []string
-	Icons              []string
-	HiddenProperties   []string
-	ItemPath           string
-	Items              []*ListItem
-	From, To, Total    int
-	NextUrl            string
-	TitleProperty      string
-	ImageProperty      string
-	ImagePath          string
-	EagerLoadingImages int
+	Properties       []string
+	Labels           []string
+	HiddenLabels     []string
+	Icons            []string
+	HiddenProperties []string
+	ItemPath         string
+	Items            []*ListItem
+	From, To, Total  int
+	NextUrl          string
+	TitleProperty    string
+	ImageProperty    string
+	ImagePath        string
 }
 
 func NewList(
@@ -49,21 +46,20 @@ func NewList(
 	}
 
 	lvm := &List{
-		Page:               acp.GetPage(),
-		Properties:         lcp.GetProperties(),
-		Labels:             ccp.GetLabels(),
-		HiddenLabels:       ccp.GetHiddenLabels(),
-		Icons:              ccp.GetIcons(),
-		HiddenProperties:   lcp.GetHiddenProperties(),
-		ItemPath:           lcp.GetItemPath(),
-		Items:              make([]*ListItem, 0, len(ids)),
-		From:               from + 1,
-		To:                 to,
-		Total:              total,
-		TitleProperty:      ccp.GetTitleProperty(),
-		ImageProperty:      lcp.GetImageProperty(),
-		ImagePath:          lcp.GetImagePath(),
-		EagerLoadingImages: eagerLoadingImages,
+		Page:             acp.GetPage(),
+		Properties:       lcp.GetProperties(),
+		Labels:           ccp.GetLabels(),
+		HiddenLabels:     ccp.GetHiddenLabels(),
+		Icons:            ccp.GetIcons(),
+		HiddenProperties: lcp.GetHiddenProperties(),
+		ItemPath:         lcp.GetItemPath(),
+		Items:            make([]*ListItem, 0, len(ids)),
+		From:             from + 1,
+		To:               to,
+		Total:            total,
+		TitleProperty:    ccp.GetTitleProperty(),
+		ImageProperty:    lcp.GetImageProperty(),
+		ImagePath:        lcp.GetImagePath(),
 	}
 
 	if u != nil &&
