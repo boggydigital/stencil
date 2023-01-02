@@ -15,9 +15,7 @@ type Search struct {
 	PropertyTitles   map[string]string
 	Query            map[string][]string
 	DigestProperties []string
-	//Digests        map[string][]string
-	DigestsTitles map[string]string
-	Found         *List
+	Found            *List
 }
 
 func NewSearch(
@@ -43,9 +41,7 @@ func NewSearch(
 		Properties:       scp.GetProperties(),
 		PropertyTitles:   ccp.GetPropertyTitles(),
 		DigestProperties: scp.GetDigestProperties(),
-		//Digests:        digests,
-		DigestsTitles: ccp.GetDigestTitles(),
-		Found:         lvm,
+		Found:            lvm,
 	}
 
 	return svm, err

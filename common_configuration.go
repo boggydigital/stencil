@@ -7,7 +7,6 @@ type CommonConfiguration struct {
 	titleProperty  string
 	propertyTitles map[string]string
 	sectionTitles  map[string]string
-	digestTitles   map[string]string
 }
 
 func (cc *CommonConfiguration) GetLabels() []string {
@@ -32,8 +31,4 @@ func (cc *CommonConfiguration) GetPropertyTitles() map[string]string {
 
 func (cc *CommonConfiguration) GetSectionTitles() map[string]string {
 	return cc.sectionTitles
-}
-
-func (cc *CommonConfiguration) GetDigestTitles() map[string]string {
-	return cc.digestTitles
 }

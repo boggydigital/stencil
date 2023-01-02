@@ -24,10 +24,6 @@ type SectionTitlesGetter interface {
 	GetSectionTitles() map[string]string
 }
 
-type DigestTitlesGetter interface {
-	GetDigestTitles() map[string]string
-}
-
 type CommonConfigurationProvider interface {
 	LabelsGetter
 	HiddenLabelsGetter
@@ -35,7 +31,6 @@ type CommonConfigurationProvider interface {
 	TitlePropertyGetter
 	PropertyTitlesGetter
 	SectionTitlesGetter
-	DigestTitlesGetter
 }
 
 type CommonConfigurationProviderGetter interface {

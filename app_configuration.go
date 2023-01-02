@@ -167,7 +167,6 @@ func (a *AppConfiguration) SetCommonConfiguration(
 	a.commonConfig.titleProperty = titleProperty
 	a.commonConfig.propertyTitles = propertyTitles
 	a.commonConfig.sectionTitles = sectionTitles
-	//a.commonConfig.digestTitles = digestTitles
 
 	return nil
 }
