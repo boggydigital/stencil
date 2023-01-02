@@ -103,8 +103,12 @@
             border-radius: var(--border-radius);
             object-fit: contain;
             opacity: 1.0;
-            transition: opacity 400ms;
+            transition: opacity 500ms ease-in;
             padding: 0;
+        }
+
+        .items .item .item-image.loading {
+            opacity: 0;
         }
 
         .items .item ul {

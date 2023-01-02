@@ -34,7 +34,7 @@
                     {{if $imageProperty}}
                         <div class="item-image-placeholder">
                             {{if eq $imageProperty "id"}}
-                                <img loading="lazy" class="item-image" src="{{$imagePath}}?id={{$item.Id}}"/>
+                                <img loading="lazy" class="item-image loading" src="{{$imagePath}}?id={{$item.Id}}"/>
                             {{else}}
                                 {{$imageIds := index $propertyValues $imageProperty}}
                                 {{range $imageIds}}
