@@ -8,14 +8,15 @@ import (
 
 type Search struct {
 	*Page
-	Scopes           []string
-	ScopeQueries     map[string]string
-	CurrentScope     string
-	Properties       []string
-	PropertyTitles   map[string]string
-	Query            map[string][]string
-	DigestProperties []string
-	Found            *List
+	Scopes              []string
+	ScopeQueries        map[string]string
+	CurrentScope        string
+	Properties          []string
+	HighlightProperties []string
+	PropertyTitles      map[string]string
+	Query               map[string][]string
+	DigestProperties    []string
+	Found               *List
 }
 
 func NewSearch(
@@ -33,15 +34,16 @@ func NewSearch(
 	ccp := acp.GetCommonConfigurationProvider()
 
 	svm := &Search{
-		Scopes:           scp.GetScopes(),
-		ScopeQueries:     scp.GetScopeQueries(),
-		CurrentScope:     currentScope(query, scp.GetScopeQueries()),
-		Query:            query,
-		Page:             acp.GetPage(),
-		Properties:       scp.GetProperties(),
-		PropertyTitles:   ccp.GetPropertyTitles(),
-		DigestProperties: scp.GetDigestProperties(),
-		Found:            lvm,
+		Scopes:              scp.GetScopes(),
+		ScopeQueries:        scp.GetScopeQueries(),
+		CurrentScope:        currentScope(query, scp.GetScopeQueries()),
+		Query:               query,
+		Page:                acp.GetPage(),
+		Properties:          scp.GetProperties(),
+		HighlightProperties: scp.GetHighlightProperties(),
+		PropertyTitles:      ccp.GetPropertyTitles(),
+		DigestProperties:    scp.GetDigestProperties(),
+		Found:               lvm,
 	}
 
 	return svm, err

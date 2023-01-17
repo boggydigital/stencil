@@ -127,11 +127,13 @@ func (a *AppConfiguration) SetFormatterConfiguration(
 
 func (a *AppConfiguration) SetSearchConfiguration(
 	properties []string,
+	highlightProperties []string,
 	digestProperties []string,
 	scopes []string,
 	scopeQueries map[string]string) error {
 
 	a.searchConfig.properties = properties
+	a.searchConfig.highlightProperties = highlightProperties
 	a.searchConfig.digestProperties = digestProperties
 	a.searchConfig.scopes = scopes
 	a.searchConfig.scopeQueries = make(map[string]string, len(scopeQueries))
