@@ -22,7 +22,22 @@
             width: 100%;
             display: flex;
             justify-content: center;
+
+            /*& button {*/
+            /*    width: calc(5 * var(--large))*/
+            /*}*/
         }
+
+        /* TODO: */
+        /* This and other rules should be replaces with */
+        /* https://drafts.csswg.org/css-nesting/ */
+        /* e.g. */
+        /*.next-container {*/
+        /*    & button {*/
+        /*      width: calc(5 * var(--large))*/
+        /*    }*/
+        /*}*/
+        /* when available in browsers */
 
         .next-container button {
             width: calc(5 * var(--large))
