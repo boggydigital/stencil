@@ -11,17 +11,20 @@
         {{end}}
 
         <div class="image">
-            {{$imageId := ""}}
-            {{if eq .ImageProperty "id"}}
-                {{$imageId = .Id}}
-            {{else}}
-                {{$titleValues := index .Properties .ImageProperty}}
-                {{range $iid, $values := $titleValues}}
-                    {{$imageId = $iid}}
-                {{end}}
-            {{end}}
 
-            <img src="{{.ImagePath}}?id={{$imageId}}"/>
+
+                {{$imageId := ""}}
+                {{if eq .ImageProperty "id"}}
+                    {{$imageId = .Id}}
+                {{else}}
+                    {{$titleValues := index .Properties .ImageProperty}}
+                    {{range $iid, $values := $titleValues}}
+                        {{$imageId = $iid}}
+                    {{end}}
+                {{end}}
+
+                <img class="placeholder" src="{{.ImagePath}}?id={{$imageId}}"
+                     {{if $dehydratedBackground}}style="background-image: url({{$dehydratedBackground}})"{{end}}/>
         </div>
 
         <div class="item-details">

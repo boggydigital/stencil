@@ -43,16 +43,18 @@
                             {{end}}
                         {{end}}
 
-                        <div class="item-image-placeholder" {{if $dehydratedBackground}}style="background-image: url({{$dehydratedBackground}})"{{end}}>
-                            {{if eq $imageProperty "id"}}
-                                <img loading="lazy" class="item-image loading" src="{{$imagePath}}?id={{$item.Id}}"/>
-                            {{else}}
-                                {{$imageIds := index $propertyValues $imageProperty}}
-                                {{range $imageIds}}
-                                    <img loading="lazy" class="item-image loading" src="{{$imagePath}}?id={{.}}"/>
-                                {{end}}
+                        {{$imageId := ""}}
+                        {{if eq $imageProperty "id"}}
+                            {{$imageId = $item.Id}}
+                        {{else}}
+                            {{$imageIds := index $propertyValues $imageProperty}}
+                            {{range $imageIds}}
+                                {{$imageId = .}}
                             {{end}}
-                        </div>
+                        {{end}}
+
+                        <img loading="lazy" class="item-image placeholder" src="{{$imagePath}}?id={{$imageId}}"
+                             {{if $dehydratedBackground}}style="background-image: url({{$dehydratedBackground}})"{{end}}/>
 
                     {{end}}
 

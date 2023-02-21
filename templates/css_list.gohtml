@@ -104,29 +104,14 @@
             }
         }
 
-        .items .item .item-image-placeholder {
+        .items .item .item-image {
             width: 85px;
             height: 120px;
-            background: var(--background-color);
             border-radius: var(--border-radius);
             flex-shrink: 0;
-            image-rendering: pixelated;
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-
-        .items .item .item-image {
-            width: 100%;
-            height: 100%;
-            border-radius: var(--border-radius);
             object-fit: contain;
-            opacity: 1.0;
             transition: opacity 500ms ease-in;
             padding: 0;
-        }
-
-        .items .item .item-image.loading {
-            opacity: 0;
         }
 
         .items .item ul {
