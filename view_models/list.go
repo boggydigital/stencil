@@ -60,7 +60,7 @@ func NewList(
 		To:                      to,
 		Total:                   total,
 		TitleProperty:           cc.GetTitleProperty(),
-		DehydratedImageProperty: dic.GetDehydratedImageProperty(),
+		DehydratedImageProperty: dic.GetListDehydratedImageProperty(),
 		ImageProperty:           lc.GetImageProperty(),
 		ImagePath:               lc.GetImagePath(),
 	}

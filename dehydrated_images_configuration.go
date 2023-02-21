@@ -1,9 +1,14 @@
 package stencil
 
 type DehydratedImagesConfiguration struct {
-	dehydratedImageProperty string
+	listDehydratedImageProperty string
+	itemDehydratedImageProperty string
 }
 
-func (dic *DehydratedImagesConfiguration) GetDehydratedImageProperty() string {
-	return dic.dehydratedImageProperty
+func (dic *DehydratedImagesConfiguration) GetListDehydratedImageProperty() string {
+	return dic.listDehydratedImageProperty
+}
+
+func (dic *DehydratedImagesConfiguration) GetItemDehydratedImageProperty() string {
+	return dic.itemDehydratedImageProperty
 }

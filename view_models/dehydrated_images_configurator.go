@@ -1,11 +1,16 @@
 package view_models
 
-type DehydratedImagePropertyGetter interface {
-	GetDehydratedImageProperty() string
+type ListDehydratedImagePropertyGetter interface {
+	GetListDehydratedImageProperty() string
+}
+
+type ItemDehydratedImagePropertyGetter interface {
+	GetItemDehydratedImageProperty() string
 }
 
 type DehydratedImagesConfigurator interface {
-	DehydratedImagePropertyGetter
+	ListDehydratedImagePropertyGetter
+	ItemDehydratedImagePropertyGetter
 }
 
 type DehydratedImagesConfiguratorGetter interface {

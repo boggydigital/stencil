@@ -59,7 +59,7 @@ func NewItem(
 		Page:                    acp.GetPage(),
 		Id:                      id,
 		ImagePath:               ic.GetImagePath(),
-		DehydratedImageProperty: dic.GetDehydratedImageProperty(),
+		DehydratedImageProperty: dic.GetItemDehydratedImageProperty(),
 		ImageProperty:           ic.GetImageProperty(),
 		TitleProperty:           cc.GetTitleProperty(),
 		Title:                   title,

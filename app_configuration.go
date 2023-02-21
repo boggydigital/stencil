@@ -180,8 +180,9 @@ func (a *AppConfiguration) SetCommonConfiguration(
 }
 
 func (a *AppConfiguration) SetDehydratedImagesConfiguration(
-	dehydratedImageProperty string) {
-	a.dehydratedImagesConfig.dehydratedImageProperty = dehydratedImageProperty
+	listDehydratedImageProperty, itemDehydratedImageProperty string) {
+	a.dehydratedImagesConfig.listDehydratedImageProperty = listDehydratedImageProperty
+	a.dehydratedImagesConfig.itemDehydratedImageProperty = itemDehydratedImageProperty
 }
 
 func (a *AppConfiguration) SetCurrentNav(item string) {
