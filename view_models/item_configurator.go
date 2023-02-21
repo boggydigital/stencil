@@ -8,7 +8,7 @@ type SectionsGetter interface {
 	GetSections() []string
 }
 
-type ItemConfigurationProvider interface {
+type ItemConfigurator interface {
 	PropertiesGetter
 	ComputedPropertiesGetter
 	HiddenPropertiesGetter
@@ -17,6 +17,6 @@ type ItemConfigurationProvider interface {
 	SectionsGetter
 }
 
-type ItemConfigurationProviderGetter interface {
-	GetItemConfigurationProvider() ItemConfigurationProvider
+type ItemConfiguratorGetter interface {
+	GetItemConfigurator() ItemConfigurator
 }

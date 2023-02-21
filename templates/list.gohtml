@@ -8,6 +8,7 @@
         {{$hiddenLabels := .HiddenLabels}}
         {{$titleProperty := .TitleProperty}}
         {{$imageProperty := .ImageProperty}}
+        {{$dehydratedImageProperty := .DehydratedImageProperty}}
         {{$imagePath := .ImagePath}}
         {{$icons := .Icons}}
         {{$hiddenProperties := .HiddenProperties}}
@@ -32,7 +33,17 @@
                 <a href="{{$itemPath}}?id={{$item.Id}}" data-id="{{$item.Id}}" class="item">
 
                     {{if $imageProperty}}
-                        <div class="item-image-placeholder">
+
+                        {{$dehydratedBackground := ""}}
+
+                        {{if $dehydratedImageProperty}}
+                            {{$dehydratedImages := index $propertyValues $dehydratedImageProperty}}
+                            {{range $dehydratedImages}}
+                                {{$dehydratedBackground = hydrate .}}
+                            {{end}}
+                        {{end}}
+
+                        <div class="item-image-placeholder" {{if $dehydratedBackground}}style="background-image: url({{$dehydratedBackground}})"{{end}}>
                             {{if eq $imageProperty "id"}}
                                 <img loading="lazy" class="item-image loading" src="{{$imagePath}}?id={{$item.Id}}"/>
                             {{else}}

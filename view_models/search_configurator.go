@@ -16,7 +16,7 @@ type ScopeQueriesGetter interface {
 	GetScopeQueries() map[string]string
 }
 
-type SearchConfigurationProvider interface {
+type SearchConfigurator interface {
 	PropertiesGetter
 	HighlightPropertiesGetter
 	DigestPropertiesGetter
@@ -24,6 +24,6 @@ type SearchConfigurationProvider interface {
 	ScopeQueriesGetter
 }
 
-type SearchConfigurationProviderGetter interface {
-	GetSearchConfigurationProvider() SearchConfigurationProvider
+type SearchConfiguratorGetter interface {
+	GetSearchConfigurator() SearchConfigurator
 }

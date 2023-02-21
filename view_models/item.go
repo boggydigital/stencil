@@ -8,15 +8,16 @@ type Formatter func(id, property, link string, rxa kvas.ReduxAssets) string
 
 type Item struct {
 	*Page
-	Id               string
-	Title            string
-	Labels           []string
-	HiddenLabels     []string
-	LabelValues      map[string]string
-	ImagePath        string
-	ImageProperty    string
-	TitleProperty    string
-	HiddenProperties []string
+	Id                      string
+	Title                   string
+	Labels                  []string
+	HiddenLabels            []string
+	LabelValues             map[string]string
+	ImagePath               string
+	DehydratedImageProperty string
+	ImageProperty           string
+	TitleProperty           string
+	HiddenProperties        []string
 	// Text properties
 	Properties      map[string]map[string]string
 	PropertyOrder   []string
@@ -32,47 +33,49 @@ type Item struct {
 }
 
 func NewItem(
-	acp AppConfigurationProvider,
+	acp AppConfigurator,
 	id string,
 	hasSections []string,
 	rxa kvas.ReduxAssets) (*Item, error) {
 
-	icp := acp.GetItemConfigurationProvider()
-	fcp := acp.GetFormatterConfigurationProvider()
-	ccp := acp.GetCommonConfigurationProvider()
+	ic := acp.GetItemConfigurator()
+	fc := acp.GetFormatterConfigurator()
+	cc := acp.GetCommonConfigurator()
+	dic := acp.GetDehydratedImagesConfigurator()
 
 	if hasSections == nil {
-		hasSections = icp.GetSections()
+		hasSections = ic.GetSections()
 	}
 
-	if err := rxa.IsSupported(icp.GetProperties()...); err != nil {
+	if err := rxa.IsSupported(ic.GetProperties()...); err != nil {
 		return nil, err
 	}
 
-	title, _ := rxa.GetFirstVal(ccp.GetTitleProperty(), id)
+	title, _ := rxa.GetFirstVal(cc.GetTitleProperty(), id)
 
-	propertyOrder := append(icp.GetProperties(), icp.GetComputedProperties()...)
+	propertyOrder := append(ic.GetProperties(), ic.GetComputedProperties()...)
 
 	ivm := &Item{
-		Page:             acp.GetPage(),
-		Id:               id,
-		ImagePath:        icp.GetImagePath(),
-		ImageProperty:    icp.GetImageProperty(),
-		TitleProperty:    ccp.GetTitleProperty(),
-		Title:            title,
-		Labels:           ccp.GetLabels(),
-		HiddenLabels:     ccp.GetHiddenLabels(),
-		LabelValues:      make(map[string]string),
-		Properties:       make(map[string]map[string]string),
-		PropertyOrder:    propertyOrder,
-		HiddenProperties: icp.GetHiddenProperties(),
-		PropertyTitles:   ccp.GetPropertyTitles(),
-		PropertyClasses:  make(map[string]string),
-		PropertyActions:  make(map[string]map[string]string),
-		Icons:            ccp.GetIcons(),
-		Sections:         icp.GetSections(),
-		HasSections:      hasSections,
-		SectionTitles:    ccp.GetSectionTitles(),
+		Page:                    acp.GetPage(),
+		Id:                      id,
+		ImagePath:               ic.GetImagePath(),
+		DehydratedImageProperty: dic.GetDehydratedImageProperty(),
+		ImageProperty:           ic.GetImageProperty(),
+		TitleProperty:           cc.GetTitleProperty(),
+		Title:                   title,
+		Labels:                  cc.GetLabels(),
+		HiddenLabels:            cc.GetHiddenLabels(),
+		LabelValues:             make(map[string]string),
+		Properties:              make(map[string]map[string]string),
+		PropertyOrder:           propertyOrder,
+		HiddenProperties:        ic.GetHiddenProperties(),
+		PropertyTitles:          cc.GetPropertyTitles(),
+		PropertyClasses:         make(map[string]string),
+		PropertyActions:         make(map[string]map[string]string),
+		Icons:                   cc.GetIcons(),
+		Sections:                ic.GetSections(),
+		HasSections:             hasSections,
+		SectionTitles:           cc.GetSectionTitles(),
 	}
 
 	for _, p := range propertyOrder {
@@ -80,26 +83,26 @@ func NewItem(
 		ivm.Properties[p] = getPropertyLinks(
 			id,
 			p,
-			fcp.GetTitleFormatter(),
-			fcp.GetHrefFormatter(),
+			fc.GetTitleFormatter(),
+			fc.GetHrefFormatter(),
 			rxa)
-		if gcf := fcp.GetClassFormatter(); gcf != nil {
+		if gcf := fc.GetClassFormatter(); gcf != nil {
 			ivm.PropertyClasses[p] = gcf(id, p, value, rxa)
 		}
 		if pa := getPropertyActions(
 			id,
 			p,
 			value,
-			fcp.GetActionFormatter(),
-			fcp.GetActionHrefFormatter(),
+			fc.GetActionFormatter(),
+			fc.GetActionHrefFormatter(),
 			rxa); len(pa) > 0 {
 			ivm.PropertyActions[p] = pa
 		}
 	}
 
-	glf := fcp.GetLabelFormatter()
+	glf := fc.GetLabelFormatter()
 
-	for _, l := range ccp.GetLabels() {
+	for _, l := range cc.GetLabels() {
 		if value, ok := rxa.GetFirstVal(l, id); ok {
 			ivm.LabelValues[l] = glf(id, l, value, rxa)
 		}

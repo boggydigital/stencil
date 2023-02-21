@@ -1,6 +1,15 @@
 {{define "item"}}
     <section id="item" data-id="{{.Id}}">
 
+        {{$dehydratedBackground := ""}}
+
+        {{if .DehydratedImageProperty}}
+            {{$dehydratedImages := index .Properties .DehydratedImageProperty}}
+            {{range $dehydratedImages}}
+                {{$dehydratedBackground = hydrate .}}
+            {{end}}
+        {{end}}
+
         <div class="image">
             {{$imageId := ""}}
             {{if eq .ImageProperty "id"}}

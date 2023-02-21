@@ -24,7 +24,7 @@ type SectionTitlesGetter interface {
 	GetSectionTitles() map[string]string
 }
 
-type CommonConfigurationProvider interface {
+type CommonConfigurator interface {
 	LabelsGetter
 	HiddenLabelsGetter
 	IconsGetter
@@ -33,6 +33,6 @@ type CommonConfigurationProvider interface {
 	SectionTitlesGetter
 }
 
-type CommonConfigurationProviderGetter interface {
-	GetCommonConfigurationProvider() CommonConfigurationProvider
+type CommonConfiguratorGetter interface {
+	GetCommonConfigurator() CommonConfigurator
 }

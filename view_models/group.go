@@ -11,7 +11,7 @@ type Group struct {
 }
 
 func NewGroup(
-	acp AppConfigurationProvider,
+	acp AppConfigurator,
 	groupOrder []string,
 	groupItems map[string][]string,
 	groupTitles map[string]string,

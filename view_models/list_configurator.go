@@ -20,7 +20,7 @@ type HiddenPropertiesGetter interface {
 	GetHiddenProperties() []string
 }
 
-type ListConfigurationProvider interface {
+type ListConfigurator interface {
 	PropertiesGetter
 	HiddenPropertiesGetter
 	ImagePropertyGetter
@@ -28,6 +28,6 @@ type ListConfigurationProvider interface {
 	ItemPathGetter
 }
 
-type ListConfigurationProviderGetter interface {
-	GetListConfigurationProvider() ListConfigurationProvider
+type ListConfiguratorGetter interface {
+	GetListConfigurator() ListConfigurator
 }

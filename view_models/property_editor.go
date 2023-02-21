@@ -14,7 +14,7 @@ type PropertyEditor struct {
 }
 
 func NewPropertyEditor(
-	app AppConfigurationProvider,
+	app AppConfigurator,
 	id, title, propertyTitle string,
 	condition bool, conditionalMessage string,
 	selectedValues map[string]bool, allValues []string, allowNewValues bool,

@@ -24,7 +24,7 @@ type ActionHrefFormatterGetter interface {
 	GetActionHrefFormatter() Formatter
 }
 
-type FormatterConfigurationProvider interface {
+type FormatterConfigurator interface {
 	LabelFormatterGetter
 	TitleFormatterGetter
 	HrefFormatterGetter
@@ -33,6 +33,6 @@ type FormatterConfigurationProvider interface {
 	ActionHrefFormatterGetter
 }
 
-type FormatterConfigurationProviderGetter interface {
-	GetFormatterConfigurationProvider() FormatterConfigurationProvider
+type FormatterConfiguratorGetter interface {
+	GetFormatterConfigurator() FormatterConfigurator
 }

@@ -2,6 +2,7 @@ package stencil
 
 import (
 	"embed"
+	"github.com/boggydigital/issa"
 	"html/template"
 	"io/fs"
 	"strings"
@@ -17,6 +18,7 @@ var templateFuncs = template.FuncMap{
 	"commaJoin": commaJoin,
 	"concat":    concat,
 	"contains":  contains,
+	"hydrate":   hydrate,
 }
 
 func contains(slice []string, val string) bool {
@@ -34,6 +36,10 @@ func commaJoin(strs []string) string {
 
 func concat(strs ...string) string {
 	return strings.Join(strs, "")
+}
+
+func hydrate(dhi string) template.URL {
+	return template.URL(issa.Hydrate(dhi))
 }
 
 func init() {

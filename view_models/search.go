@@ -20,7 +20,7 @@ type Search struct {
 }
 
 func NewSearch(
-	acp AppConfigurationProvider,
+	acp AppConfigurator,
 	query map[string][]string,
 	ids []string,
 	from, to, total int,
@@ -30,19 +30,19 @@ func NewSearch(
 
 	lvm, err := NewList(acp, ids, from, to, total, u, rxa)
 
-	scp := acp.GetSearchConfigurationProvider()
-	ccp := acp.GetCommonConfigurationProvider()
+	sc := acp.GetSearchConfigurator()
+	cc := acp.GetCommonConfigurator()
 
 	svm := &Search{
-		Scopes:              scp.GetScopes(),
-		ScopeQueries:        scp.GetScopeQueries(),
-		CurrentScope:        currentScope(query, scp.GetScopeQueries()),
+		Scopes:              sc.GetScopes(),
+		ScopeQueries:        sc.GetScopeQueries(),
+		CurrentScope:        currentScope(query, sc.GetScopeQueries()),
 		Query:               query,
 		Page:                acp.GetPage(),
-		Properties:          scp.GetProperties(),
-		HighlightProperties: scp.GetHighlightProperties(),
-		PropertyTitles:      ccp.GetPropertyTitles(),
-		DigestProperties:    scp.GetDigestProperties(),
+		Properties:          sc.GetProperties(),
+		HighlightProperties: sc.GetHighlightProperties(),
+		PropertyTitles:      cc.GetPropertyTitles(),
+		DigestProperties:    sc.GetDigestProperties(),
 		Found:               lvm,
 	}
 

@@ -10,7 +10,7 @@ type Page struct {
 	Foot    *Footer
 }
 
-func NewPage(acp AppConfigurationProvider, id, content string) *Page {
+func NewPage(acp AppConfigurator, id, content string) *Page {
 	page := acp.GetPage()
 	page.Id = id
 	page.Content = template.HTML(content)

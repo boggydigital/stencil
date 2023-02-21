@@ -9,12 +9,13 @@ import (
 )
 
 type AppConfiguration struct {
-	page         *view_models.Page
-	commonConfig *CommonConfiguration
-	listConfig   *ListConfiguration
-	itemConfig   *ItemConfiguration
-	fmtConfig    *FormatterConfiguration
-	searchConfig *SearchConfiguration
+	page                   *view_models.Page
+	commonConfig           *CommonConfiguration
+	listConfig             *ListConfiguration
+	itemConfig             *ItemConfiguration
+	dehydratedImagesConfig *DehydratedImagesConfiguration
+	fmtConfig              *FormatterConfiguration
+	searchConfig           *SearchConfiguration
 }
 
 func NewAppConfig(title, favIconAccent string) *AppConfiguration {
@@ -26,11 +27,12 @@ func NewAppConfig(title, favIconAccent string) *AppConfiguration {
 			},
 			Foot: &view_models.Footer{},
 		},
-		commonConfig: &CommonConfiguration{},
-		listConfig:   &ListConfiguration{},
-		itemConfig:   &ItemConfiguration{},
-		fmtConfig:    &FormatterConfiguration{},
-		searchConfig: &SearchConfiguration{},
+		commonConfig:           &CommonConfiguration{},
+		listConfig:             &ListConfiguration{},
+		itemConfig:             &ItemConfiguration{},
+		fmtConfig:              &FormatterConfiguration{},
+		searchConfig:           &SearchConfiguration{},
+		dehydratedImagesConfig: &DehydratedImagesConfiguration{},
 	}
 }
 
@@ -38,24 +40,28 @@ func (a *AppConfiguration) GetPage() *view_models.Page {
 	return a.page
 }
 
-func (a *AppConfiguration) GetListConfigurationProvider() view_models.ListConfigurationProvider {
+func (a *AppConfiguration) GetListConfigurator() view_models.ListConfigurator {
 	return a.listConfig
 }
 
-func (a *AppConfiguration) GetItemConfigurationProvider() view_models.ItemConfigurationProvider {
+func (a *AppConfiguration) GetItemConfigurator() view_models.ItemConfigurator {
 	return a.itemConfig
 }
 
-func (a *AppConfiguration) GetFormatterConfigurationProvider() view_models.FormatterConfigurationProvider {
+func (a *AppConfiguration) GetFormatterConfigurator() view_models.FormatterConfigurator {
 	return a.fmtConfig
 }
 
-func (a *AppConfiguration) GetSearchConfigurationProvider() view_models.SearchConfigurationProvider {
+func (a *AppConfiguration) GetSearchConfigurator() view_models.SearchConfigurator {
 	return a.searchConfig
 }
 
-func (a *AppConfiguration) GetCommonConfigurationProvider() view_models.CommonConfigurationProvider {
+func (a *AppConfiguration) GetCommonConfigurator() view_models.CommonConfigurator {
 	return a.commonConfig
+}
+
+func (a *AppConfiguration) GetDehydratedImagesConfigurator() view_models.DehydratedImagesConfigurator {
+	return a.dehydratedImagesConfig
 }
 
 func (a *AppConfiguration) SetFooter(location, repoUrl string) {
@@ -171,6 +177,11 @@ func (a *AppConfiguration) SetCommonConfiguration(
 	a.commonConfig.sectionTitles = sectionTitles
 
 	return nil
+}
+
+func (a *AppConfiguration) SetDehydratedImagesConfiguration(
+	dehydratedImageProperty string) {
+	a.dehydratedImagesConfig.dehydratedImageProperty = dehydratedImageProperty
 }
 
 func (a *AppConfiguration) SetCurrentNav(item string) {
