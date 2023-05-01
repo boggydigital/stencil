@@ -4,12 +4,11 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/boggydigital/middleware"
-	"github.com/boggydigital/nod"
 	"io"
 	"net/http"
 )
 
-func Prerender(paths []string, clearStaticContent bool, port int, w http.ResponseWriter) {
+func Prerender(paths []string, clearStaticContent bool, port int) bool {
 
 	// we don't want to accumulate existing static content over the lifetime of the app
 	if clearStaticContent {
@@ -20,16 +19,11 @@ func Prerender(paths []string, clearStaticContent bool, port int, w http.Respons
 
 	for _, p := range paths {
 		if err := setStaticContent(host, p); err != nil {
-			http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-			return
+			return false
 		}
 	}
 
-	if _, err := io.WriteString(w, "ok"); err != nil {
-		http.Error(w, nod.Error(err).Error(), http.StatusInternalServerError)
-		return
-	}
-
+	return true
 }
 
 func setStaticContent(host, p string) error {
