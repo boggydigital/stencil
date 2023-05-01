@@ -9,10 +9,12 @@ import (
 	"net/http"
 )
 
-func Prerender(paths []string, port int, w http.ResponseWriter) {
+func Prerender(paths []string, clearStaticContent bool, port int, w http.ResponseWriter) {
 
 	// we don't want to accumulate existing static content over the lifetime of the app
-	middleware.ClearStaticContent()
+	if clearStaticContent {
+		middleware.ClearStaticContent()
+	}
 
 	host := fmt.Sprintf("http://localhost:%d", port)
 
