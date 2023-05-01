@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func Prerender(paths []string, clearStaticContent bool, port int) bool {
+func Prerender(paths []string, clearStaticContent bool, port int) error {
 
 	// we don't want to accumulate existing static content over the lifetime of the app
 	if clearStaticContent {
@@ -19,11 +19,11 @@ func Prerender(paths []string, clearStaticContent bool, port int) bool {
 
 	for _, p := range paths {
 		if err := setStaticContent(host, p); err != nil {
-			return false
+			return err
 		}
 	}
 
-	return true
+	return nil
 }
 
 func setStaticContent(host, p string) error {
