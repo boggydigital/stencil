@@ -1,13 +1,18 @@
 package view_models
 
-import "github.com/boggydigital/kvas"
+import (
+	"github.com/boggydigital/kvas"
+	"net/url"
+)
 
 type Group struct {
 	*Page
-	GroupOrder  []string
-	GroupLists  map[string]*List
-	GroupTitles map[string]string
-	Updated     string
+	GroupOrder   []string
+	GroupLists   map[string]*List
+	GroupTitles  map[string]string
+	GroupShowAll map[string]bool
+	Updated      string
+	ShowAllUrl   string
 }
 
 func NewGroup(
@@ -15,7 +20,9 @@ func NewGroup(
 	groupOrder []string,
 	groupItems map[string][]string,
 	groupTitles map[string]string,
+	groupTotals map[string]int,
 	updated string,
+	u *url.URL,
 	rxa kvas.ReduxAssets) (*Group, error) {
 
 	gvm := &Group{
@@ -26,13 +33,27 @@ func NewGroup(
 		Updated:     updated,
 	}
 
+	showAll := make(map[string]bool)
+
 	for group, items := range groupItems {
-		lvm, err := NewList(acp, items, 0, len(items), len(items), nil, rxa)
+		lvm, err := NewList(acp, items, 0, len(items), groupTotals[group], nil, rxa)
 		if err != nil {
 			return gvm, err
 		}
 		gvm.GroupLists[group] = lvm
+		if len(items) < groupTotals[group] {
+			showAll[group] = true
+		}
 	}
+
+	if u != nil && len(showAll) > 0 {
+		q := u.Query()
+		q.Set("show-all", "true")
+		u.RawQuery = q.Encode()
+		gvm.ShowAllUrl = u.String()
+	}
+
+	gvm.GroupShowAll = showAll
 
 	return gvm, nil
 }

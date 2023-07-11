@@ -263,7 +263,9 @@ func (a *AppConfiguration) RenderGroup(
 	groupOrder []string,
 	groupItems map[string][]string,
 	groupTitles map[string]string,
+	groupTotals map[string]int,
 	updated string,
+	u *url.URL,
 	rxa kvas.ReduxAssets,
 	w io.Writer) error {
 
@@ -274,7 +276,9 @@ func (a *AppConfiguration) RenderGroup(
 		groupOrder,
 		groupItems,
 		groupTitles,
+		groupTotals,
 		updated,
+		u,
 		rxa); err != nil {
 		return err
 	} else {

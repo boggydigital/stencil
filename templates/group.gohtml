@@ -10,13 +10,24 @@
     </section>
     <section class="group-lists">
         {{$groupLists := .GroupLists}}
+        {{$groupShowAll := .GroupShowAll}}
+        {{$showAllUrl := .ShowAllUrl}}
         {{range $group := .GroupOrder}}
             {{$groupTitle := index $groupTitles $group}}
-            <h1 class="section-title" id="{{$group}}">{{$groupTitle}}<a class="back-to-top-link"
-                                                                        href="#_top">{{template "svg-icon" "back-to-top"}}</a>
+            <h1 class="section-title" id="{{$group}}">
+                {{$groupTitle}}<a class="back-to-top-link" href="#_top">{{template "svg-icon" "back-to-top"}}</a>
             </h1>
             {{$list := index $groupLists $group}}
             {{template "list" $list}}
+
+            {{$showAll := index $groupShowAll $group}}
+            {{if $showAll}}
+                <div class="show-all-container">
+                    <a class="button" href="{{$showAllUrl}}">
+                        <button>Show All...</button>
+                    </a>
+                </div>
+            {{end}}
         {{end}}
     </section>
 {{end}}
