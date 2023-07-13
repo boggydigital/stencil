@@ -11,10 +11,6 @@
             height: var(--normal);
         }
 
-        section.group-lists {
-            padding: var(--normal) 0 0;
-        }
-
         .section-title {
             font-size: var(--fs-larger);
             margin: var(--large) 0 0;
@@ -39,10 +35,17 @@
             width: 100%;
             display: flex;
             justify-content: center;
+            font-size: var(--fs-x-smaller);
+        }
+
+        .show-all-container.top-level {
+            margin-block-start: var(--large);
+            font-size: var(--fs-smaller);
         }
 
         .show-all-container button {
-            width: calc(5 * var(--large))
+            width: calc(5 * var(--large));
+            font-size: inherit;
         }
 
     </style>

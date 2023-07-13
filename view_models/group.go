@@ -7,12 +7,13 @@ import (
 
 type Group struct {
 	*Page
-	GroupOrder   []string
-	GroupLists   map[string]*List
-	GroupTitles  map[string]string
-	GroupShowAll map[string]bool
-	Updated      string
-	ShowAllUrl   string
+	GroupOrder      []string
+	GroupLists      map[string]*List
+	GroupTitles     map[string]string
+	GroupShowAll    map[string]bool
+	AnyGroupShowAll bool
+	Updated         string
+	ShowAllUrl      string
 }
 
 func NewGroup(
@@ -54,6 +55,7 @@ func NewGroup(
 	}
 
 	gvm.GroupShowAll = showAll
+	gvm.AnyGroupShowAll = len(showAll) > 0
 
 	return gvm, nil
 }
