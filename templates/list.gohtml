@@ -53,8 +53,12 @@
                             {{end}}
                         {{end}}
 
-                        <img loading="lazy" class="item-image placeholder" src="{{$imagePath}}?id={{$imageId}}"
-                             {{if $dehydratedBackground}}style="background-image: url({{$dehydratedBackground}})"{{end}}/>
+                        <div class="image">
+                            {{if $dehydratedBackground}}
+                                <img class="item-image placeholder" src="{{$dehydratedBackground}}" />
+                            {{end}}
+                            <img loading="lazy" class="poster" src="{{$imagePath}}?id={{$imageId}}" />
+                        </div>
 
                     {{end}}
 

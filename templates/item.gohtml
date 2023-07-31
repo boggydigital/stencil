@@ -1,30 +1,31 @@
 {{define "item"}}
     <section id="item" data-id="{{.Id}}">
 
-        {{$dehydratedBackground := ""}}
+        {{$dehydratedImage := ""}}
 
         {{if .DehydratedImageProperty}}
             {{$dehydratedImages := index .Properties .DehydratedImageProperty}}
             {{range $dehydratedImages}}
-                {{$dehydratedBackground = hydrate .}}
+                {{$dehydratedImage = hydrate .}}
             {{end}}
         {{end}}
 
         <div class="image">
 
-
-                {{$imageId := ""}}
-                {{if eq .ImageProperty "id"}}
-                    {{$imageId = .Id}}
-                {{else}}
-                    {{$titleValues := index .Properties .ImageProperty}}
-                    {{range $iid, $values := $titleValues}}
-                        {{$imageId = $iid}}
-                    {{end}}
+            {{$imageId := ""}}
+            {{if eq .ImageProperty "id"}}
+                {{$imageId = .Id}}
+            {{else}}
+                {{$titleValues := index .Properties .ImageProperty}}
+                {{range $iid, $values := $titleValues}}
+                    {{$imageId = $iid}}
                 {{end}}
+            {{end}}
 
-                <img class="placeholder" src="{{.ImagePath}}?id={{$imageId}}"
-                     {{if $dehydratedBackground}}style="background-image: url({{$dehydratedBackground}})"{{end}}/>
+            {{if $dehydratedImage}}
+                <img class="placeholder" src="{{$dehydratedImage}}"/>
+            {{end}}
+            <img class="poster" src="{{.ImagePath}}?id={{$imageId}}" />
         </div>
 
         <div class="item-details">

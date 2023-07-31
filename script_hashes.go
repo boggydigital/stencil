@@ -7,4 +7,6 @@ var ScriptHashes = []string{
 	"'sha256-vEdzDTUjeRFG21L/pW+qldt1k+gnTSWl4v2E16iqJPc='",
 	//script_onfocus_digest.gohtml
 	"'sha256-n0s8aUnGgeVGVMRpMuAJ+LIRrdURaa//IaGKuDUk/WI='",
+	//script_image_fadein
+	"'sha256-YFmdr12OljpfFUU4fPAEyIUOqGHT3g9/t+14oxEmeB4='",
 }

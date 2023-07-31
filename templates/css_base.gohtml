@@ -154,8 +154,14 @@
 
         .placeholder {
             image-rendering: pixelated;
-            background-size: contain;
-            background-repeat: no-repeat;
+            /*background-size: contain;*/
+            /*background-repeat: no-repeat;*/
+        }
+
+        .poster {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 2s ease-in;
         }
     </style>
 {{end}}
