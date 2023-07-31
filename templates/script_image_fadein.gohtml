@@ -4,14 +4,16 @@
             let posters = document.querySelectorAll("img.poster")
             posters.forEach(poster => {
                 poster.addEventListener("load", (e) => {
-{{/*                    e.target.addEventListener("transitionend", (e) => {*/}}
-{{/*                        placeholder = e.target.parentElement.querySelector(".placeholder")*/}}
-{{/*                        placeholder.style.display = "none"*/}}
-{{/*                    })*/}}
                     e.target.style.opacity = "1"
                     e.target.style.visibility = "visible"
                 });
                 poster.addEventListener("error", (e) => {
+                    e.target.style.display = "none"
+                });
+            })
+            let placeholders = document.querySelectorAll("img.placeholder")
+            placeholders.forEach(placeholder => {
+                placeholder.addEventListener("error", (e) => {
                     e.target.style.display = "none"
                 });
             })

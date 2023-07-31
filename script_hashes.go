@@ -8,5 +8,5 @@ var ScriptHashes = []string{
 	//script_onfocus_digest.gohtml
 	"'sha256-n0s8aUnGgeVGVMRpMuAJ+LIRrdURaa//IaGKuDUk/WI='",
 	//script_image_fadein
-	"'sha256-YFmdr12OljpfFUU4fPAEyIUOqGHT3g9/t+14oxEmeB4='",
+	"'sha256-64VKj749ROYuZ2xFRo/ft2Aq5ZajqQiNUvpJuCIMLkM='",
 }
