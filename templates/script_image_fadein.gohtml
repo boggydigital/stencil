@@ -3,10 +3,13 @@
         document.addEventListener("DOMContentLoaded", () => {
             let posters = document.querySelectorAll("img.poster")
             posters.forEach(poster => {
-                poster.addEventListener("load", (e) => {
-                    e.target.style.opacity = "1"
-                    e.target.style.visibility = "visible"
-                });
+                if (poster.complete) {
+                    poster.style.opacity = "1"
+                } else {
+                    poster.addEventListener("load", (e) => {
+                        e.target.style.opacity = "1"
+                    });
+                }
                 poster.addEventListener("error", (e) => {
                     e.target.style.display = "none"
                 });
