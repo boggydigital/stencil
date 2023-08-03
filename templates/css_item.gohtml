@@ -13,12 +13,14 @@
         grid-row: 1;
         grid-column: 1;
         position: relative;
+        border-radius: var(--border-radius-large);
     }
 
     .item-details {
         margin: 0 auto calc(4 * var(--large));
-        width: 70%;
-        max-width: 1000px;
+        width: 80%;
+        /*max-width: 1000px;*/
+        container-type: inline-size;
     }
 
     @media only screen and (max-width: 700px) {
@@ -63,13 +65,9 @@
     }
 
     .item-details .text-properties {
-        font-size: var(--fs-smaller);
         padding: 0 var(--large);
-        display: flex;
-        flex-direction: column;
-        row-gap: var(--small);
-        margin: var(--large) 0;
-        margin-block-end: var(--large);
+        column-gap: calc( 2 * var(--large));
+        margin: calc(2*var(--large)) 0 calc(2*var(--large));
     }
 
     .book-details .text-properties .text-property ul {
@@ -83,7 +81,6 @@
     }
 
     .item-details .text-properties .text-property ul.vertical {
-        flex-direction: column;
         background-color: var(--highlight-color);
         border-radius: var(--border-radius-large);
         padding: var(--normal);
@@ -98,24 +95,14 @@
 
     .item-details .text-properties .text-property {
         width: 100%;
-        display: grid;
-        grid-template-columns: calc(4.5 * var(--large)) auto;
-        grid-column-gap: var(--small);
+        display: flex;
+        flex-direction: column;
         padding: var(--small) 0;
         align-items: start;
     }
 
     .item-details .text-properties .text-property.center {
         align-items: center;
-    }
-
-    @media screen and (min-width: 1200px) {
-        .item-details .text-properties {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-column-gap: var(--large);
-            grid-row-gap: var(--normal);
-        }
     }
 
     .item-details .text-properties svg.icon {
@@ -133,15 +120,16 @@
         column-gap: var(--normal);
     }
 
-    .item-details .text-properties .text-property ul.vertical {
-        flex-direction: column;
+    .item-details .text-properties .text-property details {
         background-color: var(--highlight-color);
         border-radius: var(--border-radius-large);
         padding: var(--normal);
+        width: calc(100% - 2*var(--normal));
     }
 
     .item-details .text-properties .text-property details[open] summary {
         margin-block-end: var(--normal);
+
     }
 
     .item-details .text-properties .text-property details summary {
@@ -155,17 +143,19 @@
     }
 
     .item-details .text-properties .text-property h2 {
-        font-size: inherit;
-        margin: 0;
+        font-size: var(--fs-larger);
+        margin-block-start: 0;
+        margin-block-end: var(--normal)
     }
 
     .item-details .text-properties .text-property .property-title {
-        font-weight: normal;
-        color: var(--subtle-color);
+        /*font-weight: normal;*/
+        /*color: var(--subtle-color);*/
     }
 
     .item-details .text-properties .text-property .property-value {
-        color: var(--color);
+        color: var(--subtle-color);
+        font-size: var(--fs-smaller);
     }
 
     .item-details .text-properties .text-property .property-value a {
@@ -183,7 +173,8 @@
     }
 
     .item-details .additional-properties {
-        margin-block-start: calc(2 * var(--large));
+        margin: 0 auto;
+        max-width: 1000px;
     }
 
     .item-details .additional-properties details {

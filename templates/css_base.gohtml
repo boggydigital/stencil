@@ -72,6 +72,10 @@
             --fs-x-smaller: 80%;
             --fs-xx-smaller: 50%;
 
+            --responsive-grid-column-width: calc(20 * var(--normal));
+            --responsive-grid-columns-default: 3;
+            --responsive-grid-columns: var(--responsive-grid-columns-default);
+
             /* defaults */
             background-color: var(--background-color);
             color: var(--color);
@@ -86,6 +90,76 @@
 
         body {
             margin: 0;
+        }
+
+        .responsive-grid {
+            display: grid;
+            grid-template-columns: repeat(var(--responsive-grid-columns), var(--responsive-grid-column-width));
+            grid-column-gap: var(--normal);
+            grid-row-gap: var(--normal);
+            justify-content: center;
+        }
+
+        @container (max-width: 700px) {
+            .responsive-grid {
+                grid-template-columns: 1fr;
+                justify-content: start;
+            }
+        }
+
+        @container (max-width: 1000px) {
+            .responsive-grid {
+                --responsive-grid-columns: 2;
+            }
+        }
+
+
+        @container (min-width: 1200px) {
+            .responsive-grid {
+                --responsive-grid-columns: 3;
+            }
+        }
+
+        @container (min-width: 1400px) {
+            .responsive-grid {
+                --responsive-grid-columns: 4;
+            }
+        }
+
+        @container (min-width: 1800px) {
+            .responsive-grid {
+                --responsive-grid-columns: 5;
+            }
+        }
+
+        @container (min-width: 2200px) {
+            .responsive-grid {
+                --responsive-grid-columns: 6;
+            }
+        }
+
+        @container (min-width: 2600px) {
+            .responsive-grid {
+                --responsive-grid-columns: 7;
+            }
+        }
+
+        @container (min-width: 3000px) {
+            .responsive-grid {
+                --responsive-grid-columns: 8;
+            }
+        }
+
+        @container (min-width: 3400px) {
+            .responsive-grid {
+                --responsive-grid-columns: 9;
+            }
+        }
+
+        @container (min-width: 3800px) {
+            .responsive-grid {
+                --responsive-grid-columns: 10;
+            }
         }
 
         details {

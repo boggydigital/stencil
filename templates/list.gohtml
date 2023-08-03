@@ -1,5 +1,5 @@
 {{define "list"}}
-    <section id="items-list">
+    <section class="items-list">
         {{$from := .From}}
         {{$to := .To}}
         {{$total := .Total}}
@@ -21,7 +21,7 @@
             {{end}}
         {{end}}
 
-        <div class="items">
+        <div class="items responsive-grid">
             {{$itemPath := .ItemPath}}
             {{range $ii, $item := .Items}}
 

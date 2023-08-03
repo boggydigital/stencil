@@ -20,12 +20,13 @@
         }
 
         .search-form {
-            width: 100%;
+            width: calc(100% - 2*var(--large));
             display: inline-flex;
             justify-items: center;
             flex-direction: column;
             align-items: start;
-            margin: var(--large) 0 0;
+            margin: var(--large);
+            container-type: inline-size;
         }
 
         .search-form details summary {
@@ -43,23 +44,35 @@
         .search-form .search-properties {
             padding-block-start: var(--normal);
             margin: 0 auto var(--normal);
+            /*grid-column-gap: var(--large);*/
             width: var(--search-width);
+        }
+
+        @media screen and (max-width: 700px) {
+            .search-form .search-properties {
+                margin: 0;
+            }
         }
 
         .search-form input[type="search"],
         .search-form select {
             background-color: var(--highlight-color);
-            max-width: calc(5 * var(--large));
+            /*max-width: calc(100% - var(--large));*/
         }
 
         .search-form input[type="search"] {
             font-weight: bold;
+            /*width: calc(100% - 2*var(--large));*/
         }
 
         .search-form label {
             font-size: var(--fs-x-smaller);
-            text-align: right;
-            color: var(--subtle-color);
+            /*text-align: right;*/
+            /*color: var(--subtle-color);*/
+        }
+
+        .search-form label h2 {
+            margin-block-start: 0;
         }
 
         .search-form .has-value label,
@@ -85,24 +98,7 @@
             display: flex;
             flex-direction: column;
             width: 100%;
-        }
-
-        @media only screen and (min-width: 900px) {
-            .search-form .search-properties {
-                display: grid;
-                align-content: center;
-                grid-template-columns: var(--search-width) var(--search-width);
-                column-gap: var(--normal);
-                width: calc(2 * var(--search-width) + var(--normal));
-
-            }
-        }
-
-        @media only screen and (min-width: 1300px) {
-            .search-form .search-properties {
-                grid-template-columns: var(--search-width) var(--search-width) var(--search-width);
-                width: calc(3 * var(--search-width) + var(--large));
-            }
+            container-type: inline-size;
         }
 
         .search-form details summary {
@@ -117,17 +113,13 @@
         }
 
         .search-form details .search-property {
-            display: grid;
-            align-items: center;
-            grid-template-columns: 2fr 3fr;
-            grid-column-gap: var(--normal);
+            display: flex;
+            flex-direction: column;
+            /*align-items: center;*/
+            /*grid-template-columns: 2fr 3fr;*/
+            /*grid-column-gap: var(--normal);*/
             width: 100%;
             padding: var(--small) 0 0 0;
-        }
-
-        .search-form details .search-property.highlight {
-            font-size: var(--fs-larger);
-            font-weight: 600;
         }
 
         .search-query-container {

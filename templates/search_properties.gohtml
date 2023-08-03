@@ -6,17 +6,15 @@
                 {{template "search-query" .}}
             {{end}}
             {{template "search-submit"}}
-            <section class="search-properties">
-                {{$highlightProperties := .HighlightProperties}}
+            <section class="search-properties responsive-grid">
                 {{$propertyTitles := .PropertyTitles}}
                 {{$digestProperties := .DigestProperties}}
                 {{$query := .Query}}
                 {{range $property := .Properties}}
                     {{$values := index $query $property}}
-                    {{$highlight := contains $highlightProperties $property}}
-                    <div class="search-property{{if $values}} has-value{{end}}{{if $highlight}} highlight{{end}}">
+                    <div class="search-property{{if $values}} has-value{{end}}">
                         {{$propertyTitle := index $propertyTitles $property}}
-                        <label for="search-{{$property}}">{{$propertyTitle}}</label>
+                        <label for="search-{{$property}}"><h2>{{$propertyTitle}}</h2></label>
                         <input id="search-{{$property}}"
                                {{if contains $digestProperties $property}}data-digest="true"{{end}}
                                type="search"

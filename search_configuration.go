@@ -1,19 +1,14 @@
 package stencil
 
 type SearchConfiguration struct {
-	properties          []string
-	highlightProperties []string
-	digestProperties    []string
-	scopes              []string
-	scopeQueries        map[string]string
+	properties       []string
+	digestProperties []string
+	scopes           []string
+	scopeQueries     map[string]string
 }
 
 func (sc *SearchConfiguration) GetProperties() []string {
 	return sc.properties
-}
-
-func (sc *SearchConfiguration) GetHighlightProperties() []string {
-	return sc.highlightProperties
 }
 
 func (sc *SearchConfiguration) GetDigestProperties() []string {
