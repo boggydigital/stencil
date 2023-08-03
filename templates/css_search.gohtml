@@ -21,18 +21,25 @@
 
         .search-form {
             width: 100%;
-            display: inline-flex;
+            display: flex;
             justify-items: center;
             flex-direction: column;
             align-items: start;
-            margin: var(--large) 0 0;
+            /*margin: var(--normal);*/
             container-type: inline-size;
         }
 
+        .search-form details {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
         .search-form details summary {
-            font-size: var(--fs-x-smaller);
             font-weight: bold;
             justify-content: center;
+            margin: var(--large);
+            cursor: pointer;
         }
 
         .search-form details summary svg {
@@ -44,8 +51,6 @@
         .search-form .search-properties {
             padding-block-start: var(--normal);
             margin: 0 auto var(--normal);
-            /*grid-column-gap: var(--large);*/
-            width: var(--search-width);
         }
 
         @media screen and (max-width: 700px) {
@@ -87,19 +92,6 @@
             column-gap: var(--x-small);
         }
 
-        .search-form details {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            container-type: inline-size;
-        }
-
-        .search-form details summary {
-            cursor: pointer;
-            text-align: center;
-            margin: var(--normal) 0;
-        }
-
         .search-form .search-submit {
             width: calc(5 * var(--large));
             margin: 0 auto;
@@ -115,8 +107,7 @@
         .search-query-container {
             display: flex;
             justify-content: center;
-            font-size: var(--fs-x-smaller);
-            margin: 0;
+            margin: 0 var(--normal);
         }
 
         .search-query {
@@ -132,7 +123,6 @@
             border-radius: var(--border-radius-large);
             justify-content: center;
             align-items: center;
-            margin: var(--normal);
             box-shadow: var(--box-shadow);
         }
 
@@ -152,8 +142,7 @@
         #scope {
             display: flex;
             justify-content: center;
-            margin-block-start: var(--normal);
-            margin-inline: var(--normal);
+            margin: var(--normal);
         }
 
         .scope {
@@ -161,7 +150,6 @@
             justify-content: center;
             align-content: center;
             column-gap: var(--small);
-            /*row-gap: var(--x-small);*/
             flex-direction: row;
             flex-wrap: wrap;
             list-style: none;
