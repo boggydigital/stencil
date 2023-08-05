@@ -49,8 +49,7 @@
         }
 
         .search-form .search-properties {
-            padding-block-start: var(--normal);
-            margin: 0 auto var(--normal);
+            margin: var(--normal) auto;
         }
 
         @media screen and (max-width: 700px) {
@@ -62,6 +61,8 @@
         .search-form input[type="search"],
         .search-form select {
             background-color: var(--highlight-color);
+            padding: var(--small);
+            font-size: var(--fs-x-smaller);
         }
 
         .search-form input[type="search"] {

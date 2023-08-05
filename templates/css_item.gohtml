@@ -19,11 +19,13 @@
     .item-details {
         margin: 0 auto calc(4 * var(--large));
         width: 80%;
-        /*max-width: 1000px;*/
         container-type: inline-size;
     }
 
     @media only screen and (max-width: 700px) {
+        .image img {
+            border-radius: 0;
+        }
         .item-details {
             margin: 0 var(--small) calc(4 * var(--large));
             width: calc(100% - var(--normal));
@@ -32,12 +34,11 @@
 
     .item-details > .title {
         font-size: calc(1.25*var(--fs-xxx-larger));
-        padding: var(--small) var(--normal);
         display: flex;
         justify-content: center;
         text-align: center;
         column-gap: var(--small);
-        margin: var(--normal);
+        margin: var(--large);
         font-weight: bold;
         text-shadow: var(--box-shadow);
     }
@@ -67,7 +68,7 @@
     .item-details .text-properties {
         /*padding: 0 var(--normal);*/
         column-gap: calc( 2 * var(--large));
-        margin: var(--large) var(--normal);
+        margin: var(--large);
     }
 
     .book-details .text-properties .text-property ul {
