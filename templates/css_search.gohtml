@@ -1,108 +1,76 @@
 {{define "css-search"}}
     <style id="css-search">
 
-        input, select {
-            border: none;
-            border-radius: var(--border-radius);
-            padding: var(--x-small);
-            appearance: none;
-        }
-
-        select {
-            color: var(--subtle-color);
-        }
-
-        select::after {
-            content: "x";
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-
         .search-form {
             width: 100%;
             display: flex;
             justify-items: center;
             flex-direction: column;
             align-items: start;
-            /*margin: var(--normal);*/
             container-type: inline-size;
-        }
 
-        .search-form details {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
+            & details {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
 
-        .search-form details summary {
-            font-weight: bold;
-            justify-content: center;
-            margin: var(--large);
-            cursor: pointer;
-        }
+                & summary {
+                    font-weight: bold;
+                    justify-content: center;
+                    margin: var(--large);
+                    cursor: pointer;
 
-        .search-form details summary svg {
-            width: var(--small);
-            height: var(--small);
-            margin-inline-start: var(--small);
-        }
+                    & svg {
+                        width: var(--small);
+                        height: var(--small);
+                        margin-inline-start: var(--small);
+                    }
+                }
 
-        .search-form .search-properties {
-            margin: var(--normal) auto;
+                & .search-property {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    padding: var(--small) 0 0 0;
+                }
+            }
+
+            & .search-properties {
+                margin: var(--normal) auto;
+            }
+
+            & label {
+                & h2 {
+                    margin-block-start: 0;
+                    font-size: var(--fs-larger);
+                }
+            }
+
+            & .has-value {
+                & input {
+                    background-color: var(--subtle-color);
+                    color: var(--background-color);
+                }
+            }
+
+            & .search-text-container {
+                display: grid;
+                grid-template-columns: 1fr 3fr 1fr;
+                align-items: center;
+                width: 100%;
+                column-gap: var(--x-small);
+            }
+
+            & .search-submit {
+                width: calc(5 * var(--large));
+                margin: 0 auto;
+            }
         }
 
         @media screen and (max-width: 700px) {
             .search-form .search-properties {
                 margin: 0 var(--large);
             }
-        }
-
-        .search-form input[type="search"],
-        .search-form select {
-            background-color: var(--highlight-color);
-            padding: var(--small);
-            font-size: var(--fs-x-smaller);
-        }
-
-        .search-form input[type="search"] {
-            font-weight: bold;
-        }
-
-        .search-form label h2 {
-            margin-block-start: 0;
-            font-size: var(--fs-larger);
-        }
-
-        .search-form .has-value label,
-        .search-form .has-value select {
-            font-weight: bold;
-            color: var(--color);
-        }
-
-        .search-form input[type="search"]::placeholder {
-            font-weight: normal;
-            color: var(--subtle-color);
-        }
-
-        .search-form .search-text-container {
-            display: grid;
-            grid-template-columns: 1fr 3fr 1fr;
-            align-items: center;
-            width: 100%;
-            column-gap: var(--x-small);
-        }
-
-        .search-form .search-submit {
-            width: calc(5 * var(--large));
-            margin: 0 auto;
-        }
-
-        .search-form details .search-property {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            padding: var(--small) 0 0 0;
         }
 
         .search-query-container {
@@ -125,61 +93,19 @@
             justify-content: center;
             align-items: center;
             box-shadow: var(--box-shadow);
-        }
 
-        .search-query .property-value {
-            font-weight: bolder;
-            color: var(--color);
-        }
+            &  .property-value {
+                font-weight: bolder;
+                color: var(--color);
+            }
 
-        .search-query .action {
-            display: flex;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--system-blue-color);
-            text-decoration: none;
-        }
-
-        #scope {
-            display: flex;
-            justify-content: center;
-            margin: var(--normal);
-        }
-
-        .scope {
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            column-gap: var(--small);
-            flex-direction: row;
-            flex-wrap: wrap;
-            list-style: none;
-            padding: calc(3*var(--xx-small));
-            background-color: var(--highlight-color);
-            border-radius: var(--border-radius-large);
-            box-shadow: var(--box-shadow);
-            max-width: var(--product-details-width);
-            margin-block: 0;
-            line-height: var(--normal);
-        }
-
-        .scope a {
-            display: block;
-            color: var(--color);
-            font-size: var(--fs-x-smaller);
-            padding: var(--small);
-            text-decoration: none;
-            border-radius: var(--border-radius);
-        }
-
-        .scope .current a {
-            background-color: var(--color);
-            color: var(--background-color);
-            box-shadow: var(--box-shadow);
-        }
-
-        .scope .current.unconstrained a {
-            border-color: var(--color);
+            &  .action {
+                display: flex;
+                justify-content: center;
+                font-weight: bold;
+                color: var(--system-blue-color);
+                text-decoration: none;
+            }
         }
 
     </style>

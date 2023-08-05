@@ -1,71 +1,66 @@
 {{define "css-property-editor"}}
     <style id="property-editor">
+
         .property-edit-form {
             max-width: var(--product-details-width);
             margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
+
+            & h1 {
+                font-size: var(--fs-xxx-larger);
+                padding: var(--small) var(--normal);
+                display: flex;
+                justify-content: center;
+                text-align: center;
+                column-gap: var(--small);
+                margin: var(--normal);
+                font-weight: bold;
+                text-shadow: var(--box-shadow);
+            }
+
+            & .conditional-message {
+                font-size: var(--fs-x-smaller);
+                padding: var(--normal);
+                margin: 0 var(--normal) var(--large) var(--normal);
+                border-radius: var(--border-radius-large);
+                background-color: var(--highlight-color);
+                box-shadow: var(--box-shadow);
+            }
+
+            & .value-container {
+                display: flex;
+                align-items: center;
+                column-gap: var(--small);
+                margin-block-end: var(--small);
+
+                &.disabled {
+                    color: var(--subtle-color);
+                }
+            }
+
+            & label {
+                cursor: pointer;
+
+                &.selected {
+                    font-weight: bold;
+                }
+            }
+
+            & .submit-container {
+                margin-block-start: calc(2 * var(--large));
+                width: calc(5 * var(--large));
+
+                & #submit {
+                    margin-block-end: calc(3 * var(--large));
+                }
+            }
+
+            & #new-property-value {
+                margin-block-start: var(--normal);
+            }
         }
 
-        .property-edit-form h1 {
-            font-size: var(--fs-xxx-larger);
-            padding: var(--small) var(--normal);
-            display: flex;
-            justify-content: center;
-            text-align: center;
-            column-gap: var(--small);
-            margin: var(--normal);
-            font-weight: bold;
-            text-shadow: var(--box-shadow);
-        }
-
-        .property-edit-form .conditional-message {
-            font-size: var(--fs-x-smaller);
-            padding: var(--normal);
-            margin: 0 var(--normal) var(--large) var(--normal);
-            border-radius: var(--border-radius-large);
-            background-color: var(--highlight-color);
-            box-shadow: var(--box-shadow);
-        }
-
-        .property-edit-form .value-container {
-            display: flex;
-            align-items: center;
-            column-gap: var(--small);
-            margin-block-end: var(--small);
-        }
-
-        .property-edit-form .value-container.disabled {
-            color: var(--subtle-color);
-        }
-
-        .property-edit-form label {
-            cursor: pointer;
-        }
-
-        .property-edit-form label.selected {
-            font-weight: bold;
-        }
-
-        .property-edit-form input[type='text'] {
-            border: none;
-            border-radius: var(--border-radius);
-            padding: var(--x-small);
-            appearance: none;
-        }
-
-        .property-edit-form .submit-container {
-            margin-block-start: calc(2 * var(--large));
-            width: calc(5 * var(--large));
-        }
-
-        .property-edit-form #new-property-value {
-            margin-block-start: var(--normal);
-        }
-
-        .property-edit-form .submit-container #submit {
-            margin-block-end: calc(3 * var(--large));
-        }
     </style>
 {{end}}

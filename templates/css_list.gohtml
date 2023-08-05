@@ -18,40 +18,125 @@
             display: flex;
             justify-content: center;
 
-            /*& button {*/
-            /*    width: calc(5 * var(--large))*/
-            /*}*/
+            & button {
+                width: calc(5 * var(--large))
+            }
         }
 
-        /* TODO: */
-        /* This and other rules should be replaces with */
-        /* https://drafts.csswg.org/css-nesting/ */
-        /* e.g. */
-        /*.next-container {*/
-        /*    & button {*/
-        /*      width: calc(5 * var(--large))*/
-        /*    }*/
-        /*}*/
-        /* when available in browsers */
+        .items {
 
-        .next-container button {
-            width: calc(5 * var(--large))
-        }
+            & .item {
+                font-size: var(--fs-larger);
+                color: inherit;
+                padding: calc(1.5 * var(--small));
+                text-decoration: none;
+                background-color: var(--highlight-color);
+                border-radius: var(--border-radius);
+                box-shadow: var(--box-shadow);
+                content-visibility: auto;
+                /* 123px is the average size of the element in "Products > all" section */
+                contain-intrinsic-size: var(--product-card-width) 120px;
+                overflow: hidden;
+                display: flex;
+                column-gap: calc(1.5 * var(--small));
 
-        .items .item {
-            font-size: var(--fs-larger);
-            color: inherit;
-            padding: calc(1.5 * var(--small));
-            text-decoration: none;
-            background-color: var(--highlight-color);
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            content-visibility: auto;
-            /* 123px is the average size of the element in "Products > all" section */
-            contain-intrinsic-size: var(--product-card-width) 120px;
-            overflow: hidden;
-            display: flex;
-            column-gap: calc(1.5 * var(--small));
+                & .image {
+                    width: 85px;
+                    height: 120px;
+                    flex-shrink: 0;
+                    background-color: var(--shadow-color);
+                    display: inline-grid;
+                    overflow: hidden;
+
+                    & img {
+                        width: 100%;
+                        height: 100%;
+                        grid-column: 1;
+                        grid-row: 1;
+                        object-fit: contain;
+                    }
+                }
+
+                & ul {
+                    list-style: none;
+                    padding-inline-start: 0;
+                    margin: 0;
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    width: 100%;
+                    row-gap: var(--x-small);
+                    overflow: hidden;
+                }
+
+                & .title {
+                    margin: 0 0 var(--small) 0;
+                    font-size: inherit;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    font-weight: bold;
+                }
+
+                & .property {
+                    color: var(--subtle-color);
+                    font-size: var(--fs-xx-smaller);
+                    font-weight: normal;
+                    display: grid;
+                    grid-template-columns: calc(var(--normal) * 4) auto;
+                    align-content: center;
+                    grid-column-gap: var(--small);
+                    grid-row-gap: var(--small);
+                    align-items: center;
+
+                    & .property-value {
+                        font-weight: bold;
+                        max-width: calc(80vw - 7 * var(--normal));
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        color: var(--color);
+                    }
+                }
+
+                & .labels {
+                    min-height: var(--normal);
+                    width: 100%;
+                    overflow: hidden;
+                    margin-block-end: auto;
+
+                    & ul {
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        row-gap: var(--x-small);
+                        column-gap: var(--x-small);
+
+                        & .label {
+                            font-size: var(--fs-xx-smaller);
+                            display: flex;
+                            align-items: center;
+                            width: min-content;
+                            text-transform: uppercase;
+                            padding: var(--xx-small) var(--x-small);
+                            border-radius: var(--border-radius);
+                        }
+                    }
+                }
+
+                & .property-value {
+                    &.horizontal {
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        gap: var(--small);
+
+                        & svg.icon {
+                            width: calc(3 * var(--x-small));
+                            height: calc(3 * var(--x-small));
+                        }
+                    }
+                }
+            }
         }
 
         @media only screen and (max-width: 700px) {
@@ -61,110 +146,10 @@
             }
         }
 
-        .items .item .image {
-            width: 85px;
-            height: 120px;
-            flex-shrink: 0;
-            background-color: var(--shadow-color);
-            display: inline-grid;
-            overflow: hidden;
-        }
-
-        .items .item img {
-            width: 100%;
-            height: 100%;
-            grid-column: 1;
-            grid-row: 1;
-            object-fit: contain;
-        }
-
-        .items .item ul {
-            list-style: none;
-            padding-inline-start: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
-            row-gap: var(--x-small);
-            overflow: hidden;
-        }
-
-        .items .item .title {
-            margin: 0 0 var(--small) 0;
-            font-size: inherit;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-weight: bold;
-            /*max-width: calc(var(--product-card-width) - 85px - 3*var(--normal));*/
-        }
-
         @media only screen and (max-width: 700px) {
             .items .item .title {
                 max-width: min-content;
             }
-        }
-
-        .items .item .property {
-            color: var(--subtle-color);
-            font-size: var(--fs-xx-smaller);
-            font-weight: normal;
-            display: grid;
-            grid-template-columns: calc(var(--normal) * 4) auto;
-            align-content: center;
-            grid-column-gap: var(--small);
-            grid-row-gap: var(--small);
-            align-items: center;
-        }
-
-        .items .item .property .property-title {
-
-        }
-
-        .items .item .property .property-value {
-            font-weight: bold;
-            max-width: calc(80vw - 7 * var(--normal));
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: var(--color);
-        }
-
-        .items .item .labels {
-            min-height: var(--normal);
-            width: 100%;
-            overflow: hidden;
-            margin-block-end: auto;
-        }
-
-        .items .item .labels ul {
-            flex-direction: row;
-            flex-wrap: wrap;
-            row-gap: var(--x-small);
-            column-gap: var(--x-small);
-        }
-
-        .items .item .label {
-            font-size: var(--fs-xx-smaller);
-            display: flex;
-            align-items: center;
-            width: min-content;
-            text-transform: uppercase;
-            padding: var(--xx-small) var(--x-small);
-            border-radius: var(--border-radius);
-        }
-
-        .items .item .property-value.horizontal {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: var(--small);
-        }
-
-        .items .item .property-value.horizontal svg.icon {
-            width: calc(3 * var(--x-small));
-            height: calc(3 * var(--x-small));
         }
 
     </style>

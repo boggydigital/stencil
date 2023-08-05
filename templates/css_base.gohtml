@@ -163,11 +163,27 @@
 
         details {
             content-visibility: auto;
+
+            & summary {
+                display: flex;
+                align-items: center;
+            }
         }
 
-        details summary {
-            display: flex;
-            align-items: center;
+        input[type=text],
+        input[type=search] {
+            appearance: none;
+            border: none;
+            border-radius: var(--border-radius);
+            background-color: var(--highlight-color);
+            padding: var(--small);
+            font-size: var(--fs-x-smaller);
+            font-weight: bold;
+
+            &::placeholder {
+                font-weight: normal;
+                color: var(--subtle-color);
+            }
         }
 
         button, input[type=submit] {
@@ -188,30 +204,37 @@
             align-items: center;
             row-gap: var(--small);
             margin-block-start: var(--normal);
-        }
 
-        .shortcuts ul {
-            font-size: var(--fs-x-smaller);
-            list-style: none;
-            margin-inline: var(--normal);
-            margin-block: 0;
-            display: flex;
-            column-gap: var(--small);
-            flex-direction: row;
-            flex-wrap: wrap;
-            background-color: var(--highlight-color);
-            padding: calc(3*var(--xx-small));
-            border-radius: var(--border-radius-large);
-            justify-content: center;
-            box-shadow: var(--box-shadow);
-            max-width: var(--product-details-width);
-        }
+            & ul {
+                font-size: var(--fs-x-smaller);
+                list-style: none;
+                margin-inline: var(--normal);
+                margin-block: 0;
+                display: flex;
+                column-gap: var(--small);
+                flex-direction: row;
+                flex-wrap: wrap;
+                background-color: var(--highlight-color);
+                padding: calc(3 * var(--xx-small));
+                border-radius: var(--border-radius-large);
+                justify-content: center;
+                box-shadow: var(--box-shadow);
+                max-width: var(--product-details-width);
+            }
 
-        .shortcuts a {
-            display: block;
-            color: var(--color);
-            text-decoration: none;
-            padding: var(--small);
+            & a {
+                display: block;
+                color: var(--color);
+                text-decoration: none;
+                padding: var(--small);
+                border-radius: var(--border-radius);
+            }
+
+            & .current a {
+                background-color: var(--color);
+                color: var(--background-color);
+                box-shadow: var(--box-shadow);
+            }
         }
 
         .footer-spacer {

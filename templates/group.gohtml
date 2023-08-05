@@ -1,6 +1,6 @@
 {{define "group"}}
     <section class="shortcuts">
-        <ul class="property-value flexible">
+        <ul>
             {{$groupTitles := .GroupTitles}}
             {{range $group := .GroupOrder}}
                 {{$groupTitle := index $groupTitles $group}}

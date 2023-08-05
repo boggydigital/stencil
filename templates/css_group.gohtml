@@ -1,22 +1,23 @@
 {{define "css-group"}}
     <style id="css-group">
-        section .section-title .back-to-top-link {
-            display: inline-flex;
-            align-items: center;
-        }
 
-        section .section-title .back-to-top-link svg.back-to-top {
-            margin-inline-start: var(--normal);
-            width: var(--normal);
-            height: var(--normal);
-        }
-
-        .section-title {
+        section .section-title {
             font-size: var(--fs-xx-larger);
             margin: var(--large) 0 0;
             font-weight: bold;
             display: flex;
             justify-content: center;
+
+            & .back-to-top-link {
+                display: inline-flex;
+                align-items: center;
+
+                & svg.back-to-top {
+                    margin-inline-start: var(--normal);
+                    width: var(--normal);
+                    height: var(--normal);
+                }
+            }
         }
 
         .updated {
@@ -25,10 +26,10 @@
             font-size: var(--fs-x-smaller);
             margin-block-start: var(--large);
             color: var(--color);
-        }
 
-        .updated .highlight {
-            color: var(--subtle-color);
+            & .highlight {
+                color: var(--subtle-color);
+            }
         }
 
         .show-all-container {
@@ -36,16 +37,16 @@
             display: flex;
             justify-content: center;
             font-size: var(--fs-x-smaller);
-        }
 
-        .show-all-container.top-level {
-            margin-block-start: var(--large);
-            /*font-size: var(--fs-smaller);*/
-        }
+            &.top-level {
+                margin-block-start: var(--large);
+                /*font-size: var(--fs-smaller);*/
+            }
 
-        .show-all-container button {
-            width: calc(5 * var(--large));
-            font-size: inherit;
+            & button {
+                width: calc(5 * var(--large));
+                font-size: inherit;
+            }
         }
 
     </style>
