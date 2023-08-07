@@ -87,7 +87,7 @@ func NewList(
 		}
 
 		for _, p := range lc.GetProperties() {
-			values, _ := rxa.GetAllUnchangedValues(p, id)
+			values, _ := rxa.GetAllValues(p, id)
 			li.PropertyValues[p] = values
 		}
 

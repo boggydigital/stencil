@@ -118,7 +118,7 @@ func getPropertyLinks(
 
 	propertyLinks := make(map[string]string)
 
-	values, _ := rxa.GetAllUnchangedValues(property, id)
+	values, _ := rxa.GetAllValues(property, id)
 
 	for _, value := range values {
 		linkTitle := fmtTitle(id, property, value, rxa)

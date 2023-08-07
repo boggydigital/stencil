@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/boggydigital/issa v0.1.9
-	github.com/boggydigital/kvas v0.3.26
+	github.com/boggydigital/kvas v0.3.28
 	github.com/boggydigital/middleware v0.1.7
 )
 
