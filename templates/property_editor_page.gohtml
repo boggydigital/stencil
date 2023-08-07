@@ -26,12 +26,12 @@
 
         <div class="property-values {{if eq $condition false}}disabled{{end}}">
             {{$selectedValues := .SelectedValues}}
-            {{range $value := .AllValues}}
+            {{range $value, $title := .AllValues}}
                 {{$selected := index $selectedValues $value}}
                 <div class="value-container">
                     <input id="{{$value}}" type="checkbox" name="value"
                            value="{{$value}}" {{if $selected}}checked{{end}} {{if eq $condition false}}disabled{{end}}/>
-                    <label for="{{$value}}" class="{{if $selected}}selected{{end}}">{{.}}</label>
+                    <label for="{{$value}}" class="{{if $selected}}selected{{end}}">{{$title}}</label>
                 </div>
             {{end}}
             {{if .AllowNewValues}}

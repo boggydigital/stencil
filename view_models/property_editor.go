@@ -8,7 +8,7 @@ type PropertyEditor struct {
 	Condition          bool
 	ConditionalMessage string
 	SelectedValues     map[string]bool
-	AllValues          []string
+	AllValues          map[string]string
 	AllowNewValues     bool
 	ApplyEndpoint      string
 }
@@ -17,7 +17,8 @@ func NewPropertyEditor(
 	app AppConfigurator,
 	id, title, propertyTitle string,
 	condition bool, conditionalMessage string,
-	selectedValues map[string]bool, allValues []string, allowNewValues bool,
+	selectedValues map[string]bool,
+	allValues map[string]string, allowNewValues bool,
 	applyEndpoint string) *PropertyEditor {
 	return &PropertyEditor{
 		Page:               app.GetPage(),

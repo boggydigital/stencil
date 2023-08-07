@@ -291,7 +291,8 @@ func (a *AppConfiguration) RenderGroup(
 func (a *AppConfiguration) RenderPropertyEditor(
 	id, title, propertyTitle string,
 	condition bool, conditionalMessage string,
-	selectedValues map[string]bool, allValues []string, allowNewValues bool,
+	selectedValues map[string]bool,
+	allValues map[string]string, allowNewValues bool,
 	applyEndpoint string,
 	w io.Writer) error {
 
