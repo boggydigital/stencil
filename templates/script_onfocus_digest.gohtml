@@ -17,9 +17,11 @@
 
             const resp = await fetch("/digest?property="+property)
             const values = await resp.json()
-            for (let v of values) {
+            for (let k in values) {
                 let opt = document.createElement("option")
-                opt.innerText = v
+                opt.value = k
+                opt.label = values[k]
+                opt.innerText = values[k]
                 datalist.appendChild(opt)
             }
 
