@@ -167,6 +167,17 @@
             & summary {
                 display: flex;
                 align-items: center;
+                font-weight: bold;
+
+                &::after {
+                    content: "...";
+                    padding-inline-start: var(--x-small);
+                    color: var(--subtle-color);
+                }
+
+                &::-webkit-details-marker {
+                    display: none;
+                }
             }
         }
 
