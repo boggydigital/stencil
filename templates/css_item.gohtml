@@ -165,10 +165,11 @@
                     & > summary {
                         position: sticky;
                         top: 0;
-                        padding: var(--small);
+                        padding: calc((var(--normal) + var(--small))/2) var(--small);
                         background-color: var(--highlight-color);
                         z-index: 1;
                         justify-content: center;
+                        font-size: calc((var(--fs-larger) + var(--fs-smaller))/2);
 
                         &  svg {
                             margin-inline-start: calc(3 * var(--x-small));
