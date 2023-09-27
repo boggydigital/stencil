@@ -1,13 +1,15 @@
 {{define "nav"}}
     <nav>
+        <ul>
         {{$icons := .Icons}}
         {{$hrefs := .Hrefs}}
         {{$current := .Current}}
         {{range .Items}}
             {{$href := index $hrefs .}}
             {{$icon := index $icons .}}
-            <a class="{{if eq . $current}}{{`current`}}{{end}}" href="{{$href}}"
-               rel="prefetch">{{template "svg-icon" $icon}}<span class="title">{{.}}</span></a>
+            <li><a class="{{if eq . $current}}{{`current`}}{{end}}" href="{{$href}}"
+               rel="prefetch">{{template "svg-icon" $icon}}<span class="title">{{.}}</span></a></li>
         {{end}}
+        </ul>
     </nav>
 {{end}}

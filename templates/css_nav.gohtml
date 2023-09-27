@@ -3,24 +3,38 @@
         nav {
             margin: var(--large);
             display: flex;
+            flex-direction: row;
             justify-content: center;
             align-items: center;
             column-gap: var(--normal);
 
-            & a {
-                color: var(--color);
-                text-decoration: none;
-                padding: var(--small) var(--normal);
-                border-radius: var(--border-radius-large);
+            & ul {
+                list-style: none;
                 display: flex;
-                align-items: center;
-                column-gap: var(--x-small);
-                row-gap: var(--small);
-                flex-direction: column;
+                margin: 0;
+                padding: var(--small);
+                flex-direction: row;
+                column-gap: var(--small);
+                background-color: var(--highlight-color);
+                border-radius: var(--border-radius-large);
+                box-shadow: var(--box-shadow);
 
-                & span.title {
-                    font-size: var(--fs-x-smaller);
+                & a {
+                    color: var(--color);
+                    text-decoration: none;
+                    padding: var(--small) var(--normal);
+                    border-radius: var(--border-radius-large);
+                    display: flex;
+                    align-items: center;
+                    column-gap: var(--x-small);
+                    row-gap: var(--small);
+                    flex-direction: row;
+
+                    & span.title {
+                        font-size: var(--fs-x-smaller);
+                    }
                 }
+
             }
 
             & svg.icon {
