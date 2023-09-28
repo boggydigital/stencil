@@ -10,23 +10,25 @@
             {{end}}
         {{end}}
 
-        <div class="image">
+        {{if .ImageProperty}}
+            <div class="image">
 
-            {{$imageId := ""}}
-            {{if eq .ImageProperty "id"}}
-                {{$imageId = .Id}}
-            {{else}}
-                {{$titleValues := index .Properties .ImageProperty}}
-                {{range $iid, $values := $titleValues}}
-                    {{$imageId = $iid}}
+                {{$imageId := ""}}
+                {{if eq .ImageProperty "id"}}
+                    {{$imageId = .Id}}
+                {{else}}
+                    {{$titleValues := index .Properties .ImageProperty}}
+                    {{range $iid, $values := $titleValues}}
+                        {{$imageId = $iid}}
+                    {{end}}
                 {{end}}
-            {{end}}
 
-            {{if $dehydratedImage}}
-                <img class="placeholder" src="{{$dehydratedImage}}"/>
-            {{end}}
-            <img class="poster" src="{{.ImagePath}}?id={{$imageId}}" />
-        </div>
+                {{if $dehydratedImage}}
+                    <img class="placeholder" src="{{$dehydratedImage}}"/>
+                {{end}}
+                <img class="poster" src="{{.ImagePath}}?id={{$imageId}}"/>
+            </div>
+        {{end}}
 
         <div class="item-details">
 
