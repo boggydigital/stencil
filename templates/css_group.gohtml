@@ -3,8 +3,8 @@
 
         section .section-title {
             font-size: var(--fs-xx-larger);
-            margin: var(--large) 0 0;
-            font-weight: bold;
+            margin: calc(2 * var(--large)) 0 0;
+            font-weight: var(--fw-bolder);
             display: flex;
             justify-content: center;
 
@@ -14,8 +14,8 @@
 
                 & svg.back-to-top {
                     margin-inline-start: var(--normal);
-                    width: var(--normal);
-                    height: var(--normal);
+                    width: calc(1.5 * var(--normal));
+                    height: calc(1.5 * var(--normal));
                 }
             }
         }

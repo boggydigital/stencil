@@ -15,7 +15,7 @@
                 width: 100%;
 
                 & summary {
-                    font-weight: bold;
+                    font-weight: var(--fw-bolder);
                     justify-content: center;
                     margin: var(--large);
                     cursor: pointer;
@@ -93,16 +93,17 @@
             justify-content: center;
             align-items: center;
             box-shadow: var(--box-shadow);
+            font-size: var(--fs-x-smaller);
 
             &  .property-value {
-                font-weight: bolder;
+                font-weight: var(--fw-bolder);
                 color: var(--color);
             }
 
             &  .action {
                 display: flex;
                 justify-content: center;
-                font-weight: bold;
+                font-weight: var(--fw-bolder);
                 color: var(--color-blue);
                 text-decoration: none;
             }

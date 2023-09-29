@@ -7,6 +7,7 @@
             color: var(--subtle-color);
             font-size: var(--fs-x-smaller);
             margin: var(--large);
+            margin-block-start: var(--normal);
         }
 
         .items-list {
@@ -76,7 +77,7 @@
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    font-weight: bold;
+                    font-weight: var(--fw-bolder);
                 }
 
                 & .property {
@@ -91,7 +92,7 @@
                     align-items: center;
 
                     & .property-value {
-                        font-weight: bold;
+                        font-weight: var(--fw-bolder);
                         max-width: calc(80vw - 7 * var(--normal));
                         white-space: nowrap;
                         overflow: hidden;

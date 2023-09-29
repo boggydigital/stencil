@@ -80,6 +80,8 @@
             --fs-xx-smaller: 50%;
             --fs-xxx-smaller: calc(0.75 * var(--fs-xx-smaller));
 
+            --fw-bolder: 600;
+
             --resp-grid-column-width: calc(20 * var(--normal));
             --resp-grid-columns-default: 3;
             --resp-grid-columns: var(--resp-grid-columns-default);
@@ -181,7 +183,7 @@
             & summary {
                 display: flex;
                 align-items: center;
-                font-weight: bold;
+                font-weight: var(--fw-bolder);
 
                 &::after {
                     content: "\2026";
@@ -204,7 +206,7 @@
             background-color: var(--highlight-color);
             padding: var(--small);
             font-size: var(--fs-x-smaller);
-            font-weight: bold;
+            font-weight: var(--fw-bolder);
 
             &::placeholder {
                 font-weight: normal;
@@ -217,7 +219,7 @@
             background-color: var(--color);
             text-decoration: none;
             color: var(--highlight-color);
-            font-weight: 600;
+            font-weight: var(--fw-bolder);
             font-size: var(--fs-x-smaller);
             width: 100%;
             margin: var(--large) 0;
