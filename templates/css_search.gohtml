@@ -63,7 +63,7 @@
 
             & .search-submit {
                 width: calc(5 * var(--large));
-                margin: 0 auto;
+                margin: var(--large) auto 0;
             }
         }
 
@@ -93,7 +93,7 @@
             justify-content: center;
             align-items: center;
             box-shadow: var(--box-shadow);
-            font-size: var(--fs-x-smaller);
+            font-size: calc((var(--fs-smaller) + var(--fs-x-smaller))/2);
 
             &  .property-value {
                 font-weight: var(--fw-bolder);
