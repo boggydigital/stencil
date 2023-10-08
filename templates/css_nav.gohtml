@@ -12,7 +12,7 @@
                 list-style: none;
                 display: flex;
                 margin: 0;
-                padding: calc(3*var(--xx-small));
+                padding: var(--x-small);
                 flex-direction: row;
                 column-gap: var(--small);
                 background-color: var(--highlight-color);
@@ -29,6 +29,12 @@
                     column-gap: var(--x-small);
                     row-gap: var(--small);
                     flex-direction: row;
+
+                    &:hover {
+                        background-color: var(--subtle-color);
+                        color: var(--background-color);
+                        box-shadow: var(--box-shadow);
+                    }
 
                     & span.title {
                         font-size: var(--fs-x-smaller);

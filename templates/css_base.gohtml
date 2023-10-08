@@ -215,7 +215,7 @@
         }
 
         button, input[type=submit] {
-            border: var(--xx-small) solid var(--subtle-color);
+            border: var(--x-small) solid var(--highlight-color);
             background-color: var(--color);
             text-decoration: none;
             color: var(--highlight-color);
@@ -227,6 +227,11 @@
             border-radius: var(--border-radius-large);
             box-shadow: var(--box-shadow);
             cursor: pointer;
+
+            &:hover {
+                background-color: var(--subtle-color);
+                color: var(--background-color);
+            }
         }
 
         .shortcuts {
@@ -246,7 +251,7 @@
                 flex-direction: row;
                 flex-wrap: wrap;
                 background-color: var(--highlight-color);
-                padding: calc(3 * var(--xx-small));
+                padding: var(--x-small);
                 border-radius: var(--border-radius-large);
                 justify-content: center;
                 box-shadow: var(--box-shadow);
@@ -259,6 +264,13 @@
                 text-decoration: none;
                 padding: var(--small);
                 border-radius: var(--border-radius);
+
+                &:hover {
+                    background-color: var(--subtle-color);
+                    color: var(--background-color);
+                    box-shadow: var(--box-shadow);
+                }
+
             }
 
             & .current a {
