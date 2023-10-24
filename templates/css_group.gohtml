@@ -1,9 +1,13 @@
 {{define "css-group"}}
     <style id="css-group">
 
+        .group-lists {
+            padding-block-start: var(--normal);
+        }
+
         section .section-title {
             font-size: calc((var(--fs-xx-larger) + var(--fs-x-larger)) / 2);
-            margin: calc(2 * var(--large)) 0 0;
+            margin: var(--large) 0 0;
             font-weight: var(--fw-bolder);
             display: flex;
             justify-content: center;
