@@ -38,6 +38,7 @@
                     }
 
                     & span.title {
+                        display: none;
                         font-size: var(--fs-x-smaller);
                     }
                 }
@@ -53,6 +54,10 @@
                 background-color: var(--color);
                 color: var(--highlight-color);
                 box-shadow: var(--box-shadow);
+
+                & span.title {
+                    display: initial;
+                }
             }
         }
 
