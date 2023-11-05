@@ -18,12 +18,12 @@ type AppConfiguration struct {
 	searchConfig           *SearchConfiguration
 }
 
-func NewAppConfig(title, favIconAccent string) *AppConfiguration {
+func NewAppConfig(title, favIconEmoji string) *AppConfiguration {
 	return &AppConfiguration{
 		page: &view_models.Page{
 			Head: &view_models.Header{
-				AppTitle:      title,
-				FavIconAccent: favIconAccent,
+				AppTitle:     title,
+				FavIconEmoji: favIconEmoji,
 			},
 			Foot: &view_models.Footer{},
 		},

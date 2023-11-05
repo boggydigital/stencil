@@ -1,6 +1,6 @@
 package view_models
 
 type Header struct {
-	AppTitle      string
-	FavIconAccent string
+	AppTitle     string
+	FavIconEmoji string
 }
