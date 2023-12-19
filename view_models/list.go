@@ -37,13 +37,13 @@ func NewList(
 	ids []string,
 	from, to, total int,
 	u *url.URL,
-	rxa kvas.ReduxAssets) (*List, error) {
+	rdx kvas.ReadableRedux) (*List, error) {
 
 	lc := acp.GetListConfigurator()
 	cc := acp.GetCommonConfigurator()
 	dic := acp.GetDehydratedImagesConfigurator()
 
-	if err := rxa.IsSupported(lc.GetProperties()...); err != nil {
+	if err := rdx.MustHave(lc.GetProperties()...); err != nil {
 		return nil, err
 	}
 
@@ -75,7 +75,7 @@ func NewList(
 
 	for _, id := range ids {
 
-		title, _ := rxa.GetFirstVal(cc.GetTitleProperty(), id)
+		title, _ := rdx.GetFirstVal(cc.GetTitleProperty(), id)
 
 		li := &ListItem{
 			Id:              id,
@@ -87,7 +87,7 @@ func NewList(
 		}
 
 		for _, p := range lc.GetProperties() {
-			values, _ := rxa.GetAllValues(p, id)
+			values, _ := rdx.GetAllValues(p, id)
 			li.PropertyValues[p] = values
 		}
 
@@ -97,12 +97,12 @@ func NewList(
 		gcf := fcp.GetClassFormatter()
 
 		for _, l := range cc.GetLabels() {
-			if value, ok := rxa.GetFirstVal(l, id); ok {
-				li.LabelValues[l] = glf(id, l, value, rxa)
+			if value, ok := rdx.GetFirstVal(l, id); ok {
+				li.LabelValues[l] = glf(id, l, value, rdx)
 				if gcf == nil {
 					continue
 				}
-				if class := gcf(id, l, value, rxa); class != "" {
+				if class := gcf(id, l, value, rdx); class != "" {
 					li.PropertyClasses[l] = class
 				}
 			}

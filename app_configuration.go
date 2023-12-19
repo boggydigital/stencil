@@ -85,9 +85,9 @@ func (a *AppConfiguration) SetNavigation(
 func (a *AppConfiguration) SetListConfiguration(
 	properties, hiddenProperties []string,
 	itemPath, imageProperty, imagePath string,
-	rxa kvas.ReduxAssets) error {
-	if rxa != nil {
-		if err := rxa.IsSupported(properties...); err != nil {
+	rdx kvas.ReadableRedux) error {
+	if rdx != nil {
+		if err := rdx.MustHave(properties...); err != nil {
 			return err
 		}
 	}
@@ -104,9 +104,9 @@ func (a *AppConfiguration) SetItemConfiguration(
 	properties, computedProperties, hiddenProperties []string,
 	sections []string,
 	imageProperty, imagePath string,
-	rxa kvas.ReduxAssets) error {
-	if rxa != nil {
-		if err := rxa.IsSupported(properties...); err != nil {
+	rdx kvas.ReadableRedux) error {
+	if rdx != nil {
+		if err := rdx.MustHave(properties...); err != nil {
 			return err
 		}
 	}
@@ -159,10 +159,10 @@ func (a *AppConfiguration) SetCommonConfiguration(
 	labels, hiddenLabels, icons []string,
 	titleProperty string,
 	propertyTitles, sectionTitles map[string]string,
-	rxa kvas.ReduxAssets) error {
+	rdx kvas.ReadableRedux) error {
 
-	if rxa != nil {
-		if err := rxa.IsSupported(append(labels, icons...)...); err != nil {
+	if rdx != nil {
+		if err := rdx.MustHave(append(labels, icons...)...); err != nil {
 			return err
 		}
 	}
@@ -187,11 +187,11 @@ func (a *AppConfiguration) SetCurrentNav(item string) {
 	a.page.Nav.Current = item
 }
 
-func (a *AppConfiguration) RenderList(navItem string, ids []string, rxa kvas.ReduxAssets, w io.Writer) error {
+func (a *AppConfiguration) RenderList(navItem string, ids []string, rdx kvas.ReadableRedux, w io.Writer) error {
 
 	a.SetCurrentNav(navItem)
 
-	if lvm, err := view_models.NewList(a, ids, 0, len(ids), len(ids), nil, rxa); err != nil {
+	if lvm, err := view_models.NewList(a, ids, 0, len(ids), len(ids), nil, rdx); err != nil {
 		return err
 	} else {
 		if err := render.List(tmpl, lvm, w); err != nil {
@@ -208,7 +208,7 @@ func (a *AppConfiguration) RenderSearch(
 	from, to, total int,
 	u *url.URL,
 	//digests map[string][]string,
-	rxa kvas.ReduxAssets,
+	rdx kvas.ReadableRedux,
 	w io.Writer) error {
 
 	a.SetCurrentNav(navItem)
@@ -220,7 +220,7 @@ func (a *AppConfiguration) RenderSearch(
 		from, to, total,
 		u,
 		//digests,
-		rxa); err != nil {
+		rdx); err != nil {
 		return err
 	} else {
 		if err := render.Search(tmpl, svm, w); err != nil {
@@ -230,9 +230,9 @@ func (a *AppConfiguration) RenderSearch(
 	return nil
 }
 
-func (a *AppConfiguration) RenderItem(id string, hasSections []string, rxa kvas.ReduxAssets, w io.Writer) error {
+func (a *AppConfiguration) RenderItem(id string, hasSections []string, rdx kvas.ReadableRedux, w io.Writer) error {
 
-	if ivm, err := view_models.NewItem(a, id, hasSections, rxa); err != nil {
+	if ivm, err := view_models.NewItem(a, id, hasSections, rdx); err != nil {
 		return err
 	} else {
 
@@ -264,7 +264,7 @@ func (a *AppConfiguration) RenderGroup(
 	groupTotals map[string]int,
 	updated string,
 	u *url.URL,
-	rxa kvas.ReduxAssets,
+	rdx kvas.ReadableRedux,
 	w io.Writer) error {
 
 	a.SetCurrentNav(navItem)
@@ -277,7 +277,7 @@ func (a *AppConfiguration) RenderGroup(
 		groupTotals,
 		updated,
 		u,
-		rxa); err != nil {
+		rdx); err != nil {
 		return err
 	} else {
 		if err := render.Group(tmpl, gvm, w); err != nil {

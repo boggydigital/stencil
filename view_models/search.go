@@ -25,9 +25,9 @@ func NewSearch(
 	from, to, total int,
 	u *url.URL,
 	//digests map[string][]string,
-	rxa kvas.ReduxAssets) (*Search, error) {
+	rdx kvas.ReadableRedux) (*Search, error) {
 
-	lvm, err := NewList(acp, ids, from, to, total, u, rxa)
+	lvm, err := NewList(acp, ids, from, to, total, u, rdx)
 
 	sc := acp.GetSearchConfigurator()
 	cc := acp.GetCommonConfigurator()

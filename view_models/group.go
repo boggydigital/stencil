@@ -24,7 +24,7 @@ func NewGroup(
 	groupTotals map[string]int,
 	updated string,
 	u *url.URL,
-	rxa kvas.ReduxAssets) (*Group, error) {
+	rdx kvas.ReadableRedux) (*Group, error) {
 
 	gvm := &Group{
 		Page:        acp.GetPage(),
@@ -37,7 +37,7 @@ func NewGroup(
 	showAll := make(map[string]bool)
 
 	for group, items := range groupItems {
-		lvm, err := NewList(acp, items, 0, len(items), groupTotals[group], nil, rxa)
+		lvm, err := NewList(acp, items, 0, len(items), groupTotals[group], nil, rdx)
 		if err != nil {
 			return gvm, err
 		}

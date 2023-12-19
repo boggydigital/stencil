@@ -4,7 +4,7 @@ import (
 	"github.com/boggydigital/kvas"
 )
 
-type Formatter func(id, property, link string, rxa kvas.ReduxAssets) string
+type Formatter func(id, property, link string, rdx kvas.ReadableRedux) string
 
 type Item struct {
 	*Page
@@ -36,7 +36,7 @@ func NewItem(
 	acp AppConfigurator,
 	id string,
 	hasSections []string,
-	rxa kvas.ReduxAssets) (*Item, error) {
+	rdx kvas.ReadableRedux) (*Item, error) {
 
 	ic := acp.GetItemConfigurator()
 	fc := acp.GetFormatterConfigurator()
@@ -47,11 +47,11 @@ func NewItem(
 		hasSections = ic.GetSections()
 	}
 
-	if err := rxa.IsSupported(ic.GetProperties()...); err != nil {
+	if err := rdx.MustHave(ic.GetProperties()...); err != nil {
 		return nil, err
 	}
 
-	title, _ := rxa.GetFirstVal(cc.GetTitleProperty(), id)
+	title, _ := rdx.GetFirstVal(cc.GetTitleProperty(), id)
 
 	propertyOrder := append(ic.GetProperties(), ic.GetComputedProperties()...)
 
@@ -79,15 +79,15 @@ func NewItem(
 	}
 
 	for _, p := range propertyOrder {
-		value, _ := rxa.GetFirstVal(p, id)
+		value, _ := rdx.GetFirstVal(p, id)
 		ivm.Properties[p] = getPropertyLinks(
 			id,
 			p,
 			fc.GetTitleFormatter(),
 			fc.GetHrefFormatter(),
-			rxa)
+			rdx)
 		if gcf := fc.GetClassFormatter(); gcf != nil {
-			ivm.PropertyClasses[p] = gcf(id, p, value, rxa)
+			ivm.PropertyClasses[p] = gcf(id, p, value, rdx)
 		}
 		if pa := getPropertyActions(
 			id,
@@ -95,7 +95,7 @@ func NewItem(
 			value,
 			fc.GetActionFormatter(),
 			fc.GetActionHrefFormatter(),
-			rxa); len(pa) > 0 {
+			rdx); len(pa) > 0 {
 			ivm.PropertyActions[p] = pa
 		}
 	}
@@ -103,8 +103,8 @@ func NewItem(
 	glf := fc.GetLabelFormatter()
 
 	for _, l := range cc.GetLabels() {
-		if value, ok := rxa.GetFirstVal(l, id); ok {
-			ivm.LabelValues[l] = glf(id, l, value, rxa)
+		if value, ok := rdx.GetFirstVal(l, id); ok {
+			ivm.LabelValues[l] = glf(id, l, value, rdx)
 		}
 	}
 
@@ -114,18 +114,18 @@ func NewItem(
 func getPropertyLinks(
 	id, property string,
 	fmtTitle, fmtHref Formatter,
-	rxa kvas.ReduxAssets) map[string]string {
+	rdx kvas.ReadableRedux) map[string]string {
 
 	propertyLinks := make(map[string]string)
 
-	values, _ := rxa.GetAllValues(property, id)
+	values, _ := rdx.GetAllValues(property, id)
 
 	for _, value := range values {
-		linkTitle := fmtTitle(id, property, value, rxa)
+		linkTitle := fmtTitle(id, property, value, rdx)
 		if linkTitle == "" {
 			continue
 		}
-		propertyLinks[linkTitle] = fmtHref(id, property, value, rxa)
+		propertyLinks[linkTitle] = fmtHref(id, property, value, rdx)
 	}
 
 	return propertyLinks
@@ -134,7 +134,7 @@ func getPropertyLinks(
 func getPropertyActions(
 	id, property, value string,
 	fmtAction, fmtActionHref Formatter,
-	rxa kvas.ReduxAssets) map[string]string {
+	rdx kvas.ReadableRedux) map[string]string {
 
 	if fmtAction == nil {
 		return nil
@@ -142,8 +142,8 @@ func getPropertyActions(
 
 	actions := make(map[string]string)
 
-	if a := fmtAction(id, property, value, rxa); a != "" {
-		actions[a] = fmtActionHref(id, property, a, rxa)
+	if a := fmtAction(id, property, value, rdx); a != "" {
+		actions[a] = fmtActionHref(id, property, a, rdx)
 	}
 
 	return actions

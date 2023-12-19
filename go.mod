@@ -6,7 +6,7 @@ toolchain go1.21.4
 
 require (
 	github.com/boggydigital/issa v0.1.10
-	github.com/boggydigital/kvas v0.3.31
+	github.com/boggydigital/kvas v0.4.0
 	github.com/boggydigital/middleware v0.1.11
 )
 
