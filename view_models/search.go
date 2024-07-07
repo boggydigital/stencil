@@ -1,7 +1,7 @@
 package view_models
 
 import (
-	"github.com/boggydigital/kvas"
+	"github.com/boggydigital/kevlar"
 	"net/url"
 	"strings"
 )
@@ -25,7 +25,7 @@ func NewSearch(
 	from, to, total int,
 	u *url.URL,
 	//digests map[string][]string,
-	rdx kvas.ReadableRedux) (*Search, error) {
+	rdx kevlar.ReadableRedux) (*Search, error) {
 
 	lvm, err := NewList(acp, ids, from, to, total, u, rdx)
 

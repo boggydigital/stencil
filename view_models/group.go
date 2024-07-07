@@ -1,7 +1,7 @@
 package view_models
 
 import (
-	"github.com/boggydigital/kvas"
+	"github.com/boggydigital/kevlar"
 	"net/url"
 )
 
@@ -24,7 +24,7 @@ func NewGroup(
 	groupTotals map[string]int,
 	updated string,
 	u *url.URL,
-	rdx kvas.ReadableRedux) (*Group, error) {
+	rdx kevlar.ReadableRedux) (*Group, error) {
 
 	gvm := &Group{
 		Page:        acp.GetPage(),

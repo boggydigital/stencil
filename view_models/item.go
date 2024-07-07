@@ -1,10 +1,8 @@
 package view_models
 
-import (
-	"github.com/boggydigital/kvas"
-)
+import "github.com/boggydigital/kevlar"
 
-type Formatter func(id, property, link string, rdx kvas.ReadableRedux) string
+type Formatter func(id, property, link string, rdx kevlar.ReadableRedux) string
 
 type Item struct {
 	*Page
@@ -36,7 +34,7 @@ func NewItem(
 	acp AppConfigurator,
 	id string,
 	hasSections []string,
-	rdx kvas.ReadableRedux) (*Item, error) {
+	rdx kevlar.ReadableRedux) (*Item, error) {
 
 	ic := acp.GetItemConfigurator()
 	fc := acp.GetFormatterConfigurator()
@@ -51,7 +49,7 @@ func NewItem(
 		return nil, err
 	}
 
-	title, _ := rdx.GetFirstVal(cc.GetTitleProperty(), id)
+	title, _ := rdx.GetLastVal(cc.GetTitleProperty(), id)
 
 	propertyOrder := append(ic.GetProperties(), ic.GetComputedProperties()...)
 
@@ -79,7 +77,7 @@ func NewItem(
 	}
 
 	for _, p := range propertyOrder {
-		value, _ := rdx.GetFirstVal(p, id)
+		value, _ := rdx.GetLastVal(p, id)
 		ivm.Properties[p] = getPropertyLinks(
 			id,
 			p,
@@ -103,7 +101,7 @@ func NewItem(
 	glf := fc.GetLabelFormatter()
 
 	for _, l := range cc.GetLabels() {
-		if value, ok := rdx.GetFirstVal(l, id); ok {
+		if value, ok := rdx.GetLastVal(l, id); ok {
 			ivm.LabelValues[l] = glf(id, l, value, rdx)
 		}
 	}
@@ -114,7 +112,7 @@ func NewItem(
 func getPropertyLinks(
 	id, property string,
 	fmtTitle, fmtHref Formatter,
-	rdx kvas.ReadableRedux) map[string]string {
+	rdx kevlar.ReadableRedux) map[string]string {
 
 	propertyLinks := make(map[string]string)
 
@@ -134,7 +132,7 @@ func getPropertyLinks(
 func getPropertyActions(
 	id, property, value string,
 	fmtAction, fmtActionHref Formatter,
-	rdx kvas.ReadableRedux) map[string]string {
+	rdx kevlar.ReadableRedux) map[string]string {
 
 	if fmtAction == nil {
 		return nil

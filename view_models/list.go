@@ -1,7 +1,7 @@
 package view_models
 
 import (
-	"github.com/boggydigital/kvas"
+	"github.com/boggydigital/kevlar"
 	"net/url"
 	"strconv"
 )
@@ -37,7 +37,7 @@ func NewList(
 	ids []string,
 	from, to, total int,
 	u *url.URL,
-	rdx kvas.ReadableRedux) (*List, error) {
+	rdx kevlar.ReadableRedux) (*List, error) {
 
 	lc := acp.GetListConfigurator()
 	cc := acp.GetCommonConfigurator()
@@ -75,7 +75,7 @@ func NewList(
 
 	for _, id := range ids {
 
-		title, _ := rdx.GetFirstVal(cc.GetTitleProperty(), id)
+		title, _ := rdx.GetLastVal(cc.GetTitleProperty(), id)
 
 		li := &ListItem{
 			Id:              id,
@@ -97,7 +97,7 @@ func NewList(
 		gcf := fcp.GetClassFormatter()
 
 		for _, l := range cc.GetLabels() {
-			if value, ok := rdx.GetFirstVal(l, id); ok {
+			if value, ok := rdx.GetLastVal(l, id); ok {
 				li.LabelValues[l] = glf(id, l, value, rdx)
 				if gcf == nil {
 					continue

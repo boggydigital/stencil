@@ -1,7 +1,7 @@
 package stencil
 
 import (
-	"github.com/boggydigital/kvas"
+	"github.com/boggydigital/kevlar"
 	"github.com/boggydigital/stencil/render"
 	"github.com/boggydigital/stencil/view_models"
 	"io"
@@ -85,7 +85,7 @@ func (a *AppConfiguration) SetNavigation(
 func (a *AppConfiguration) SetListConfiguration(
 	properties, hiddenProperties []string,
 	itemPath, imageProperty, imagePath string,
-	rdx kvas.ReadableRedux) error {
+	rdx kevlar.ReadableRedux) error {
 	if rdx != nil {
 		if err := rdx.MustHave(properties...); err != nil {
 			return err
@@ -104,7 +104,7 @@ func (a *AppConfiguration) SetItemConfiguration(
 	properties, computedProperties, hiddenProperties []string,
 	sections []string,
 	imageProperty, imagePath string,
-	rdx kvas.ReadableRedux) error {
+	rdx kevlar.ReadableRedux) error {
 	if rdx != nil {
 		if err := rdx.MustHave(properties...); err != nil {
 			return err
@@ -159,7 +159,7 @@ func (a *AppConfiguration) SetCommonConfiguration(
 	labels, hiddenLabels, icons []string,
 	titleProperty string,
 	propertyTitles, sectionTitles map[string]string,
-	rdx kvas.ReadableRedux) error {
+	rdx kevlar.ReadableRedux) error {
 
 	if rdx != nil {
 		if err := rdx.MustHave(append(labels, icons...)...); err != nil {
@@ -187,7 +187,7 @@ func (a *AppConfiguration) SetCurrentNav(item string) {
 	a.page.Nav.Current = item
 }
 
-func (a *AppConfiguration) RenderList(navItem string, ids []string, rdx kvas.ReadableRedux, w io.Writer) error {
+func (a *AppConfiguration) RenderList(navItem string, ids []string, rdx kevlar.ReadableRedux, w io.Writer) error {
 
 	a.SetCurrentNav(navItem)
 
@@ -208,7 +208,7 @@ func (a *AppConfiguration) RenderSearch(
 	from, to, total int,
 	u *url.URL,
 	//digests map[string][]string,
-	rdx kvas.ReadableRedux,
+	rdx kevlar.ReadableRedux,
 	w io.Writer) error {
 
 	a.SetCurrentNav(navItem)
@@ -230,7 +230,7 @@ func (a *AppConfiguration) RenderSearch(
 	return nil
 }
 
-func (a *AppConfiguration) RenderItem(id string, hasSections []string, rdx kvas.ReadableRedux, w io.Writer) error {
+func (a *AppConfiguration) RenderItem(id string, hasSections []string, rdx kevlar.ReadableRedux, w io.Writer) error {
 
 	if ivm, err := view_models.NewItem(a, id, hasSections, rdx); err != nil {
 		return err
@@ -264,7 +264,7 @@ func (a *AppConfiguration) RenderGroup(
 	groupTotals map[string]int,
 	updated string,
 	u *url.URL,
-	rdx kvas.ReadableRedux,
+	rdx kevlar.ReadableRedux,
 	w io.Writer) error {
 
 	a.SetCurrentNav(navItem)
