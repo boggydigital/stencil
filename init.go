@@ -39,7 +39,7 @@ func concat(strs ...string) string {
 }
 
 func hydrate(dhi string) template.URL {
-	return template.URL(issa.Hydrate(dhi))
+	return template.URL(issa.HydrateColor(dhi))
 }
 
 func init() {
